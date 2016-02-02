@@ -12,7 +12,8 @@ namespace buls
         protected IBangaloreUniversityDate Data { get; set; }
         protected IView View(object model)
         {
-            string fullNamespace = this.GetType().Namespace;
+            // next couple of lines are just to get the 
+            string fullNamespace = this.GetType().Namespace; // Does this need to be in a seperate method?
             int firstSeparatorIndex = fullNamespace.IndexOf(".");
             string baseNamespace = fullNamespace.Substring(0, firstSeparatorIndex);
             string controllerName = this.GetType().Name.Replace("Controller", "");
