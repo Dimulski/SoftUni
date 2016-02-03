@@ -1,6 +1,5 @@
 ﻿namespace Problem4ArrayTest.Commands
 {
-    using System;
     using System.Linq;
     using System.Text;
 

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Problem4ArrayTest.Commands
+﻿namespace Problem4ArrayTest.Commands
 {
+    using System.Linq;
+    using System.Text;
+
     public class RshiftCommand : Command
     {
         public RshiftCommand(string commandLine)
