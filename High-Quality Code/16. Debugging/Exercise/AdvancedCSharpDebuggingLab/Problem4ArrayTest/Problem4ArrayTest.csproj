@@ -46,10 +46,11 @@
     <Compile Include="ArraysMain.cs" />
     <Compile Include="Commands\AddCommand.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandExecutor.cs" />
-    <Compile Include="Commands\Commands.cs" />
-    <Compile Include="Commands\ICommandExecutor.cs" />
-    <Compile Include="Commands\IExecutable.cs" />
+    <Compile Include="Commands\LshiftCommand.cs" />
+    <Compile Include="Commands\MultiplyCommand.cs" />
+    <Compile Include="Commands\RshiftCommand.cs" />
+    <Compile Include="Commands\StopCommand.cs" />
+    <Compile Include="Commands\SubtractCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
