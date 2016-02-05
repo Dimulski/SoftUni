@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Text;
-using buls.Infrastructure;
-namespace buls.Views.Courses
+﻿namespace BangaloreUniversityLearningSystem.Views.Courses
 {
-    public class Crate : View
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using BangaloreUniversityLearningSystem;
+
+    public class Create : View // BUG: Crate vs Create
     {
-        public Crate(Course course)
+        public Create(Course course)
             : base(course)
         {
         }
 
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            var course = this.model as Course;
+            var course = this.Model as Course;
             viewResult.AppendFormat("Course {0} created successfully.", course.Name).AppendLine();
         }
     }
+
     public class Details : View
     {
         public Details(Course course)
@@ -30,7 +30,7 @@ namespace buls.Views.Courses
 
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            var course = this.model as Course;
+            var course = this.Model as Course;
             viewResult.AppendLine(course.Name);
             if (!course.Lectures.Any())
             {
@@ -43,6 +43,7 @@ namespace buls.Views.Courses
             }
         }
     }
+
     public class All : View
     {
         public All(IEnumerable<Course> courses)
@@ -52,7 +53,7 @@ namespace buls.Views.Courses
 
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            var courses = this.model as IEnumerable<Course>;
+            var courses = this.Model as IEnumerable<Course>;
             if (!courses.Any())
             {
                 viewResult.AppendLine("No courses.");
@@ -67,19 +68,21 @@ namespace buls.Views.Courses
             }
         }
     }
-    public class AddLectures : View
+
+    public class AddLecture : View // BUG: AddLecture Instead of AddLecture
     {
-        public AddLectures(Course course)
+        public AddLecture(Course course)
             : base(course)
         {
         }
 
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            var course = this.model as Course;
+            var course = this.Model as Course;
             viewResult.AppendFormat("Lecture successfully added to course {0}.", course.Name).AppendLine();
         }
     }
+
     public class Enroll : View
     {
         public Enroll(Course course)
@@ -89,7 +92,7 @@ namespace buls.Views.Courses
 
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            var course = this.model as Course;
+            var course = this.Model as Course;
             viewResult.AppendFormat("Student successfully enrolled in course {0}.", course.Name).AppendLine();
         }
     }
@@ -97,37 +100,46 @@ namespace buls.Views.Courses
 
 namespace buls.Views.Users
 {
+    using System.Text;
+
+    using BangaloreUniversityLearningSystem;
+
     public class Logout : View
     {
         public Logout(User user)
             : base(user)
         {
         }
+
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            // TODO: Implement me
+            viewResult.AppendFormat("User {0} logged out successfully.", (this.Model as User).Username).AppendLine();// BUG: Logout BuildViewResult was not implemented
         }
     }
+
     public class Login : View
     {
         public Login(User user)
             : base(user)
         {
         }
+
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            viewResult.AppendFormat("User {0} logged in successfully.", (this.model as User).usr).AppendLine();
+            viewResult.AppendFormat("User {0} logged in successfully.", (this.Model as User).Username).AppendLine();
         }
     }
+
     public class Register : View
     {
         public Register(User user)
             : base(user)
         {
         }
+
         internal override void BuildViewResult(StringBuilder viewResult)
         {
-            viewResult.AppendFormat("User {0} registered successfully.", (this.model as User).usr).AppendLine();
+            viewResult.AppendFormat("User {0} registered successfully.", (this.Model as User).Username).AppendLine();
         }
     }
 }

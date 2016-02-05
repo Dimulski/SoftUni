@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Interfaces;
+﻿namespace BangaloreUniversityLearningSystem.Data
+{
+    using System;
+    using System.Collections.Generic;
 
-namespace buls.data
-{    
+    using BangaloreUniversityLearningSystem.Interfaces;
+
     public class Repository<T> : IRepository<T>
     {
-        protected List<T> items;
+        internal List<T> items;
 
         public Repository()
         {
@@ -18,7 +19,7 @@ namespace buls.data
             return this.items;
         }
 
-        public virtual T Get(int id)
+        public virtual T Get(int id) // suspicious BUG
         {
             T item;
             try

@@ -1,4 +1,4 @@
-﻿namespace buls.utilities
+﻿namespace BangaloreUniversityLearningSystem.Utilities
 {
     public static class UserRoleUtilities
     {
