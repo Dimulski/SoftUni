@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-
-    using BangaloreUniversityLearningSystem.Core.Interfaces;
+    using Core.Interfaces;
 
     public class Repository<T> : IRepository<T>
     {
-        internal List<T> items;
+        private List<T> items;
 
         public Repository()
         {

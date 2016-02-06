@@ -1,6 +1,6 @@
 ﻿namespace BangaloreUniversityLearningSystem.Utilities
 {
-    using BangaloreUniversityLearningSystem.Models;
+    using Models;
 
     public static class UserRoleUtilities
     {

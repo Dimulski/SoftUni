@@ -1,10 +1,8 @@
-﻿namespace buls.Data
+﻿namespace BangaloreUniversityLearningSystem.Data
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using BangaloreUniversityLearningSystem;
-    using BangaloreUniversityLearningSystem.Data;
+    using Models;
 
     public class UsersRepository : Repository<User>
     {
@@ -12,7 +10,7 @@
 
         public User GetByUsername(string username)
         {
-            return this.items.FirstOrDefault(u => u.Username == username); // ?
+            return this.items.FirstOrDefault(u => u.Username == username);
         }
     }
 }

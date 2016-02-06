@@ -2,12 +2,11 @@
 {
     using System;
     using System.Linq;
-    using BangaloreUniversityLearningSystem.Interfaces;
-    using buls;
-    using buls.utilities;
-
-    using BangaloreUniversityLearningSystem.Exceptions;
-    using BangaloreUniversityLearningSystem.Utilities;
+    using Core;
+    using Core.Interfaces;
+    using Infrastructure;
+    using Models;
+    using Utilities;
 
     public class CoursesController : Controller
     {
@@ -19,7 +18,11 @@
 
         public IView All()
         {
-            return this.View(this.Data.Courses.GetAll().OrderBy(c => c.Name).ThenByDescending(c => c.Students.Count));
+            var courses = this.Data.Courses
+                .GetAll()
+                .OrderBy(c => c.Name)
+                .ThenByDescending(c => c.Students.Count);
+            return this.View(courses);
         }
 
         public IView Details(int courseId)
@@ -66,6 +69,7 @@
             {
                 throw new ArgumentException("There is no currently logged in user.");
             }
+
             if (!this.User.IsInRole(Role.Lecturer)) // BUG: True/False swtiched (basically)
             {
                 throw new DivideByZeroException("The current user is not authorized to perform this operation.");

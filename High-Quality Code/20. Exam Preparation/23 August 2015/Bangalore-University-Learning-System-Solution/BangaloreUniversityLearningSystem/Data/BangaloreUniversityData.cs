@@ -1,7 +1,9 @@
 ﻿namespace BangaloreUniversityLearningSystem.Data
 {
-    using BangaloreUniversityLearningSystem.Core.Interfaces;
-    using BangaloreUniversityLearningSystem.Models;
+    using System;
+    using System.Collections.Generic;
+    using Core.Interfaces;
+    using Models;
 
     public class BangaloreUniversityData : IBangaloreUniversityData
     {
@@ -11,8 +13,8 @@
             this.Courses = new Repository<Course>();
         }
 
-        public UsersRepository Users { get; internal set; }
+        public UsersRepository Users { get; private set; }
 
-        public IRepository<Course> Courses { get; protected set; }
+        public IRepository<Course> Courses { get; set; }
     }
 }
