@@ -1,0 +1,11 @@
+Problem 1 - linear O(n)
+Problem 2 - linear O(n)
+Problem 3 - linear 0(n)
+Problem 4 - linear O(n)
+Problem 5 - linear O(n)
+Problem 6 - linear 0(n)
+Problem 7 - constant O(1)
+Problem 8 - constant O(1)
+Problem 9 - constant O(1)
+Problem 10 - constant O(1)
+
