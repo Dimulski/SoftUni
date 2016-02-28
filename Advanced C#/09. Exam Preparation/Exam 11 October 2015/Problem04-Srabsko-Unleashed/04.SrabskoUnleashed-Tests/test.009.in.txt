@@ -1,0 +1,21 @@
+Mile @Sofia 100 100
+Dragana @Sofia 100 100
+Saban @Sofia 100 100
+Ceca @Sofia 100 1000
+Lepa @Sofia 100 100
+Brena @Sofia 200 20000
+Mile @Sofia 200 30000
+Dragana @Sofia 200 20000
+Saban @Sofia 200 20000
+Ceca @Spirit of Burgas 100 100
+Dragana @Spirit of Burgas 100 200
+Mile @Spirit of Burgas 100 300
+Dragana @Sofia 100 100
+Saban @Sofia 100 100
+Ceca @Sofia 100 1000
+Lepa @Sofia 100 100
+Brena @Sofia 200 20000
+Mile @Sofia 200 30000
+Dragana @Sofia 200 20000
+Saban @Sofia 200 20000
+End

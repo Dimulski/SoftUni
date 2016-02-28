@@ -36,8 +36,27 @@
                         Console.WriteLine(minResult);
                         break;
                     case "first":
+                        if (int.Parse(command[1]) > numbers.Count)
+                        {
+                            Console.WriteLine("Invalid count");
+                            break;
+                        }
                         string firstResult = ExecuteFirstCommand(numbers, command);
                         Console.WriteLine(firstResult);
+                        break;
+                    case "last":
+                        if (int.Parse(command[1]) > numbers.Count)
+                        {
+                            Console.WriteLine("Invalid count");
+                            break;
+                        }
+                        string lastResult = ExecuteLastCommand(numbers, command);
+                        Console.WriteLine(lastResult);
+                        // All of these cases might need an extra line to update the numbers list accordingly
+                        // instead of just printing the result and not chaning the list.
+                        break;
+                    case "end":
+                        Console.WriteLine("[{0}]", string.Join(", ", numbers));
                         break;
 
                 }
@@ -47,6 +66,50 @@
             {
                 Console.WriteLine(s);
             }
+        }
+
+        private static string ExecuteLastCommand(List<int> numbers, string[] command)
+        {
+            List<int> newList = new List<int>(numbers);
+            string result = string.Empty;
+            switch (command[2])
+            {
+                case "odd": // using one newList in all methods might lead to unwanted results 
+                    newList.RemoveAll(n => n % 2 == 0);
+                    if (newList.Count == 0)
+                    {
+                        result = "[]";
+                        break;
+                    }
+                    newList.Reverse();
+                    var lastOdd = newList.GetRange(0, int.Parse(command[1]));
+                    lastOdd.Reverse();
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var i in lastOdd)
+                    {
+                        sb.Append(i + " ");
+                    }
+                    result = sb.ToString();
+                    break;
+                case "even":
+                    newList.RemoveAll(n => n % 2 != 0);
+                    if (newList.Count == 0)
+                    {
+                        result = "[]";
+                        break;
+                    }
+                    newList.Reverse();
+                    var lastEven = newList.GetRange(0, int.Parse(command[1]));
+                    lastEven.Reverse();
+                    StringBuilder sb2 = new StringBuilder();
+                    foreach (var i in lastEven)
+                    {
+                        sb2.Append(i + " ");
+                    }
+                    result = sb2.ToString();
+                    break;
+            }
+            return result;
         }
 
         private static string ExecuteFirstCommand(List<int> numbers, string[] command)
@@ -79,7 +142,7 @@
                     }
                     var firstEven = newList.GetRange(0, int.Parse(command[1]));
                     StringBuilder sb2 = new StringBuilder();
-                    foreach (var i in newList)
+                    foreach (var i in firstEven)
                     {
                         sb2.Append(i + " ");
                     }
@@ -119,7 +182,7 @@
             return result;
         }
 
-        private static string ExecuteMaxCommand(List<int> numbers, string[] command)
+        private static object[] ExecuteMaxCommand(List<int> numbers, string[] command)
         {
             List<int> newList = new List<int>(numbers);
             string result = string.Empty;
@@ -132,8 +195,9 @@
                         result = "No matches";
                         break;
                     }
-                    var maxOdd = newList.Max(); 
-                    result = maxOdd.ToString();
+                    var maxOdd = newList.Max();
+                    var wantedResult = newList.IndexOf(maxOdd);
+                    result = wantedResult.ToString();
                     break;
                 case "even":
                     newList.RemoveAll(n => n % 2 != 0);
@@ -146,6 +210,7 @@
                     result = maxEven.ToString();
                     break;
             }
+            newli
             return result;
         }
 

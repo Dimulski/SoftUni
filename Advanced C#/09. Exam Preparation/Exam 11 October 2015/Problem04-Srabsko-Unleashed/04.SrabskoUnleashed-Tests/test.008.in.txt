@@ -1,0 +1,19 @@
+Mile @Sofia 100 100
+Dragana @Belgrade 100 100
+Saban @Sunny Beach 100 100
+Ceca @Spirit of Burgas 100 100
+Lepa @Skopje 100 100
+Brena @Primorsko 100 100
+Mile @Sofia 100 100
+Dragana @BelgrADe 100 100
+Saban @SunnY Beach 100 100
+Ceca @SpiRIt of Burgas 100 100
+Lepa @SkoPJe 100 100
+Brena @PriMORsko 100 100
+Mile @SOfia 100 100
+Dragana @BeLGRade 100 100
+Saban @SuNNY Beach 100 100
+Ceca @Spirit of BurGAS 100 100
+Lepa @SKOPJE 100 100
+Brena @PriMORSKO 100 100
+End

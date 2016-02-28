@@ -1,0 +1,12 @@
+Dragana @Belgrade 200 0
+Dragana @Belgrade 0 200
+Saban @Sofia 200 0
+Saban @Sofia 0 100000
+Saban @Belgrade 0 200
+Dragana @Sofia 0 200
+Ceca @Sunny Beach 0 200
+Ceca @Sunny Beach 0 200
+Mirko @Sunny Beach 1 1
+Mirko @Belgrade 1 1
+Mirko @Sofia 1 1
+End
