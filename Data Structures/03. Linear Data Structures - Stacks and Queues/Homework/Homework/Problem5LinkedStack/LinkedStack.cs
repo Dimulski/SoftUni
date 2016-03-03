@@ -10,7 +10,7 @@
 
         public void Push(T element)
         {
-            if (this.firstNode == null)
+            if(this.firstNode == null)
             {
                 this.firstNode = new Node<T>(element);
             }
@@ -24,46 +24,32 @@
 
         public T Pop()
         {
-            if (this.Count <= 0)
+            if (this.Count == 0)
             {
-                throw new InvalidOperationException("The stack is empty");
+                throw new InvalidOperationException("The stack is empty!");
             }
-
-            T result = this.firstNode.Value;
-            this.firstNode = this.firstNode.NextNode;
-
-            this.Count--;
-            return result;
+            else
+            {
+                var result = this.firstNode.Value;
+                this.firstNode = this.firstNode.NextNode;
+                this.Count--;
+                return result;
+            }
         }
 
         public T[] ToArray()
         {
-            T[] resultArray = new T[this.Count];
-            Node<T> currentNode = this.firstNode;
+            var resultArray = new T[this.Count];
+            var currentNode = this.firstNode;
+            int counter = 0;
 
-            int currentIndex = 0;
             while (currentNode != null)
             {
-                resultArray[currentIndex] = currentNode.Value;
-
+                resultArray[counter] = currentNode.Value;
+                counter++;
                 currentNode = currentNode.NextNode;
-                currentIndex++;
             }
-
             return resultArray;
-        }
-
-        private class Node<T>
-        {
-            public T Value { get; set; }
-
-            public Node<T> NextNode { get; set; }
-
-            public Node(T value, Node<T> nextNode = null)
-            {
-                this.Value = value;
-                this.NextNode = nextNode;
-            }
         }
     }
 }

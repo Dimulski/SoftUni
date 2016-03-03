@@ -1,112 +1,145 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Problem6LinkedStackTests
+﻿namespace Problem6LinkedStackTests
 {
-    using System.Linq;
+    using System;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Problem5LinkedStack;
 
     [TestClass]
     public class LinkedStackTests
     {
-        private static LinkedStack<int> stack;
+        private LinkedStack<int> stack;
 
         [TestInitialize]
-        public void TestInitialization()
+        public void TestStackInitialize()
         {
-            stack = new LinkedStack<int>();
+            this.stack = new LinkedStack<int>();
         }
 
         [TestMethod]
-        public void TestPushingSeveralElements()
+        public void InitializeStack_ShouldSetProperCount()
         {
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
-            stack.Push(4);
-            stack.Push(5);
-            stack.Push(6);
-            stack.Push(7);
-            Assert.AreEqual(stack.Count, 7);
+            Assert.AreEqual(0, this.stack.Count);
         }
 
         [TestMethod]
-        public void TestPoppingSeveralElements()
+        public void Push_ShouldChangeCountAccordingly()
         {
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
-            stack.Push(4);
-            stack.Push(5);
-            stack.Push(6);
-            stack.Push(7);
+            this.stack.Push(1);
 
-            Assert.AreEqual(stack.Pop(), 7);
-            Assert.AreEqual(stack.Pop(), 6);
-            Assert.AreEqual(stack.Pop(), 5);
-            Assert.AreEqual(stack.Pop(), 4);
+            Assert.AreEqual(1, this.stack.Count);
 
-            Assert.AreEqual(stack.Count, 3);
+            this.stack.Push(2);
+            this.stack.Push(3);
+            this.stack.Push(4);
+
+            Assert.AreEqual(4, this.stack.Count);
         }
 
         [TestMethod]
-        public void TestPushingManyElements()
+        public void Pop_ShouldReturnProperElement()
         {
-            for (int index = 0; index < 1000; index++)
+            this.stack.Push(25);
+            var element = this.stack.Pop();
+
+            Assert.AreEqual(25, element);
+        }
+
+        [TestMethod]
+        public void Pop_ShouldChangeCountAccordingly()
+        {
+            this.stack.Push(3);
+            this.stack.Push(3);
+            this.stack.Push(3);
+            this.stack.Push(3);
+            this.stack.Push(3);
+            this.stack.Pop();
+            this.stack.Pop();
+            this.stack.Pop();
+
+            Assert.AreEqual(2, this.stack.Count);
+        }
+
+        [TestMethod]
+        public void PushElement1000Times_ShouldChangeCountAccordingly()
+        {
+            for (int i = 1; i <= 1000; i++)
             {
-                stack.Push(index);
+                this.stack.Push(i);
+
+                Assert.AreEqual(i, this.stack.Count);
+            }
+        }
+
+        [TestMethod]
+        public void PopElement1000Times_ShouldReturnProperElementAndCount()
+        {
+            var count = 1000;
+            for (int i = 0; i < 1000; i++)
+            {
+                this.stack.Push(count--);
             }
 
-            Assert.AreEqual(stack.Count, 1000);
-        }
-
-        [TestMethod]
-        public void TestPoppingManyElements()
-        {
-            for (int index = 0; index < 1000; index++)
+            count = 1000;
+            for (int i = 0; i < 1000; i++)
             {
-                stack.Push(index);
+                var element = this.stack.Pop();
+                count--;
+
+                Assert.AreEqual(i + 1, element);
+                Assert.AreEqual(count, this.stack.Count);
             }
-
-            for (int index = 999; index >= 0; index--)
-            {
-                Assert.AreEqual(stack.Pop(), index);
-            }
-
-            Assert.AreEqual(stack.Count, 0);
-        }
-
-        [TestMethod]
-        public void TestLinkedStackToArray()
-        {
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
-            stack.Push(4);
-            stack.Push(5);
-            stack.Push(6);
-            stack.Push(7);
-
-            int[] stackArray = stack.ToArray();
-
-            CollectionAssert.AreEqual(stackArray, new int[] { 7, 6, 5, 4, 3, 2, 1 });
-        }
-
-        [TestMethod]
-        public void TestEmptyLinkedStackToArray()
-        {
-            int[] stackArray = stack.ToArray();
-
-            CollectionAssert.AreEqual(stackArray, new int[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void TestPoppingLinkedStackWithNoElements()
+        public void Pop_EmptyLinkedStack_ShouldThrow()
         {
-            stack.Pop();
+            this.stack.Pop();
+        }
+
+        [TestMethod]
+        public void PushPop_ShouldReturnProperCountAndElements()
+        {
+            var stringStack = new LinkedStack<string>();
+            Assert.AreEqual(0, stringStack.Count);
+
+            stringStack.Push("five");
+            Assert.AreEqual(1, stringStack.Count);
+
+            stringStack.Push("ten");
+            Assert.AreEqual(2, stringStack.Count);
+
+            var element = stringStack.Pop();
+            Assert.AreEqual("ten", element);
+            Assert.AreEqual(1, stringStack.Count);
+
+            element = stringStack.Pop();
+            Assert.AreEqual("five", element);
+            Assert.AreEqual(0, stringStack.Count);
+        }
+
+        [TestMethod]
+        public void ToArray_ReturnsElementsInCorrectOrder()
+        {
+            this.stack.Push(3);
+            this.stack.Push(5);
+            this.stack.Push(-2);
+            this.stack.Push(7);
+
+            var result = this.stack.ToArray();
+
+            CollectionAssert.AreEqual(new int[] { 7, -2, 5, 3 }, result);
+        }
+
+        [TestMethod]
+        public void ToArray_OnEmptyLinkedStack_ShouldReturnEmptyArray()
+        {
+            var dateTimeArrayStack = new LinkedStack<DateTime>();
+            var result = dateTimeArrayStack.ToArray();
+
+            CollectionAssert.AreEqual(new DateTime[] { }, result);
         }
     }
 }
-

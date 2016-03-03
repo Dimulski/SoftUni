@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2DE15D2C-F3FE-4D35-9F5B-C351AC5E4E0A}</ProjectGuid>
+    <ProjectGuid>{6E8EA3E1-4C14-4001-9D1D-F4595465169F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Problem7LinkedQueue</RootNamespace>
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="LinkedQueue.cs" />
     <Compile Include="LinkedQueueMain.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

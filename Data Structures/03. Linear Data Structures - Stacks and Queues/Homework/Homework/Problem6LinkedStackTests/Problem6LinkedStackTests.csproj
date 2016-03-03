@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6E1D824A-C233-4136-97FC-595D839F1A4F}</ProjectGuid>
+    <ProjectGuid>{97EBC07B-E588-43F7-A9BB-8408F4FAEAF1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Problem6LinkedStackTests</RootNamespace>
@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Problem5LinkedStack\Problem5LinkedStack.csproj">
-      <Project>{a58e4d9f-9fd6-4ac4-9fe8-a0a01e9c6a0e}</Project>
+      <Project>{1e3fa2b8-c516-42c6-b845-68047d1dcd97}</Project>
       <Name>Problem5LinkedStack</Name>
     </ProjectReference>
   </ItemGroup>

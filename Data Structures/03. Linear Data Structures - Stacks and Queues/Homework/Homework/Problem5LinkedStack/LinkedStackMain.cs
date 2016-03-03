@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Problem5LinkedStack
+﻿namespace Problem5LinkedStack
 {
+    using System;
+
     class LinkedStackMain
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            var stack = new LinkedStack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            var array = stack.ToArray();
+
+            foreach (var i in array)
+            {
+                Console.Write(i + " ");
+            }
         }
     }
 }

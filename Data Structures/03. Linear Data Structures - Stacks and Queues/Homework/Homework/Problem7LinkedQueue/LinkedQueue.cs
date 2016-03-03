@@ -1,79 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Problem7LinkedQueue
+﻿namespace Problem7LinkedQueue
 {
+    using System;
+
     public class LinkedQueue<T>
     {
-        private QueueNode<T> head;
+        private Node<T> head;
 
-        private QueueNode<T> tail;
+        private Node<T> tail;
 
         public int Count { get; private set; }
 
         public void Enqueue(T element)
         {
-            if (this.head == null)
+            if (this.Count == 0)
             {
-                this.head = new QueueNode<T>(element);
-                this.tail = this.head;
+                this.head = this.tail = new Node<T>(element);
             }
             else
             {
-                this.tail.PrevNode = new QueueNode<T>(element);
-                this.tail.PrevNode.NextNode = this.tail;
-                this.tail = this.tail.PrevNode;
+                var newHead = new Node<T>(element);
+                newHead.NextNode = this.head;
+                this.head.PreviousNode = newHead;
+                this.head = newHead;
             }
-
             this.Count++;
         }
 
         public T Dequeue()
         {
-            if (this.Count <= 0)
+            if (this.Count == 0)
             {
-                throw new InvalidOperationException("The queue is empty.");
+                throw new InvalidOperationException("The LinkedQueue is empty!");
             }
+            if (this.Count == 1)
+            {
+                var lastElement = this.tail.Value;
 
-            T result = this.head.Value;
-            this.head = this.head.PrevNode;
+                this.head = this.tail = null;
+                this.Count--;
 
-            this.Count--;
-            return result;
+                return lastElement;
+            }
+            else
+            {
+                var lastElement = this.tail.Value;
+                this.tail.PreviousNode.NextNode = null;
+                this.tail = this.tail.PreviousNode;
+                this.Count--;
+
+                return lastElement;
+            }
         }
 
         public T[] ToArray()
         {
-            T[] resultArray = new T[this.Count];
+            var resultArray = new T[this.Count];
+            var currentElement = this.head;
 
-            QueueNode<T> currentNode = this.head;
-            int resultArrayIndex = 0;
-
-            while (currentNode != null)
+            int counter = this.Count - 1;
+            while (currentElement != null)
             {
-                resultArray[resultArrayIndex] = currentNode.Value;
-                resultArrayIndex++;
-                currentNode = currentNode.PrevNode;
+                resultArray[counter] = currentElement.Value;
+                counter--;
+                currentElement = currentElement.NextNode;
             }
-
+            
             return resultArray;
-        }
-
-        private class QueueNode<T>
-        {
-            public T Value { get; private set; }
-
-            public QueueNode<T> NextNode { get; set; }
-
-            public QueueNode<T> PrevNode { get; set; }
-
-            public QueueNode(T value)
-            {
-                this.Value = value;
-            }
         }
     }
 }

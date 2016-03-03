@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A58E4D9F-9FD6-4AC4-9FE8-A0A01E9C6A0E}</ProjectGuid>
+    <ProjectGuid>{1E3FA2B8-C516-42C6-B845-68047D1DCD97}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Problem5LinkedStack</RootNamespace>
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="LinkedStack.cs" />
     <Compile Include="LinkedStackMain.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
