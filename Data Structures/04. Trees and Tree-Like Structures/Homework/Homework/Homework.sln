@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem1PlayWithTrees", "Problem1PlayWithTrees\Problem1PlayWithTrees.csproj", "{90010F70-8E4E-4224-B46F-5E4D1F56D711}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem2TraverseDirectory", "Problem2TraverseDirectory\Problem2TraverseDirectory.csproj", "{E842C2A0-A79E-4281-9283-363E8EF7A8C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{90010F70-8E4E-4224-B46F-5E4D1F56D711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90010F70-8E4E-4224-B46F-5E4D1F56D711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90010F70-8E4E-4224-B46F-5E4D1F56D711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E842C2A0-A79E-4281-9283-363E8EF7A8C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E842C2A0-A79E-4281-9283-363E8EF7A8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E842C2A0-A79E-4281-9283-363E8EF7A8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E842C2A0-A79E-4281-9283-363E8EF7A8C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

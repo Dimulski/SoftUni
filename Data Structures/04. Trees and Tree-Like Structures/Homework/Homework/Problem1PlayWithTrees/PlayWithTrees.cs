@@ -4,79 +4,151 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    class PlayWithTrees
+    public class PlayWithTrees
     {
-        private static Dictionary<int, Tree> nodes;
+        private static Dictionary<int, Tree<int>> nodeByValue = new Dictionary<int, Tree<int>>();
 
-        static void Main()
+        public static void Main()
         {
-            nodes = new Dictionary<int, Tree>();
-            int inputCount = int.Parse(Console.ReadLine());
+            int nodesCount = int.Parse(Console.ReadLine());
 
-            while (nodes.Count < inputCount)
+            for (int i = 1; i < nodesCount; i++)
             {
-                string[] input = Console.ReadLine().Split(' ');
+                string[] edge = Console.ReadLine().Split(' ');
+                int parentValue = int.Parse(edge[0]);
+                Tree<int> parentNode = GetTreeNodeByValue(parentValue);
+                int childValue = int.Parse(edge[1]);
+                Tree<int> childNode = GetTreeNodeByValue(childValue);
+                parentNode.Children.Add(childNode);
+                childNode.Parent = parentNode;
+            }
+            int pathSum = int.Parse(Console.ReadLine());
+            int subtreeSum = int.Parse(Console.ReadLine());
 
-                int parentNodeValue = int.Parse(input[0]);
-                int childNodeValue = int.Parse(input[1]);
+            Console.WriteLine("Root node: {0}{1}", FindRootNode().Value, Environment.NewLine);
 
-                Tree child;
-                Tree parent;
+            var leafNodesValues = FindLeafNodes().OrderBy(node => node.Value).Select(node => node.Value);
+            Console.WriteLine("Leaf nodes: {0}{1}", string.Join(", ",leafNodesValues), Environment.NewLine);
 
-                if (!nodes.ContainsKey(childNodeValue))
+            var middleNodesValues = FindMiddleNodes().OrderBy(node => node.Value).Select(node => node.Value);
+            Console.WriteLine("Middle nodes: {0}{1}", string.Join(", ", middleNodesValues), Environment.NewLine);
+
+            var deepestTree = FindLongestPath();
+            var stack = new Stack<int>();
+            while (deepestTree != null)
+            {
+                stack.Push(deepestTree.Value);
+                deepestTree = deepestTree.Parent;
+            }
+            Console.WriteLine("Longest path:");
+            var longestPathLength = stack.Count;
+            while (stack.Count > 0)
+            {
+                Console.Write("{0} -> ", stack.Pop());
+                if (stack.Count == 1)
                 {
-                    child = new Tree(childNodeValue);
-                    nodes.Add(childNodeValue, child);
-                }
-                else
-                {
-                    child = nodes[childNodeValue];
-                }
-
-                if (!nodes.ContainsKey(parentNodeValue))
-                {
-                    if (child.Parent != null)
-                    {
-                        throw new InvalidOperationException("Invalid Tree.");
-                    }
-
-                    parent = new Tree(parentNodeValue, child);
-                    nodes.Add(parentNodeValue, parent);
-                }
-                else
-                {
-                    parent = nodes[parentNodeValue];
-                    parent.Children.Add(child);
-                    child.Parent = parent;
+                    Console.Write(stack.Pop());
                 }
             }
+            Console.WriteLine(" (length = {0}){1}", longestPathLength, Environment.NewLine);
 
-            var rootNodes = nodes.Where(n => n.Value.Parent == null);
-            if (rootNodes.Count() != 1)
+            Console.WriteLine("Path of sum {0}:", pathSum);
+            var pathsWithCorrectLength = FindPathsWithSum(pathSum);
+            foreach (string path in pathsWithCorrectLength)
             {
-                throw new InvalidOperationException("Invalid Tree.");
-            }
-
-            Tree resultTree = rootNodes.First().Value;
-
-            Console.WriteLine("Root Node: {0}", resultTree.FindRootNode());
-            Console.WriteLine("Leaf Nodes: {0}", string.Join(", ", resultTree.FindLeafNodes()));
-            Console.WriteLine("Middle Nodes: {0}", string.Join(", ", resultTree.FindMiddleNodes()));
-            Console.WriteLine("Longest Path: {0}", string.Join(" -> ", resultTree.FindLongestPath()));
-
-            IList<IList<int>> pathsWithValue = resultTree.FindPathsWithSum(27);
-            Console.WriteLine("Paths With Value 27:");
-            foreach (var path in pathsWithValue)
-            {
-                Console.WriteLine(string.Join(" -> ", path));
-            }
-
-            IList<Tree> subtreesWithValue = resultTree.FindSubtreesWithSum(43);
-            Console.WriteLine("Subtrees With Value 43:");
-            foreach (var tree in subtreesWithValue)
-            {
-                Console.WriteLine(tree);
+                Console.WriteLine(path);
             }
         }
+
+        private static List<string> FindPathsWithSum(int targetSum) // Relies on FindLeafNodes()
+        {
+            var leafNodesList = FindLeafNodes();
+            var result = new List<string>();
+            foreach (var tree in leafNodesList)
+            {
+                var sum = 0;
+                var leafNode = tree;
+                while (leafNode != null)
+                {
+                    sum += leafNode.Value;
+                    leafNode = leafNode.Parent; // not sure if root node has parent/null. Might cause error.
+                }
+                if (sum == targetSum)
+                {
+                    result.Add(string.Join(" -> ", GetTreePath(tree)));
+                }
+            }
+            return result;
+        }
+
+        private static List<int> GetTreePath(Tree<int> tree)
+        {
+            var leafNode = tree;
+            var stack = new Stack<int>();
+            while (leafNode != null)
+            {
+                stack.Push(leafNode.Value);
+                leafNode = leafNode.Parent;
+            }
+            var result = new List<int>();
+            while (stack.Count > 0)
+            {
+                result.Add(stack.Pop());
+            }
+
+            return result;
+        }
+
+        private static Tree<int> FindLongestPath() // Relies on FindLeafNodes()
+        {
+            var best = 0;
+            Tree<int> deepestTree = null;
+            var leafNodesList = FindLeafNodes();
+                        
+            foreach (var tree in leafNodesList)
+            {
+                var counter = 0;
+                var leafNode = tree;
+                while (leafNode != null)
+                {
+                    counter++;
+                    leafNode = leafNode.Parent; // not sure if root node has parent/null. Might cause error.
+                }
+                if (counter > best)
+                {
+                    best = counter;
+                    deepestTree = tree;
+                }
+            }
+
+            return deepestTree;
+        }
+
+        private static Tree<int> GetTreeNodeByValue(int value)
+        {
+            if (!nodeByValue.ContainsKey(value))
+            {
+                nodeByValue[value] = new Tree<int>(value);
+            }
+            return nodeByValue[value];
+        }
+
+        private static Tree<int> FindRootNode()
+        {
+            var rootNode = nodeByValue.Values.FirstOrDefault(node => node.Parent == null);
+            return rootNode;
+        }
+
+        private static IEnumerable<Tree<int>> FindMiddleNodes()
+        {
+            var middleNodes = nodeByValue.Values.Where(node => node.Children.Count > 0 && node.Parent != null).ToList();
+            return middleNodes;
+        }
+
+        private static IEnumerable<Tree<int>> FindLeafNodes()
+        {
+            var leafNodes = nodeByValue.Values.Where(node => node.Children.Count == 0).ToList(); // don't know if necessary - && node.Parent != null
+            return leafNodes;
+        } 
     }
 }
