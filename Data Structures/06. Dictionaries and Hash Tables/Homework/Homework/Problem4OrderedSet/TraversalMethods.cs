@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Problem4OrderedSet
 {
-    class OrderedSet
+    public enum TraversalMethods
     {
+        Preorder,
+        Inorder,
+        Postorder
     }
 }

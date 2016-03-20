@@ -1,15 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Problem4OrderedSet
 {
-    class Program
+    public class OrderedSetMain
     {
-        static void Main(string[] args)
+        public static void Main()
         {
+            var set = new BinarySearchTree();
+            set.Add(17);
+            set.Add(9);
+            set.Add(12);
+            set.Add(19);
+            set.Add(6);
+            set.Add(25);
+            foreach (Node item in set)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
+
