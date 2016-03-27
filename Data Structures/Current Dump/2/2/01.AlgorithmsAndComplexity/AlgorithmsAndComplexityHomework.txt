@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------
+Array.Copy has a complexity of O(n) according to msdn.
+
+01.Add(T) Complexity - O(n)
+--------------------------------------------------------------------------
+For the next three problems I think the complexity is the same
+since Array.Copy is used in the Remove(index) method and it
+doesn't really matter if we remove the first element,
+the middle element or the last element. Array.Copy has a complexity
+of O(n) every time. 
+
+02.Remove(index) Complexity - Worst Case - O(n)
+--------------------------------------------------------------------------
+03.Remove(index) Complexity - Best Case - O(n)
+--------------------------------------------------------------------------
+04.Remove(index) Complexity - Average Case - O(n)
+--------------------------------------------------------------------------
+RemoveFirst just calls the Remove(index) method so it has the same
+complexity.
+
+05.RemoveFirst() Complexity - O(n)
+--------------------------------------------------------------------------
+RemoveLast just calls the Remove(index) method so it has the same
+complexity.
+
+06.RemoveLast() Complexity - O(n)
+--------------------------------------------------------------------------
+The Length property uses the array's length property which has a 
+complexity of O(1).
+
+07.Length Complexity - O(1)
+--------------------------------------------------------------------------
+This[index] uses the array's this[index] which has a complexity of O(1).
+
+08.This[index] Complexity - O(1)
+--------------------------------------------------------------------------
+The last two problems also use the array's this[index] so they also
+have a complexity of O(1).
+
+09.First Complexity - O(1)
+--------------------------------------------------------------------------
+10.Last Complexity - O(1)
+--------------------------------------------------------------------------
