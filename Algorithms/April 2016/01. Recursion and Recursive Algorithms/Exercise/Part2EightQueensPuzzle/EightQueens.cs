@@ -1,20 +1,25 @@
-﻿using System;
-
-namespace RecursionAndThe8QueensPuzzle
+﻿namespace Part2EightQueensPuzzle
 {
+    using System;
+
     public class EightQueens
     {
-        const int Size = 8;
-        const int NumberOfDiagonals = 15;
+        public const int Size = 8;
 
-        static bool[,] chessboard = new bool[Size, Size];
-        static int[] reversedCol = new int[] { 7, 6, 5, 4, 3, 2, 1, 0 };
-        public static int solutionsFound = 0;
+        public static readonly bool[,] Chessboard = new bool[Size, Size];
 
-        static bool[] attackedColumns = new bool[Size];
-        static bool[] attackedLeftDiagonals = new bool[NumberOfDiagonals];
-        static bool[] attackedRightDiagonals = new bool[NumberOfDiagonals];
-        
+        public static int SolutionsFound = 0;
+
+        private const int NumberOfDiagonals = 15;
+
+        private static readonly int[] ReversedCol = new int[] { 7, 6, 5, 4, 3, 2, 1, 0 };
+
+        private static readonly bool[] AttackedColumns = new bool[Size];
+
+        private static readonly bool[] AttackedLeftDiagonals = new bool[NumberOfDiagonals];
+
+        private static readonly bool[] AttackedRightDiagonals = new bool[NumberOfDiagonals];
+
         public static void PutQueens(int row)
         {
             if (row == Size)
@@ -25,7 +30,7 @@ namespace RecursionAndThe8QueensPuzzle
             {
                 for (int col = 0; col < Size; col++)
                 {
-                    if (CanPlaceQueen(row,col))
+                    if (CanPlaceQueen(row, col))
                     {
                         MarkAllAttackedPositions(row, col);
                         PutQueens(row + 1);
@@ -37,26 +42,24 @@ namespace RecursionAndThe8QueensPuzzle
 
         private static void UnmarkAllAttackedPositions(int row, int col)
         {
-            attackedColumns[col] = false;
-            attackedLeftDiagonals[row + reversedCol[col]] = false;
-            attackedRightDiagonals[row + col] = false;
-            chessboard[row, col] = false;
+            AttackedColumns[col] = false;
+            AttackedLeftDiagonals[row + ReversedCol[col]] = false;
+            AttackedRightDiagonals[row + col] = false;
+            Chessboard[row, col] = false;
         }
 
         private static void MarkAllAttackedPositions(int row, int col)
         {
-            attackedColumns[col] = true;
-            attackedLeftDiagonals[row + reversedCol[col]] = true;
-            attackedRightDiagonals[row + col] = true;
-            chessboard[row, col] = true;
+            AttackedColumns[col] = true;
+            AttackedLeftDiagonals[row + ReversedCol[col]] = true;
+            AttackedRightDiagonals[row + col] = true;
+            Chessboard[row, col] = true;
         }
 
         private static bool CanPlaceQueen(int row, int col)
         {
-            var positionOccupied =
-                attackedColumns[col] ||
-                attackedRightDiagonals[row + col] ||
-                attackedLeftDiagonals[row + reversedCol[col]];
+            var positionOccupied = AttackedColumns[col] || AttackedRightDiagonals[row + col]
+                                   || AttackedLeftDiagonals[row + ReversedCol[col]];
             return !positionOccupied;
         }
 
@@ -66,7 +69,7 @@ namespace RecursionAndThe8QueensPuzzle
             {
                 for (int col = 0; col < Size; col++)
                 {
-                    if (chessboard[row, col] == true)
+                    if (Chessboard[row, col] == true)
                     {
                         Console.Write("* ");
                     }
@@ -79,7 +82,7 @@ namespace RecursionAndThe8QueensPuzzle
             }
             Console.WriteLine();
 
-            solutionsFound++;
+            SolutionsFound++;
         }
     }
 }

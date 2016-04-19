@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{81F4E9D5-2B6E-4719-AE4E-1A05FCBC98CF}</ProjectGuid>
+    <ProjectGuid>{16321153-D643-4D46-B18A-2E3E8759E0E3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RecursionAndThe8QueensPuzzle</RootNamespace>
-    <AssemblyName>RecursionAndThe8QueensPuzzle</AssemblyName>
+    <RootNamespace>Part1RecursiveArraySum</RootNamespace>
+    <AssemblyName>Part1RecursiveArraySum</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>RecursionAndThe8QueensPuzzle.PermutationBasedSolution</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,9 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EightQueens.cs" />
-    <Compile Include="EightQueensMain.cs" />
-    <Compile Include="PermutationBasedSolution.cs" />
+    <Compile Include="RecursiveArraySumMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

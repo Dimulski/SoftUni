@@ -1,10 +1,16 @@
-﻿using System;
-
-namespace RecursionAndThe8QueensPuzzle
+﻿namespace Part2EightQueensPuzzle
 {
+    using System;
+
     public class PermutationBasedSolution
     {
-        private static bool isConsistent(int[] board, int n)
+        public static void Main()
+        {
+            int n = int.Parse(Console.ReadLine());
+            Enumerate(n);
+        }
+
+        private static bool IsConsistent(int[] board, int n)
         {
             for (int i = 0; i < n; i++)
             {
@@ -12,11 +18,11 @@ namespace RecursionAndThe8QueensPuzzle
                 {
                     return false;
                 }
-                if ((board[i]) - board[n] == (n - i)) // same major diagonal
+                if (board[i] - board[n] == n - i) // same major diagonal
                 {
                     return false;
                 }
-                if ((board[n]) - board[i] == (n - i)) // same minor diagonal
+                if (board[n] - board[i] == n - i) // same minor diagonal
                 {
                     return false;
                 }
@@ -26,10 +32,10 @@ namespace RecursionAndThe8QueensPuzzle
 
         private static void PrintQueens(int[] board)
         {
-            int N = board.Length;
-            for (int i = 0; i < N; i++)
+            int n = board.Length;
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < N; j++)
+                for (int j = 0; j < n; j++)
                 {
                     if (board[i] == j)
                     {
@@ -45,36 +51,30 @@ namespace RecursionAndThe8QueensPuzzle
             Console.WriteLine();
         }
 
-        public static void enumerate(int N)
+        private static void Enumerate(int n)
         {
-            int[] a = new int[N];
-            enumerate(a, 0);
+            int[] a = new int[n];
+            Enumerate(a, 0);
         }
 
-        public static void enumerate(int[] board, int n)
+        private static void Enumerate(int[] board, int n)
         {
-            int N = board.Length;
-            if (n == N)
+            int j = board.Length;
+            if (n == j)
             {
                 PrintQueens(board);
             }
             else
             {
-                for (int i = 0; i < N; i++)
+                for (int i = 0; i < j; i++)
                 {
                     board[n] = i;
-                    if (isConsistent(board, n))
+                    if (IsConsistent(board, n))
                     {
-                        enumerate(board, n + 1);
+                        Enumerate(board, n + 1);
                     }
                 }
             }
-        }
-        
-        public static void Main()
-        {
-            int N = int.Parse(Console.ReadLine());
-            enumerate(N);
         }
     }
 }

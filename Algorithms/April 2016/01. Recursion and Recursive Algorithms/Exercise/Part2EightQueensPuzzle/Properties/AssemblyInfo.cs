@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RecursionAndThe8QueensPuzzle")]
+[assembly: AssemblyTitle("Part2EightQueensPuzzle")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RecursionAndThe8QueensPuzzle")]
+[assembly: AssemblyProduct("Part2EightQueensPuzzle")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("81f4e9d5-2b6e-4719-ae4e-1a05fcbc98cf")]
+[assembly: Guid("acc9da32-7195-43a7-9c90-8d143f5369d4")]
 
 // Version information for an assembly consists of the following four values:
 //
