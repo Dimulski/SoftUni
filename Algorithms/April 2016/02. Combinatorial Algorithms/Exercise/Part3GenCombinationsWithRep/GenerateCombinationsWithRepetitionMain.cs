@@ -1,8 +1,8 @@
-﻿namespace PartFourGenCombWithoutRepetition
+﻿namespace Part3GenCombinationsWithRep
 {
     using System;
 
-    class GenerateCombinationsWithoutRepetitionMain
+    public class GenerateCombinationsWithRepetitionMain
     {
         private static int n;
         private static int k;
@@ -15,18 +15,18 @@
             GenerateCombinations(array, n, 0);
         }
 
-        private static void GenerateCombinations(int[] array, int sizeOfSet, int index, int start = 1)
+        private static void GenerateCombinations(int[] arr, int sizeOfSet, int index, int start = 1)
         {
-            if (index >= array.Length)
+            if (index >= arr.Length)
             {
-                Print(array);
+                Print(arr);
             }
             else
             {
                 for (int i = start; i <= sizeOfSet; i++)
                 {
-                    array[index] = i;
-                    GenerateCombinations(array, sizeOfSet, index + 1, i + 1);
+                    arr[index] = i;
+                    GenerateCombinations(arr, sizeOfSet, index + 1, i);
                 }
             }
         }
@@ -39,9 +39,9 @@
             array = new int[k];
         }
 
-        private static void Print(int[] array)
+        private static void Print(int[] arr)
         {
-            Console.WriteLine("({0})", string.Join(", ", array));
+            Console.WriteLine("({0})", string.Join(", ", arr));
         }
     }
 }

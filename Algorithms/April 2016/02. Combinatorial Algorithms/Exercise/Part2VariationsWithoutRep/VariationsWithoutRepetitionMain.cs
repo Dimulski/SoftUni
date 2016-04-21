@@ -1,4 +1,4 @@
-﻿namespace PartTwoVariationsWithoutRep
+﻿namespace Part2VariationsWithoutRep
 {
     using System;
 
@@ -16,22 +16,22 @@
             GenerateVariations(array, n, used);
         }
 
-        private static void GenerateVariations(int[] array, int sizeOfSet, bool[] used, int index = 0)
+        private static void GenerateVariations(int[] arr, int sizeOfSet, bool[] isUsed, int index = 0)
         {
-            if (index >= array.Length)
+            if (index >= arr.Length)
             {
-                Print(array);
+                Print(arr);
                 return;
             }
 
             for (int i = 1; i <= sizeOfSet; i++)
             {
-                if (!used[i])
+                if (!isUsed[i])
                 {
-                    used[i] = true;
-                    array[index] = i;
-                    GenerateVariations(array, sizeOfSet, used, index + 1);
-                    used[i] = false;
+                    isUsed[i] = true;
+                    arr[index] = i;
+                    GenerateVariations(arr, sizeOfSet, isUsed, index + 1);
+                    isUsed[i] = false;
                 }
             }
         }
@@ -45,9 +45,9 @@
             used = new bool[n + 1];
         }
 
-        private static void Print(int[] array)
+        private static void Print(int[] arr)
         {
-            Console.WriteLine("({0})", string.Join(", ", array));
+            Console.WriteLine("({0})", string.Join(", ", arr));
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PartFourGenCombWithoutRepetition")]
+[assembly: AssemblyTitle("Part1GenVariationsWithRep")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PartFourGenCombWithoutRepetition")]
+[assembly: AssemblyProduct("Part1GenVariationsWithRep")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6bdfc515-be3c-4c1d-924b-e2114e734c1d")]
+[assembly: Guid("7d7954cd-c27d-48ff-af89-26b84bc985df")]
 
 // Version information for an assembly consists of the following four values:
 //
