@@ -67,12 +67,12 @@
             int midpoint = startIndex + (endIndex - startIndex) / 2;
             if (this.Items[midpoint].CompareTo(item) > 0)
             {
-                return BinarySearchProcedure(item, startIndex, midpoint - 1);
+                return this.BinarySearchProcedure(item, startIndex, midpoint - 1);
             }
 
             if (this.Items[midpoint].CompareTo(item) < 0)
             {
-                return BinarySearchProcedure(item, midpoint + 1, endIndex);
+                return this.BinarySearchProcedure(item, midpoint + 1, endIndex);
             }
 
             return midpoint;

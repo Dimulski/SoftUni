@@ -6,10 +6,16 @@
 
     public class SortableCollectionPlayground
     {
-        private static Random Random = new Random();
+        private static readonly Random Random = new Random();
 
         public static void Main()
         {
+            var collection = new SortableCollection<int>(2, -1, 5, 0, -3);
+            Console.WriteLine(collection);
+
+            collection.Sort(new Quicksorter<int>());
+            Console.WriteLine(collection + Environment.NewLine);
+
             const int NumberOfElementsToSort = 100;
             const int MaxValue = 999;
 
@@ -24,12 +30,6 @@
             collectionToSort.Sort(new BucketSorter { Max = MaxValue });
 
             Console.WriteLine(collectionToSort);
-
-            // var collection = new SortableCollection<int>(2, -1, 5, 0, -3);
-            // Console.WriteLine(collection);
-
-            // collection.Sort(new Quicksorter<int>());
-            // Console.WriteLine(collection);
         }
     }
 }

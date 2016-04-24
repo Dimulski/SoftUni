@@ -30,8 +30,6 @@
 
             // collection.Sort(new Quicksorter<int>());
             // Console.WriteLine(collection);
-
-            collectionToSort.S
         }
     }
 }
