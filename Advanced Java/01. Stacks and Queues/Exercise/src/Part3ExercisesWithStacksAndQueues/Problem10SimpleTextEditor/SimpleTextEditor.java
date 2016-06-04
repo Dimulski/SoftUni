@@ -9,47 +9,40 @@ import java.util.Scanner;
 public class SimpleTextEditor {
 
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        int numOfCommands = scanner.nextInt();
-        scanner.nextLine();
-
-        LinkedList<String[]> commandStack = new LinkedList<>();
-        LinkedList<Character> charStack = new LinkedList<>();
-
+        
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < numOfCommands; i++) {
-            String[] command = scanner.nextLine().split(" ");
-            switch (command[0]) {
-                case "1": {
-                    commandStack.push(command);
-                    sb.append(command[1]);
+        LinkedList<String> undoStack = new LinkedList<>();
+        
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        for (int i = 0; i < n; i++) {
+            int command = scanner.nextInt();
+            switch (command) {
+                case 1: {
+                    String stringToAppend = scanner.next();
+                    sb.append(stringToAppend);
+                    undoStack.push(sb.toString()); // Adding the state of the text after this command instead of individual changes. Greedy.
                     break;
                 }
-                case "2": {
-                    commandStack.push(command);
-                    charStack.push(sb.charAt(Integer.parseInt(command[1]) - 1));
-                    sb.deleteCharAt(Integer.parseInt(command[1]) - 1);
+                case 2: {
+                    int deleteCount = scanner.nextInt();
+                    sb.delete(sb.length() - deleteCount, sb.length());
+                    undoStack.push(sb.toString());
                     break;
                 }
-                case "3": {
-                    System.out.println(sb.charAt(Integer.parseInt(command[1]) - 1));
+                case 3: {
+                    int index = scanner.nextInt();
+                    System.out.println(sb.charAt(index - 1));
                     break;
                 }
-                case "4": {
-                    String[] commandToUndo = commandStack.pop();
-                    switch (commandToUndo[0]) {
-                        case "1": {
-                            int stringLength = commandToUndo[1].length();
-                            sb.delete(sb.length() - stringLength, stringLength);
-                            break;
-                        }
-                        case "2": {
-                            Character charToReturn = charStack.pop();
-                            sb.insert(Integer.parseInt(commandToUndo[1]), charToReturn);
-                            break;
-                        }
+                case 4: {
+                    undoStack.pop();
+                    if (undoStack.size() > 0) {
+                        sb = new StringBuilder(undoStack.peek());
+                    } else {
+                        sb = new StringBuilder();
                     }
+                    break;
                 }
             }
         }
