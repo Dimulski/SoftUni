@@ -5,6 +5,7 @@ import java.util.Stack;
 
 /**
  * Created by User on 24.5.2016 г..
+ * Shameful display
  */
 public class BalancedParentheses {
 
