@@ -4,6 +4,7 @@
 public class Program {
 
     public static void main(String[] args) {
-        IOManager.traverseDirectory(InputReader.readInput());
+        StudentsRepository.InitializeData();
+        StudentsRepository.getStudentsByCourse("Unity");
     }
 }
