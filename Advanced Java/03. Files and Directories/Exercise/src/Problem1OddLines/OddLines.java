@@ -13,7 +13,7 @@ public class OddLines {
         File output = new File("resources\\Problem1OddLines\\03_OddLinesOut.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(input));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
+             BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
 
             reader.readLine(); // The first line is apparently not odd because "Line numbers starts from 0."
             String oddLine;

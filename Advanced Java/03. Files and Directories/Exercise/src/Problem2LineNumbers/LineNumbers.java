@@ -13,7 +13,7 @@ public class LineNumbers {
         File output = new File("resources\\Problem2LineNumbers\\03_LinesOut.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(input));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
+             BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
 
             String line;
             int counter = 0;
