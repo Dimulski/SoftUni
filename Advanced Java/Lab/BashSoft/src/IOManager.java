@@ -10,10 +10,15 @@ public class IOManager {
 
         if (relativePath.equals("..")) {
             // go one directory up
-            String currentPath = SessionData.currentPath;
-            int indexOfLastSlash = currentPath.lastIndexOf("\\");
-            String newPath = currentPath.substring(0, indexOfLastSlash);
-            SessionData.currentPath = newPath;
+            try {
+                String currentPath = SessionData.currentPath;
+                int indexOfLastSlash = currentPath.lastIndexOf("\\");
+                String newPath = currentPath.substring(0, indexOfLastSlash);
+                SessionData.currentPath = newPath;
+            } catch (StringIndexOutOfBoundsException e) {
+                OutputWriter.displayException(ExceptionMessages.INVALID_DESTINATION);
+            }
+
         } else {
             // go to a given directory
             String currentPath = SessionData.currentPath;
