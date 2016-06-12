@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -8,14 +12,14 @@ public class StudentsRepository {
     private static boolean isDataInitialized = false;
     private static LinkedHashMap<String, LinkedHashMap<String, ArrayList<Integer>>> studentsByCourse;
 
-    public static void InitializeData() {
+    public static void InitializeData(String fileName) throws IOException {
         if (isDataInitialized) {
             System.out.println(ExceptionMessages.DATA_ALREADY_INITIALIZED);
             return;
         }
 
         studentsByCourse = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<Integer>>>();
-        readData();
+        readData(fileName);
     }
 
     public static void getStudentMarksInCourse(String course, String student) {
@@ -38,12 +42,12 @@ public class StudentsRepository {
         }
     }
 
-    private static void readData() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+    private static void readData(String fileName) throws IOException {
+        String path = SessionData.currentPath + "\\" + fileName;
+        List<String> lines = Files.readAllLines(Paths.get(path));
 
-        while (!input.equals("")) {
-            String[] tokens = input.split("\\s+");
+        for (String line : lines) {
+            String[] tokens = line.split("\\s+");
             String course = tokens[0];
             String student = tokens[1];
             Integer mark = Integer.parseInt(tokens[2]);
@@ -55,8 +59,6 @@ public class StudentsRepository {
                 studentsByCourse.get(course).put(student, new ArrayList<>());
             }
             studentsByCourse.get(course).get(student).add(mark);
-
-            input = scanner.nextLine();
         }
 
         isDataInitialized = true;

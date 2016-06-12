@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -5,9 +6,20 @@ import java.util.Scanner;
  */
 public class InputReader {
 
-    public static String readInput() {
-        Scanner scanner = new Scanner(System.in); // We'll change this later
-        String input = scanner.nextLine();
-        return input;
+    private static final String endCommand = "quit";
+
+    public static void readCommands() throws IOException {
+
+        OutputWriter.writeMessage(String.format("%s > ", SessionData.currentPath));
+
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine().trim();
+
+        while (!input.equals(endCommand)) {
+            CommandInterpreter.interpretCommand(input);
+            OutputWriter.writeMessage(String.format("%s > ", SessionData.currentPath));
+
+            input = sc.nextLine().trim();
+        }
     }
 }
