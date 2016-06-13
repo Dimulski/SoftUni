@@ -3,6 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by User on 7.6.2016 г..
@@ -43,22 +45,32 @@ public class StudentsRepository {
     }
 
     private static void readData(String fileName) throws IOException {
+        String regex = "([A-Z][a-zA-Z#+]*_[A-Z][a-z]{2}_\\d{4})\\s+([A-Z][a-z]{0,3}\\d{2}_\\d{2,4})\\s+(\\d+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher;
+
         String path = SessionData.currentPath + "\\" + fileName;
         List<String> lines = Files.readAllLines(Paths.get(path));
 
         for (String line : lines) {
-            String[] tokens = line.split("\\s+");
-            String course = tokens[0];
-            String student = tokens[1];
-            Integer mark = Integer.parseInt(tokens[2]);
+            matcher = pattern.matcher(line);
 
-            if (!studentsByCourse.containsKey(course)){
-                studentsByCourse.put(course, new LinkedHashMap<>());
+            if (!line.isEmpty() && matcher.find()) {
+                String course = matcher.group(1);
+                String student = matcher.group(2);
+                Integer mark = Integer.parseInt(matcher.group(3));
+
+                if (mark >= 0 && mark <= 100) {
+                    if (!studentsByCourse.containsKey(course)) {
+                        studentsByCourse.put(course, new LinkedHashMap<>());
+                    }
+                    if (!studentsByCourse.get(course).containsKey(student)) {
+                        studentsByCourse.get(course).put(student, new ArrayList<>());
+                    }
+
+                    studentsByCourse.get(course).get(student).add(mark);
+                }
             }
-            if (!studentsByCourse.get(course).containsKey(student)){
-                studentsByCourse.get(course).put(student, new ArrayList<>());
-            }
-            studentsByCourse.get(course).get(student).add(mark);
         }
 
         isDataInitialized = true;

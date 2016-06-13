@@ -33,6 +33,9 @@ public class CommandInterpreter {
             case "readDB":
                 tryReadDatabaseFromFile(input, data);
                 break;
+            case "show":
+                tryShowWantedCourse(input, data);
+                break;
             case "filter":
                 break;
             case "order":
@@ -48,6 +51,23 @@ public class CommandInterpreter {
             default:
                 displayInvalidCommandMessage(input);
                 break;
+        }
+    }
+
+    private static void tryShowWantedCourse(String input, String[] data) {
+        if (data.length != 2 && data.length != 3) {
+            displayInvalidCommandMessage(input);
+        }
+
+        if (data.length == 2) {
+            String courseName = data[1];
+            StudentsRepository.getStudentsByCourse(courseName);
+        }
+
+        if (data.length == 3) {
+            String courseName = data[1];
+            String userName = data[2];
+            StudentsRepository.getStudentMarksInCourse(courseName, userName);
         }
     }
 
