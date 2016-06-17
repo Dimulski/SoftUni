@@ -11,4 +11,5 @@ public class ExceptionMessages {
     public static final String CANNOT_ACCESS_FILE = "Cannot access file!";
     public static final String INVALID_OUTPUT_LENGTH = "Actual and expected files are with different length!";
     public static final String INVALID_DESTINATION = "Cannot go higher in folder hierarchy!";
+    public static final String INVALID_FILTER = "Invalid filter!";
 }

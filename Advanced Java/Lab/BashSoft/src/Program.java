@@ -5,7 +5,7 @@ import java.io.IOException;
  */
 public class Program {
 
-    public static void main(String[] args) throws IOException { // TODO: Check whether expected and actual input are in their proper places
+    public static void main(String[] args) throws IOException {
         InputReader.readCommands();
     }
 }

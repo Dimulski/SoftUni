@@ -30,15 +30,17 @@ public class CommandInterpreter {
             case "changeDirAbs":
                 tryChangeAbsolutePath(input, data);
                 break;
-            case "readDB":
+            case "readDb":
                 tryReadDatabaseFromFile(input, data);
                 break;
             case "show":
                 tryShowWantedCourse(input, data);
                 break;
             case "filter":
+                tryPrintFilteredStudents(input, data);
                 break;
             case "order":
+                tryPrintOrderedStudents(input, data);
                 break;
             case "download":
                 break;
@@ -52,6 +54,38 @@ public class CommandInterpreter {
                 displayInvalidCommandMessage(input);
                 break;
         }
+    }
+
+    private static void tryPrintOrderedStudents(String input, String[] data) {
+        if (data.length != 3 && data.length != 4){
+            displayInvalidCommandMessage(input);
+            return;
+        }
+
+        String course = data[1];
+        String comparisonType = data[2];
+        Integer numberOfStudents = null;
+        if (data.length == 4){
+            numberOfStudents = Integer.parseInt(data[3]);
+        }
+
+        StudentsRepository.printOrderedStudents(course, comparisonType, numberOfStudents);
+    }
+
+    private static void tryPrintFilteredStudents(String input, String[] data) {
+        if (data.length != 3 && data.length != 4){
+            displayInvalidCommandMessage(input);
+            return;
+        }
+
+        String course = data[1];
+        String filter = data[2];
+        Integer numberOfStudents = null;
+        if (data.length == 4){
+            numberOfStudents = Integer.parseInt(data[3]);
+        }
+
+        StudentsRepository.printFilteredStudents(course, filter, numberOfStudents);
     }
 
     private static void tryShowWantedCourse(String input, String[] data) {
