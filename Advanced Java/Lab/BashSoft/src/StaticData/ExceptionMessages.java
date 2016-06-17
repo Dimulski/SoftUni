@@ -1,6 +1,5 @@
-/**
- * Created by User on 7.6.2016 г..
- */
+package StaticData;
+
 public class ExceptionMessages {
 
     public static final String DATA_ALREADY_INITIALIZED = "Data is already initialized!";

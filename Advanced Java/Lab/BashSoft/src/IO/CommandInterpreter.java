@@ -1,10 +1,13 @@
+package IO;
+
+import Judge.Tester;
+import Repository.StudentsRepository;
+import StaticData.SessionData;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by User on 12.6.2016 г..
- */
 public class CommandInterpreter {
 
     public static void interpretCommand(String input) throws IOException {
@@ -193,7 +196,7 @@ public class CommandInterpreter {
         OutputWriter.writeMessageOnNewLine(output);
     }
 
-    private static void help() { // I'm pretty sure reading a file with all of this info and printing it would be better.
+    private static void help() {
         OutputWriter.writeMessageOnNewLine("mkdir path - make directory");
         OutputWriter.writeMessageOnNewLine("ls depth - traverse directory");
         OutputWriter.writeMessageOnNewLine("cmp path1 path2 - compare two files");

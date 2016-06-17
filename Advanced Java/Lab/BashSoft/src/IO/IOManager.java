@@ -1,9 +1,11 @@
+package IO;
+
+import StaticData.ExceptionMessages;
+import StaticData.SessionData;
+
 import java.io.File;
 import java.util.LinkedList;
 
-/**
- * Created by User on 4.6.2016 г..
- */
 public class IOManager {
 
     public static void changeCurrentDirRelativePath(String relativePath) {
@@ -44,7 +46,6 @@ public class IOManager {
     }
 
     public static void traverseDirectory(int depth) {
-        // TODO: Try-catch for access exception
         LinkedList<File> subfolders = new LinkedList<>();
 
         String path = SessionData.currentPath;
@@ -79,9 +80,6 @@ public class IOManager {
                 }
             }
         }
-//        } catch (AccessDeniedException ex) {
-//            OutputWriter.displayException("Access denied");
-//        }
     }
 
     private static String getCurrentDirectoryPath() {

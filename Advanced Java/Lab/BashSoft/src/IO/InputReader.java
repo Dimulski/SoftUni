@@ -1,9 +1,10 @@
+package IO;
+
+import StaticData.SessionData;
+
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- * Created by User on 4.6.2016 г..
- */
 public class InputReader {
 
     private static final String endCommand = "quit";

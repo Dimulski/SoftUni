@@ -1,14 +1,16 @@
+package Repository;
+
+import IO.OutputWriter;
+import StaticData.ExceptionMessages;
+import StaticData.SessionData;
+
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by User on 7.6.2016 г..
- */
 public class StudentsRepository {
 
     private static boolean isDataInitialized = false;
@@ -20,7 +22,7 @@ public class StudentsRepository {
             return;
         }
 
-        studentsByCourse = new LinkedHashMap<String, LinkedHashMap<String, ArrayList<Integer>>>();
+        studentsByCourse = new LinkedHashMap<>();
         readData(fileName);
     }
 

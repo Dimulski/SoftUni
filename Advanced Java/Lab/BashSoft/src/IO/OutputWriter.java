@@ -1,8 +1,7 @@
+package IO;
+
 import java.util.List;
 
-/**
- * Created by User on 4.6.2016 г..
- */
 public class OutputWriter {
 
     public static void printStudent(String name, List<Integer> marks) {

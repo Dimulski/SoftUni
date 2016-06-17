@@ -1,10 +1,12 @@
+package Judge;
+
+import IO.OutputWriter;
+import StaticData.ExceptionMessages;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by User on 7.6.2016 г..
- */
 public class Tester {
 
     public static void compareContent(String actualOutput, String expectedOutput) {
