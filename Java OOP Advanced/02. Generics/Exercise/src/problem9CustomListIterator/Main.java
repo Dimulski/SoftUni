@@ -1,4 +1,4 @@
-package problem7CustomList;
+package problem9CustomListIterator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         CustomList<String> customList = new CustomList<String>();
-        CommandInterpreter commandInterpreter = new CommandInterpreter(customList);
+        Sorter sorter = new Sorter();
+        CommandInterpreter commandInterpreter = new CommandInterpreter(customList, sorter);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String command;

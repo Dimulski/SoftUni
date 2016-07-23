@@ -1,18 +1,20 @@
-package problem7CustomList;
+package problem9CustomListIterator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-class CustomList<T extends Comparable<T>> {
+class CustomList<T extends Comparable<T>> implements Iterable<T> {
 
     private static final String EMPTY_LIST_EXCEPTION_MESSAGE = "List is empty!";
     private List<T> list;
 
     CustomList() {
-        this.setList(new ArrayList<T>()); // The assignment says nothing about actually creating a list with a resizing array. Also I doubt that's the focus of 02. Generics.
+        this.setList(new ArrayList<T>());
     }
 
-    List<T> getList() { // This should most likely be private
+    List<T> getList() {
         return this.list;
     }
 
@@ -74,5 +76,29 @@ class CustomList<T extends Comparable<T>> {
             }
         }
         return min;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < getList().size();
+            }
+
+            @Override
+            public T next() {
+                return getList().get(index++);
+            }
+        };
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        for (T var : getList()) {
+            action.accept(var);
+        }
     }
 }

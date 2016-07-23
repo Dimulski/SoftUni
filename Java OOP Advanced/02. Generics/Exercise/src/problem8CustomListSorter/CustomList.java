@@ -1,4 +1,4 @@
-package problem7CustomList;
+package problem8CustomListSorter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ class CustomList<T extends Comparable<T>> {
     private List<T> list;
 
     CustomList() {
-        this.setList(new ArrayList<T>()); // The assignment says nothing about actually creating a list with a resizing array. Also I doubt that's the focus of 02. Generics.
+        this.setList(new ArrayList<T>());
     }
 
-    List<T> getList() { // This should most likely be private
+    List<T> getList() {
         return this.list;
     }
 

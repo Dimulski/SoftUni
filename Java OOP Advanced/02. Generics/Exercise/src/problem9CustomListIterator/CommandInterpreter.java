@@ -1,19 +1,29 @@
-package problem7CustomList;
+package problem9CustomListIterator;
 
 class CommandInterpreter {
 
     private CustomList customList;
+    private Sorter sorter;
 
-    CommandInterpreter(CustomList customList) {
+    CommandInterpreter(CustomList customList, Sorter sorter) {
         this.setCustomList(customList);
+        this.setSorter(sorter);
     }
 
     private CustomList getCustomList() {
         return this.customList;
     }
 
+    private Sorter getSorter() {
+        return this.sorter;
+    }
+
     private void setCustomList(CustomList customList) {
         this.customList = customList;
+    }
+
+    private void setSorter(Sorter sorter) {
+        this.sorter = sorter;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,8 +53,10 @@ class CommandInterpreter {
                 System.out.println(getCustomList().getMin());
                 break;
             case "Print":
-                getCustomList().getList().stream().forEach(System.out::println);
+                getCustomList().forEach(System.out::println); // Since my CustomList uses an ArrayList underneath it already had an Iterator. Now it has its own.
                 break;
+            case "Sort":
+                getSorter().sort(getCustomList());
             default:
                 break;
         }

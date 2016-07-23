@@ -1,19 +1,29 @@
-package problem7CustomList;
+package problem8CustomListSorter;
 
 class CommandInterpreter {
 
     private CustomList customList;
+    private Sorter sorter;
 
-    CommandInterpreter(CustomList customList) {
+    CommandInterpreter(CustomList customList, Sorter sorter) {
         this.setCustomList(customList);
+        this.setSorter(sorter);
     }
 
     private CustomList getCustomList() {
         return this.customList;
     }
 
+    private Sorter getSorter() {
+        return this.sorter;
+    }
+
     private void setCustomList(CustomList customList) {
         this.customList = customList;
+    }
+
+    private void setSorter(Sorter sorter) {
+        this.sorter = sorter;
     }
 
     @SuppressWarnings("unchecked")
@@ -45,6 +55,8 @@ class CommandInterpreter {
             case "Print":
                 getCustomList().getList().stream().forEach(System.out::println);
                 break;
+            case "Sort":
+                getSorter().sort(getCustomList());
             default:
                 break;
         }
