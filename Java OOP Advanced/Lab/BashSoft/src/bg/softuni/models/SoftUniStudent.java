@@ -10,6 +10,7 @@ import bg.softuni.staticData.ExceptionMessages;
 import java.util.*;
 
 public class SoftUniStudent implements Student {
+
     private String userName;
     private LinkedHashMap<String, Course> enrolledCourses;
     private LinkedHashMap<String, Double> marksByCourseName;
@@ -73,5 +74,15 @@ public class SoftUniStudent implements Student {
         String output = String.format("%s - %f",
                 this.userName, marksByCourseName.get(courseName));
         return output;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        return this.getUserName().compareTo(other.getUserName());
+    }
+
+    @Override
+    public String toString() {
+        return this.getUserName();
     }
 }

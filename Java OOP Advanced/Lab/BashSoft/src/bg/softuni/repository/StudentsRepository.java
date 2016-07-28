@@ -1,6 +1,7 @@
 package bg.softuni.repository;
 
 import bg.softuni.contracts.*;
+import bg.softuni.dataStructures.SimpleSortedList;
 import bg.softuni.io.OutputWriter;
 import bg.softuni.models.SoftUniCourse;
 import bg.softuni.models.SoftUniStudent;
@@ -10,10 +11,7 @@ import bg.softuni.staticData.SessionData;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -122,6 +120,22 @@ public class StudentsRepository implements Database {
                 this.courses.get(courseName).getStudentsByName().entrySet()) {
             this.getStudentMarkInCourse(courseName, student.getKey());
         }
+    }
+
+    @Override
+    public SimpleSortedList<Course> getAllCoursesSorted(Comparator<Course> cmp) {
+        SimpleSortedList<Course> courseSortedList =
+                new SimpleSortedList<>(Course.class, cmp);
+        courseSortedList.addAll(this.courses.values());
+        return courseSortedList;
+    }
+
+    @Override
+    public SimpleSortedList<Student> getAllStudentsSorted(Comparator<Student> cmp) {
+        SimpleSortedList<Student> studentSortedList =
+                new SimpleSortedList<>(Student.class, cmp);
+        studentSortedList.addAll(this.students.values());
+        return studentSortedList;
     }
 
     private boolean isQueryForCoursePossible(String courseName) {

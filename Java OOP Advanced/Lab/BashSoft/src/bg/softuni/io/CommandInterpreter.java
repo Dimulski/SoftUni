@@ -78,6 +78,9 @@ public class CommandInterpreter implements Interpreter {
             case "dropdb":
                 return new DropDatabaseCommand(input, data, this.tester,
                         this.repository, this.downloadManager, this.ioManager);
+            case "display":
+                return new DisplayCommand(input, data, this.tester,
+                        this.repository, this.downloadManager, this.ioManager);
             default:
                 throw new InvalidInputException(input);
         }
