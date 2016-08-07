@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@interface EnumInfo {
+public @interface EnumInfo { // I would make this package local, but Judge has a problem with that.
 
     String type() default "Enumeration";
 
