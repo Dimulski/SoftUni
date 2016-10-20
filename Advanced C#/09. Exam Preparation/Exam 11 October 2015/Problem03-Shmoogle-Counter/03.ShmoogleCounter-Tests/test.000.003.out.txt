@@ -1,2 +1,0 @@
-Doubles: end, pointless
-Ints: end, index, index, megaInt, useful

@@ -1,2 +1,0 @@
-Doubles: fourth, second, total
-Ints: fifth, first, gosho, pesho, third

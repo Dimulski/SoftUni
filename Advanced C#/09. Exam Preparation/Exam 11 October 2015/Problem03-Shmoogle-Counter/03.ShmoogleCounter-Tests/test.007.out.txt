@@ -1,2 +1,0 @@
-Doubles: num, percentage, ratio
-Ints: count, inc

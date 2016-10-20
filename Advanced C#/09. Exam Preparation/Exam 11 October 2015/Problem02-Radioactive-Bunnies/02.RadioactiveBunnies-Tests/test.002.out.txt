@@ -1,4 +1,0 @@
-BBB
-.BB
-..B
-dead: 0 0
