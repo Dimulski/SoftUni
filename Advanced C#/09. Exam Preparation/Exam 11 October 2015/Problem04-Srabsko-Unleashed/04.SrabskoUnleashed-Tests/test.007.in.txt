@@ -1,0 +1,15 @@
+Dragana@Beach100 0
+Dragana Dragana Dragana@Beach 100 0
+Dragana @Beach0 10
+Dragana @Belgrade10
+Dragana @Belgrade Beach10 10
+CecaCeca@SunnyBeach10 10
+CecaCeca @SunnyBeach10 10
+Mile Kitic @Sofia 100 1000
+Mile Kitic @Belgrade 100 10000
+Mile Kitic @Spirit of Burgas 100 100000
+Ceca Velickovic @Spirit of Burgas 200 100000
+Mirko @Sofia 200 100000
+Mirko @Belgrade 100 10000
+Saban @Belgrade 100 10000
+End

@@ -1,0 +1,51 @@
+Sofia
+#  MilE -> 40000
+#  Mile -> 20000
+Belgrade
+#  DraganA -> 20000
+#  Dragana -> 10000
+Sunny Beach
+#  SabaN -> 20000
+#  Saban -> 10000
+Spirit of Burgas
+#  CecA -> 20000
+#  Ceca -> 10000
+Skopje
+#  LepA -> 20000
+#  Lepa -> 10000
+Primorsko
+#  BrenA -> 20000
+#  Brena -> 10000
+BelgrADe
+#  DraganA -> 20000
+#  Dragana -> 10000
+SunnY Beach
+#  SabaN -> 20000
+#  Saban -> 10000
+SpiRIt of Burgas
+#  CecA -> 20000
+#  Ceca -> 10000
+SkoPJe
+#  LepA -> 20000
+#  Lepa -> 10000
+PriMORsko
+#  BrenA -> 20000
+#  Brena -> 10000
+SOfia
+#  MilE -> 20000
+#  Mile -> 10000
+BeLGRade
+#  DraganA -> 20000
+#  Dragana -> 10000
+SuNNY Beach
+#  SabaN -> 20000
+#  Saban -> 10000
+Spirit of BurGAS
+#  CecA -> 20000
+#  Ceca -> 10000
+SKOPJE
+#  LepA -> 20000
+#  Lepa -> 10000
+PriMORSKO
+#  BrenA -> 20000
+#  Brena -> 10000

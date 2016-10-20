@@ -1,0 +1,11 @@
+Belgrade
+#  Mirko -> 1
+#  Dragana -> 0
+#  Saban -> 0
+Sofia
+#  Mirko -> 1
+#  Saban -> 0
+#  Dragana -> 0
+Sunny Beach
+#  Mirko -> 1
+#  Ceca -> 0
