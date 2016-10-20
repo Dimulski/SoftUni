@@ -1,3 +1,0 @@
-a b c f g d h e k j i f
-sort from 2 count 10
-end

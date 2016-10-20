@@ -1,2 +1,0 @@
-Destroyed bunkers: 27
-Damage done: 64.3 %

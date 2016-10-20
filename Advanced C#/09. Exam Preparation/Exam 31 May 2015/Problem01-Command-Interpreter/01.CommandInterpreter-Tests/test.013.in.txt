@@ -1,3 +1,0 @@
-a b c d e
-reverse from 5 count 0
-end

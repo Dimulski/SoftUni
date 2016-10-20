@@ -1,3 +1,0 @@
-soft uni SoftUni software university
-rollLeft 2000000003
-end

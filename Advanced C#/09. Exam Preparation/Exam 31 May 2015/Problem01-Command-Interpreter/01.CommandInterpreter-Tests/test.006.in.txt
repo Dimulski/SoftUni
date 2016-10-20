@@ -1,3 +1,0 @@
-you'll never walk alone
-rollRight 123456789
-end
