@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bubble Sort", "Bubble Sort\Bubble Sort.csproj", "{1C9DDB43-FE12-40CC-ACD6-92477B68D80C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Join Lists", "Join Lists\Join Lists.csproj", "{3792E6CA-EE57-46E2-81E5-D1C7E6C7BD37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C9DDB43-FE12-40CC-ACD6-92477B68D80C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9DDB43-FE12-40CC-ACD6-92477B68D80C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9DDB43-FE12-40CC-ACD6-92477B68D80C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9DDB43-FE12-40CC-ACD6-92477B68D80C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3792E6CA-EE57-46E2-81E5-D1C7E6C7BD37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3792E6CA-EE57-46E2-81E5-D1C7E6C7BD37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3792E6CA-EE57-46E2-81E5-D1C7E6C7BD37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3792E6CA-EE57-46E2-81E5-D1C7E6C7BD37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

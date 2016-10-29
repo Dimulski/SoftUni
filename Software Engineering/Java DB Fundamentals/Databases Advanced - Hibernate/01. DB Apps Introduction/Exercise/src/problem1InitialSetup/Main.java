@@ -3,6 +3,7 @@ package problem1InitialSetup;
 import java.sql.*;
 
 public class Main {
+
     private static final String URL = "jdbc:mysql://localhost:3306?useSSL=false";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
@@ -84,6 +85,7 @@ public class Main {
                     .append("\t('Edinburgh', 2),\n")
                     .append("\t('Massachusetts', 3),\n")
                     .append("\t('Kyoto', 4),\n")
+                    .append("\t('Sofia', 1),\n")
                     .append("\t('Uppsala', 5);");
             statement.execute(queryBuilder.toString());
 
