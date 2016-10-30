@@ -19,22 +19,22 @@ public class Main {
         String town_name = input[3];
         String villain_name = reader.readLine().split(" ")[1];
 
-        Integer town_id = null;
-        Integer villain_id = null;
-        Integer minion_id = null;
+        Integer town_id;
+        Integer villain_id;
+        Integer minion_id;
         String defaultEvilnessFactor = "evil";
 
         StringBuilder resultText = new StringBuilder();
-        String query = null;
-        String secondaryQuery = null;
+        String query;
+        String secondaryQuery;
 
-        try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            Statement statement = connection.createStatement();
-
+        try (
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                Statement statement = connection.createStatement();
+        ) {
             query = String.format(
                     "SELECT * FROM towns AS t\n" +
-                    "WHERE t.name = '%s'", town_name);
+                    "WHERE t.name = '%s';", town_name);
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 town_id = resultSet.getInt("id");
@@ -51,7 +51,7 @@ public class Main {
 
             query = String.format(
                     "SELECT * FROM villains AS v\n" +
-                    "WHERE v.name = '%s'", villain_name);
+                    "WHERE v.name = '%s';", villain_name);
             resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 villain_id = resultSet.getInt("id");
@@ -73,7 +73,7 @@ public class Main {
 
             query = String.format(
                     "SELECT * FROM minions AS m\n" +
-                    "WHERE m.name = '%s'", minion_name);
+                    "WHERE m.name = '%s';", minion_name);
             resultSet = statement.executeQuery(query);
             resultSet.next();
             minion_id = resultSet.getInt("id");

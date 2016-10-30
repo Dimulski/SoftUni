@@ -15,9 +15,10 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Integer target_villain_id = Integer.parseInt(reader.readLine());
 
-        try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            Statement statement = connection.createStatement();
+        try (
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                Statement statement = connection.createStatement();
+        ) {
 
             String query = String.format(
                     "SELECT v.name AS villain_name, m.name, m.age FROM minions AS m\n" +
@@ -25,12 +26,12 @@ public class Main {
                     "ON m.id = vm.minion_id\n" +
                     "INNER JOIN villains AS v\n" +
                     "ON vm.villain_id = v.id\n" +
-                    "WHERE vm.villain_id = %s", target_villain_id);
+                    "WHERE vm.villain_id = %s;", target_villain_id);
 
             ResultSet resultSet = statement.executeQuery(query);
 
             String villain_name = null;
-            int counter = 1;
+            Integer counter = 1;
             StringBuilder result = new StringBuilder();
 
             while (resultSet.next()) {
@@ -55,7 +56,7 @@ public class Main {
 
     private static void returnProperResult(Integer target_villain_id, Statement statement) throws SQLException {
         String query = String.format("SELECT v.name FROM villains AS v\n" +
-                                     "WHERE v.id = %s", target_villain_id);
+                                     "WHERE v.id = %s;", target_villain_id);
         ResultSet resultSet = statement.executeQuery(query);
         if (resultSet.next()) {
             System.out.println(String.format("Villain: %s\n" +

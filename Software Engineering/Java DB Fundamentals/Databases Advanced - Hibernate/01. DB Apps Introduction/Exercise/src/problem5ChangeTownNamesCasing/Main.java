@@ -17,14 +17,14 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String country_name = reader.readLine();
 
-        String query = null;
+        String query;
         Integer counter = 0;
         List<String> newTownNames = new ArrayList<>();
 
-        try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            Statement statement = connection.createStatement();
-
+        try (
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                Statement statement = connection.createStatement();
+        ) {
             query = String.format(
                     "SELECT t.id AS town_id, t.name AS town_name, t.country_id,\n" +
                     "c.id AS country_id, c.name AS country_name FROM towns AS t\n" +
@@ -35,10 +35,6 @@ public class Main {
 
             while (resultSet.next()) {
                 String town_name = resultSet.getString("town_name");
-                query = String.format(
-                        "UPDATE towns AS t\n" +
-                        "SET t.name = '%s'\n" +
-                        "WHERE t.name = '%s';\n", town_name.toUpperCase(), town_name);
                 counter++;
                 newTownNames.add(town_name.toUpperCase());
             }

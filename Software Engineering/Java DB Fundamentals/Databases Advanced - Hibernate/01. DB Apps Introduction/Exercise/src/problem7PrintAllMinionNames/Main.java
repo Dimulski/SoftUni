@@ -16,7 +16,7 @@ public class Main {
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 Statement statement = connection.createStatement();
         ) {
-            String query = "SELECT name FROM minions";
+            String query = "SELECT name FROM minions;";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 minions.add(resultSet.getString("name"));
