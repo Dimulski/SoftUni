@@ -19,6 +19,7 @@ public class Main {
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 Statement statement = connection.createStatement();
         ) {
+            connection.setAutoCommit(false);
             String query = String.format(
                     "SELECT * FROM villains AS v\n" +
                     "WHERE v.id = %d;", villainId);
@@ -26,6 +27,7 @@ public class Main {
             String villainName = resultSet.next() ? resultSet.getString("name") : null;
 
             if (villainName == null) {
+                connection.rollback();
                 System.out.println("No such villain was found");
             } else {
                 query = String.format(
@@ -44,6 +46,7 @@ public class Main {
                         "WHERE id = %d;", villainId);
                 statement.execute(query);
 
+                connection.commit();
                 System.out.println(String.format("%s was deleted%s%d minion%s released", villainName,
                         System.lineSeparator(), minionCount, minionCount == 1 ? "" : "s"));
             }

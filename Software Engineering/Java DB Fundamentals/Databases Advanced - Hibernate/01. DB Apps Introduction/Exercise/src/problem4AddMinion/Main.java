@@ -32,6 +32,7 @@ public class Main {
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 Statement statement = connection.createStatement();
         ) {
+            connection.setAutoCommit(false);
             query = String.format(
                     "SELECT * FROM towns AS t\n" +
                     "WHERE t.name = '%s';", town_name);
@@ -85,6 +86,7 @@ public class Main {
             resultText.append(String.format("Successfully added %s to be minion of %s%s", minion_name, villain_name,
                     System.lineSeparator()));
 
+            connection.commit();
             System.out.println(resultText.toString());
 
         } catch (SQLException e) {
