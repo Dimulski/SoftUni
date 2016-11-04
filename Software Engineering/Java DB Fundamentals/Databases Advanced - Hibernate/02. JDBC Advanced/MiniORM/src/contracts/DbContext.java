@@ -17,4 +17,6 @@ public interface DbContext {
 
     <E> E findFirst(Class<E> table, String where)
             throws SQLException, InstantiationException, IllegalAccessException;
+
+    <E> void deleteObject(Class<E> table,long id) throws SQLException;
 }

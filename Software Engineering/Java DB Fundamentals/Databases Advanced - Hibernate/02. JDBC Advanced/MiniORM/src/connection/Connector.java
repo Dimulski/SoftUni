@@ -9,14 +9,20 @@ public class Connector {
 
     private static Connection connection = null;
 
-    public static void initConnection(String driver, String username, String password,
-                                      String host, String port, String dbName) throws SQLException {
+    private static final String CONNECTION_FORMAT = "jdbc:%s://%s:%s/%s?useSSL=false";
+
+    public static void initConnection(
+            String driver, String username, String password, String host, String port, String dbName)
+            throws SQLException {
+
         Properties connectionProps = new Properties();
         connectionProps.put("user", username);
         connectionProps.put("password", password);
-        connection = DriverManager.getConnection("jdbc:" + driver + "://" +
-                host + ":" + port + "/" + dbName, connectionProps);
+        connection = DriverManager.getConnection(
+                String.format(CONNECTION_FORMAT, driver, host, port, dbName), connectionProps);
     }
 
-    public static Connection getConnection() { return connection; }
+    public static Connection getConnection() {
+        return connection;
+    }
 }

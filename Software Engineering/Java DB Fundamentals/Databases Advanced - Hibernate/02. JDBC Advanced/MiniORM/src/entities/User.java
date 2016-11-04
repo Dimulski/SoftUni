@@ -6,12 +6,14 @@ import persistence.Id;
 
 import java.util.Date;
 
-
 @Entity(name = "users")
 public class User {
 
     @Id
-    private int id;
+    private long id;
+
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -22,19 +24,38 @@ public class User {
     @Column(name = "registration_date")
     private Date registrationDate;
 
-    public int getId() {
+    public User(String username, String password, int age, Date registrationDate) {
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setAge(age);
+        this.setRegistrationDate(registrationDate);
+    }
+
+    public User() {
+        super();
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    private void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
@@ -42,7 +63,7 @@ public class User {
         return age;
     }
 
-    public void setAge(int age) {
+    private void setAge(int age) {
         this.age = age;
     }
 
@@ -50,13 +71,16 @@ public class User {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    private void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
-    public User(String password, int age, Date registrationDate) {
-        this.setPassword(password);
-        this.setAge(age);
-        this.setRegistrationDate(registrationDate);
+    @Override
+    public String toString() {
+        return String.format("Id: %s, Username: %s, Age: %d, Registration Date: %s",
+                this.getId(),
+                this.getUsername(),
+                this.getAge(),
+                this.getRegistrationDate());
     }
 }

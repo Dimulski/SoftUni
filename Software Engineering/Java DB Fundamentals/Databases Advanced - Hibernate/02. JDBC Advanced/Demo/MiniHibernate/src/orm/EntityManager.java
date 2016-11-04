@@ -166,6 +166,7 @@ public class EntityManager implements DBContext {
     }
 
     private <E> boolean doCreate(E entity, Field primary) throws SQLException {
+
         String tableName = this.getTableName(entity.getClass());
         String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + "( ";
 

@@ -4,7 +4,6 @@ import entities.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class Demo {
 
@@ -14,10 +13,10 @@ public class Demo {
         Connection connection = Connector.getConnection();
         EntityManager entityManager = new EntityManager(connection);
 
-        User user = new User("Joro", 23, new Date());
+        User user = new User("Pesho", "1234", 20, new java.util.Date());
 
         entityManager.persist(user);
 
-        entityManager.findFirst(User.class);
+        System.out.println(entityManager.findFirst(User.class));
     }
 }
