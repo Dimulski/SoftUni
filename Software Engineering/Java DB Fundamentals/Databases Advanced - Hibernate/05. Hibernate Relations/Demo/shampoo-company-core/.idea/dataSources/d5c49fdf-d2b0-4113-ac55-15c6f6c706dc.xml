@@ -1,0 +1,155 @@
+<dataSource name="MySQL - neck_and_elbow@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="neck_and_elbow">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="company" />
+    <schema id="3" name="hospital" />
+    <schema id="4" name="information_schema" />
+    <schema id="5" name="mysql" />
+    <schema id="6" name="performance_schema" />
+    <schema id="7" name="school" />
+    <schema id="8" name="soft_uni" />
+    <schema id="9" name="spring_test" />
+    <schema id="10" name="sys" />
+    <schema id="11" name="world" />
+    <table id="12" parent="1" name="batches" />
+    <table id="13" parent="1" name="igredients" />
+    <table id="14" parent="1" name="labels" />
+    <table id="15" parent="1" name="shampoos_ingredients" />
+    <table id="16" parent="1" name="shmapoos" />
+    <column id="17" parent="12" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="18" parent="12" name="batch_date">
+      <data-type>datetime|0</data-type>
+    </column>
+    <key id="19" parent="12" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="20" parent="13" name="ingredient_type">
+      <mandatory>1</mandatory>
+      <data-type>varchar(31)|0</data-type>
+    </column>
+    <column id="21" parent="13" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="22" parent="13" name="name">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="23" parent="13" name="price">
+      <data-type>decimal(19,2)|0</data-type>
+    </column>
+    <column id="24" parent="13" name="chemical_formula">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <key id="25" parent="13" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="26" parent="14" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="27" parent="14" name="subtitle">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="28" parent="14" name="title">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <key id="29" parent="14" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="30" parent="15" name="shampoo_id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <column id="31" parent="15" name="ingredient_id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <index id="32" parent="15" name="FKlbix02b00ho38pmgx2xh2g3a7">
+      <columns>ingredient_id</columns>
+      <desc-columns />
+    </index>
+    <key id="33" parent="15" name="PRIMARY">
+      <columns>shampoo_id
+ingredient_id</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="34" parent="15" name="FKleoi46gl9850geru0m7a5srkf">
+      <columns>shampoo_id</columns>
+      <ref-key>~.shmapoos.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="35" parent="15" name="FKlbix02b00ho38pmgx2xh2g3a7">
+      <columns>ingredient_id</columns>
+      <ref-key>~.igredients.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <column id="36" parent="16" name="shampoo_type">
+      <mandatory>1</mandatory>
+      <data-type>varchar(31)|0</data-type>
+    </column>
+    <column id="37" parent="16" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="38" parent="16" name="brand">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="39" parent="16" name="price">
+      <data-type>decimal(19,2)|0</data-type>
+    </column>
+    <column id="40" parent="16" name="size">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="41" parent="16" name="batch_id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <column id="42" parent="16" name="label_id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <index id="43" parent="16" name="FKjqy2s849k7jt8oy8q09futm1j">
+      <columns>batch_id</columns>
+      <desc-columns />
+    </index>
+    <index id="44" parent="16" name="UK_gmlfatkr1a1qxykvm19uwhahf">
+      <columns>label_id</columns>
+      <desc-columns />
+      <unique>1</unique>
+    </index>
+    <key id="45" parent="16" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <key id="46" parent="16" name="UK_gmlfatkr1a1qxykvm19uwhahf">
+      <columns>label_id</columns>
+      <underlying-index>UK_gmlfatkr1a1qxykvm19uwhahf</underlying-index>
+    </key>
+    <foreign-key id="47" parent="16" name="FKjqy2s849k7jt8oy8q09futm1j">
+      <columns>batch_id</columns>
+      <ref-key>~.batches.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="48" parent="16" name="FKe0p187ac0e6iu2575kx6owaja">
+      <columns>label_id</columns>
+      <ref-key>~.labels.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+  </database-model>
+</dataSource>
