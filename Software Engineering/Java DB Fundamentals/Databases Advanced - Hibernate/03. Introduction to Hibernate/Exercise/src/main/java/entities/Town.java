@@ -18,14 +18,6 @@ public class Town {
         super();
     }
 
-    public int getTownId() {
-        return townId;
-    }
-
-    public void setTownId(int townId) {
-        this.townId = townId;
-    }
-
     public String getName() {
         return name;
     }

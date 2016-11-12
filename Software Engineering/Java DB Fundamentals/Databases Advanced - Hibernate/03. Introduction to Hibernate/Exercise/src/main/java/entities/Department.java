@@ -17,4 +17,29 @@ public class Department {
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
+
+    public Department() {
+        super();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }
