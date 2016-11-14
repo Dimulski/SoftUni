@@ -1,4 +1,4 @@
-package entities;
+package entities.softuni;
 
 import javax.persistence.*;
 import java.util.Date;

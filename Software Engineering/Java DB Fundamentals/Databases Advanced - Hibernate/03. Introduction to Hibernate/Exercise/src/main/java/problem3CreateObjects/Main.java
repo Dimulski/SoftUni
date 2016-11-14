@@ -1,9 +1,9 @@
 package problem3CreateObjects;
 
-import entities.Address;
-import entities.Department;
-import entities.Employee;
-import entities.Town;
+import entities.softuni.Address;
+import entities.softuni.Department;
+import entities.softuni.Employee;
+import entities.softuni.Town;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

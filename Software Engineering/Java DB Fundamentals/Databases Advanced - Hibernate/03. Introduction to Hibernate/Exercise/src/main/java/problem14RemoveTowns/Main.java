@@ -1,6 +1,4 @@
-package problem6DataRefresh;
-
-import entities.softuni.Employee;
+package problem14RemoveTowns;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,10 +13,9 @@ public class Main {
 
         em.getTransaction().begin();
 
-        Employee employee = em.find(Employee.class, 4);
-        employee.setFirstName(employee.getFirstName().toUpperCase());
-        em.refresh(employee);
-        em.persist(employee);
+        em.createQuery("SELECT a FROM Address AS a WHERE a.town.name = 'Sofia'").getResultList().forEach(em::remove);
+
+        em.remove(em.createQuery("SELECT t FROM Town AS t WHERE t.name = 'Sofia'").getSingleResult());
 
         em.getTransaction().commit();
         em.close();

@@ -1,4 +1,4 @@
-package entities;
+package entities.softuni;
 
 import javax.persistence.*;
 
@@ -24,5 +24,10 @@ public class Town {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

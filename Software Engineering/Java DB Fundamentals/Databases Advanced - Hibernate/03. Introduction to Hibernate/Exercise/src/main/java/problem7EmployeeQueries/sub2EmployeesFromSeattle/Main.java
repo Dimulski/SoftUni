@@ -1,6 +1,6 @@
 package problem7EmployeeQueries.sub2EmployeesFromSeattle;
 
-import entities.Employee;
+import entities.softuni.Employee;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,8 +13,6 @@ public class Main {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("soft_uni");
         EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
 
         List<Employee> employees = em.createQuery(
                 "SELECT e FROM Employee AS e " +
@@ -30,7 +28,6 @@ public class Main {
                 e.getDepartment(),
                 e.getSalary()));
 
-        em.getTransaction().commit();
         em.close();
         emf.close();
     }

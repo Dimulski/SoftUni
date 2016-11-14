@@ -1,6 +1,7 @@
-package entities;
+package entities.softuni;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "departments")
@@ -17,6 +18,10 @@ public class Department {
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
+
+    @OneToMany
+    @JoinColumn(name = "department_id")
+    private List<Employee> employees;
 
     public Department() {
         super();
@@ -38,8 +43,11 @@ public class Department {
         this.manager = manager;
     }
 
-    @Override
-    public String toString() {
-        return this.getName();
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

@@ -1,6 +1,6 @@
 package problem4RemoveObjects;
 
-import entities.Town;
+import entities.softuni.Town;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,7 +17,7 @@ public class Main {
 
         em.getTransaction().begin();
 
-        Query townsQuery = em.createQuery("SELECT t from Town as t");
+        Query townsQuery = em.createQuery("SELECT t FROM Town AS t");
         List<Town> towns = townsQuery.getResultList();
 
         towns.stream().filter(t -> t.getName().length() > 5).forEach(em::detach);
