@@ -10,35 +10,60 @@ public class WizardDeposit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "BIGINT UNSIGNED")
     private long id;
 
+    @Column(length = 50)
     private String firstName;
+
+    @Column(length = 60, nullable = false)
     private String lastName;
+
+    @Column(length = 1000)
     private String notes;
+
+    @Column(columnDefinition = "INT UNSIGNED", nullable = false)
     private int age;
+
+    @Column(length = 100)
     private String magicWandCreator;
+
+    @Column(columnDefinition = "INT UNSIGNED")
     private int magicWandSize;
+
+    @Column(length = 20)
     private String depositGroup;
+
+    @Basic
     private Date depositStartDate;
+
+    @Basic
     private double depositAmount;
+
+    @Basic
     private double depositInterest;
+
+    @Basic
     private double depositCharge;
+
+    @Basic
     private Date depositExpirationDate;
+
+    @Basic
     private boolean isDepositExpired;
 
     public WizardDeposit() {
+        super();
     }
-
 
     public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    @Column(length = 50)
     public String getFirstName() {
         return firstName;
     }
@@ -47,7 +72,6 @@ public class WizardDeposit implements Serializable {
         this.firstName = firstName;
     }
 
-    @Column(length = 60)
     public String getLastName() {
         return lastName;
     }
@@ -56,7 +80,6 @@ public class WizardDeposit implements Serializable {
         this.lastName = lastName;
     }
 
-    @Column(length = 1000, columnDefinition = "TEXT")
     public String getNotes() {
         return notes;
     }
@@ -65,16 +88,14 @@ public class WizardDeposit implements Serializable {
         this.notes = notes;
     }
 
-    @Column(columnDefinition = "INT UNSIGNED")
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    @Column(length = 100)
     public String getMagicWandCreator() {
         return magicWandCreator;
     }
@@ -83,19 +104,14 @@ public class WizardDeposit implements Serializable {
         this.magicWandCreator = magicWandCreator;
     }
 
-    public Integer getMagicWandSize() {
+    public int getMagicWandSize() {
         return magicWandSize;
     }
 
-    public void setMagicWandSize(Integer magicWandSize) {
-        if (magicWandSize > 0 && magicWandSize < 32_768) {
-            this.magicWandSize = magicWandSize;
-        } else {
-            throw new IllegalArgumentException("Invalid input");
-        }
+    public void setMagicWandSize(int magicWandSize) {
+        this.magicWandSize = magicWandSize;
     }
 
-    @Column(length = 20)
     public String getDepositGroup() {
         return depositGroup;
     }
@@ -112,27 +128,27 @@ public class WizardDeposit implements Serializable {
         this.depositStartDate = depositStartDate;
     }
 
-    public Double getDepositAmount() {
+    public double getDepositAmount() {
         return depositAmount;
     }
 
-    public void setDepositAmount(Double depositAmount) {
+    public void setDepositAmount(double depositAmount) {
         this.depositAmount = depositAmount;
     }
 
-    public Double getDepositInterest() {
+    public double getDepositInterest() {
         return depositInterest;
     }
 
-    public void setDepositInterest(Double depositInterest) {
+    public void setDepositInterest(double depositInterest) {
         this.depositInterest = depositInterest;
     }
 
-    public Double getDepositCharge() {
+    public double getDepositCharge() {
         return depositCharge;
     }
 
-    public void setDepositCharge(Double depositCharge) {
+    public void setDepositCharge(double depositCharge) {
         this.depositCharge = depositCharge;
     }
 
@@ -144,11 +160,11 @@ public class WizardDeposit implements Serializable {
         this.depositExpirationDate = depositExpirationDate;
     }
 
-    public Boolean getIsDepositExpired() {
+    public boolean getIsDepositExpired() {
         return isDepositExpired;
     }
 
-    public void setIsDepositExpired(Boolean depositExpired) {
-        isDepositExpired = depositExpired;
+    public void setIsDepositExpired(boolean isDepositExpired) {
+        this.isDepositExpired = isDepositExpired;
     }
 }
