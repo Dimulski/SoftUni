@@ -4,5 +4,5 @@ import app.domain.Diagnose;
 
 public interface DiagnoseService {
 
-    void create(Diagnose doagnose);
+    void create(Diagnose diagnose);
 }

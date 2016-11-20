@@ -1,6 +1,8 @@
 package app.terminal;
 
 import app.domain.User;
+import app.service.contracts.CountryService;
+import app.service.contracts.TownService;
 import app.service.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +17,12 @@ public class Terminal implements CommandLineRunner {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private TownService townService;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -32,7 +40,7 @@ public class Terminal implements CommandLineRunner {
         pesho.setLastTimeLoggedIn(new Date());
         pesho.setAge(19);
         pesho.setIsDeleted(false);
-        userService.createUser(pesho);
+        userService.create(pesho);
 
         // Throws exceptions for password and profile picture as expected
         User gosho = new User();
@@ -49,6 +57,6 @@ public class Terminal implements CommandLineRunner {
         gosho.setLastTimeLoggedIn(new Date());
         gosho.setAge(20);
         gosho.setIsDeleted(false);
-        userService.createUser(gosho);
+        userService.create(gosho);
     }
 }

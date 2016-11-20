@@ -138,6 +138,12 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName();
+        return String.format(
+                "Patient name: %s %s\n" +
+                "Has medical insurance: %s\n" +
+                "Address: %s\nEmail address: %s\n",
+                getFirstName(), getLastName(),
+                getHasMedicalInsurance() ? "yes" : "no",
+                getAddress(), getEmail());
     }
 }

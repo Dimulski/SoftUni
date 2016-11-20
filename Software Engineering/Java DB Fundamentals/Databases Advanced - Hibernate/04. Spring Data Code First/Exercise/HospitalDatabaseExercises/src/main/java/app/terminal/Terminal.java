@@ -40,35 +40,32 @@ public class Terminal implements CommandLineRunner {
         patient.setLastName("Peshev");
         patient.setAddress("Sofia");
         patient.setEmail("pesho@abv.com");
-        patient.setHasMedicalInsurance(true);
         patient.setBirthDate(new Date());
-        this.patientService.create(patient);
-
+        patient.setHasMedicalInsurance(true);
         Doctor doctor = new Doctor();
         doctor.setName("Stefan");
         doctor.setSpecialty("Surgeon");
-        this.doctorService.create(doctor);
-
         Visitation visitation = new Visitation();
         visitation.setDate(new Date());
         visitation.setPatient(patient);
         visitation.setDoctor(doctor);
-        this.visitationService.create(visitation);
-
         Diagnose diagnose = new Diagnose();
         diagnose.setName("Cold");
         diagnose.setPatient(patient);
-        this.diagnoseService.create(diagnose);
-
         Comment comment = new Comment();
         comment.setText("Cool comment");
         comment.setVisitation(visitation);
-        this.commentService.create(comment);
-
+        comment.setDiagnose(diagnose);
         Medicament medicament = new Medicament();
         medicament.setName("Aspirin");
         medicament.setPatients(new HashSet<>());
         medicament.getPatients().add(patient);
+
+        this.patientService.create(patient);
+        this.doctorService.create(doctor);
+        this.visitationService.create(visitation);
+        this.diagnoseService.create(diagnose);
+        this.commentService.create(comment);
         this.medicamentService.create(medicament);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));

@@ -22,6 +22,12 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String userName;
 
+    @Basic
+    private String firstName;
+
+    @Basic
+    private String lastName;
+
     @Column(nullable = false)
     private String password;
 
@@ -42,6 +48,14 @@ public class User implements Serializable {
 
     @Basic
     private boolean isDeleted;
+
+    @ManyToOne
+    @JoinColumn(name = "born_town_id", referencedColumnName = "usersBornInTown")
+    private Town placeOfBirth;
+
+    @ManyToOne
+    @JoinColumn(name = "town_of_residence_id", referencedColumnName = "usersLivingInTown")
+    private Town townOfResidence;
 
     public User() {
         super();
@@ -137,6 +151,43 @@ public class User implements Serializable {
 
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Town getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(Town placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public Town getTownOfResidence() {
+        return townOfResidence;
+    }
+
+    public void setTownOfResidence(Town townOfResidence) {
+        this.townOfResidence = townOfResidence;
+    }
+
+    @Transient
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 
     private boolean validatePattern(String item, String pattern) {
