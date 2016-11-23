@@ -21,7 +21,7 @@ public class Author implements Serializable {
     private String lastName;
 
     @OneToMany(mappedBy = "author", targetEntity = Book.class,
-            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+            fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Book> books;
 
     public Author() {
@@ -64,5 +64,10 @@ public class Author implements Serializable {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 }

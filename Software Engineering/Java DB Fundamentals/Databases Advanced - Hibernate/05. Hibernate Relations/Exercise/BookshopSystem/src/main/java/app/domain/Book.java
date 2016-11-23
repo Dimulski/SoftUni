@@ -1,11 +1,14 @@
 package app.domain;
 
+import app.domain.enums.AgeRestriction;
 import app.domain.enums.EditionType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -26,6 +29,10 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private EditionType editionType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AgeRestriction ageRestriction;
+
     @Column(nullable = false)
     private BigDecimal price;
 
@@ -39,15 +46,29 @@ public class Book implements Serializable {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
+    @ManyToMany
+    @JoinTable(name = "books_categories",
+    joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    private Set<Category> categories;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "book_id"),
+               inverseJoinColumns = @JoinColumn(name = "related_book_id"))
+    private Set<Book> relatedBooks;
+
     public Book() {
-        super();
+        this.setCategories(new HashSet<>());
+        this.setRelatedBooks(new HashSet<>());
     }
 
-    public Book(String title, String description, EditionType editionType,
+    public Book(String title, String description, EditionType editionType, AgeRestriction ageRestriction,
                  BigDecimal price, long copies, Date releaseDate, Author author) {
+        this();
         this.setTitle(title);
         this.setDescription(description);
         this.setEditionType(editionType);
+        this.setAgeRestriction(ageRestriction);
         this.setPrice(price);
         this.setCopies(copies);
         this.setReleaseDate(releaseDate);
@@ -86,6 +107,14 @@ public class Book implements Serializable {
         this.editionType = editionType;
     }
 
+    public AgeRestriction getAgeRestriction() {
+        return ageRestriction;
+    }
+
+    public void setAgeRestriction(AgeRestriction ageRestriction) {
+        this.ageRestriction = ageRestriction;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -116,5 +145,21 @@ public class Book implements Serializable {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Book> getRelatedBooks() {
+        return relatedBooks;
+    }
+
+    public void setRelatedBooks(Set<Book> relatedBooks) {
+        this.relatedBooks = relatedBooks;
     }
 }
