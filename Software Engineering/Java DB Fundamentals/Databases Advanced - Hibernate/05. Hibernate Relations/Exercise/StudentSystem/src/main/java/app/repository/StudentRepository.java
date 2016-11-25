@@ -18,6 +18,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
            "FROM Student AS s " +
            "JOIN s.courses AS c " +
            "GROUP BY s " +
-            "ORDER BY SUM(c.price) DESC")
+           "ORDER BY SUM(c.price) DESC, COUNT(c) DESC, s.name ASC")
     List<Object[]> findStudentsAndTheirAggregatedData();
 }

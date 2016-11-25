@@ -4,6 +4,7 @@ import app.domain.enums.ResourceType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "resources")
@@ -27,6 +28,9 @@ public class Resource implements Serializable {
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
+
+    @OneToMany(mappedBy = "resource", targetEntity = License.class)
+    private Set<License> licenses;
 
     public Resource() {
         super();

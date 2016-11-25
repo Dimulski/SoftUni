@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -56,7 +57,7 @@ public class Terminal implements CommandLineRunner {
 
         //this.printCoursesActiveOn(formatter.parse("13/05/2015"));
 
-        this.printStudentsAndTheirStats();
+        //this.printStudentsAndTheirStats();
     }
 
     private void seedDatabase() throws IOException, ParseException, java.text.ParseException {
@@ -123,9 +124,9 @@ public class Terminal implements CommandLineRunner {
         for (Object[] studentStats : studentsStats) {
             String studentName = (String) studentStats[0];
             long enrolledCoursesCount = (long) studentStats[1];
-            double coursesTotalPrice = (double) studentStats[2];
-            double coursesAveragePrice = (double) studentStats[3];
-            System.out.printf("%s\nCourses enrolled in: %d\nCourses total price: %s\nCourses average price: %s\n\n",
+            BigDecimal coursesTotalPrice = (BigDecimal)studentStats[2];
+            BigDecimal coursesAveragePrice = BigDecimal.valueOf((double)studentStats[3]);
+            System.out.printf("\n%s\nCourses enrolled in: %d\nCourses total price: %.2f\nCourses average price: %.2f\n",
                     studentName, enrolledCoursesCount, coursesTotalPrice, coursesAveragePrice);
         }
     }
@@ -172,7 +173,7 @@ public class Terminal implements CommandLineRunner {
             String courseName = data[0];
             Date startDate = formatter.parse(data[1]);
             Date endDate = formatter.parse(data[2]);
-            double price = Double.parseDouble(data[3]);
+            BigDecimal price = new BigDecimal(data[3]);
             Course course = new Course(courseName, "No description", startDate, endDate, price);
             this.courseService.save(course);
             courses.add(course);
@@ -205,7 +206,6 @@ public class Terminal implements CommandLineRunner {
 
     private long calculateDateDifference(Date startDate, Date endDate) {
         long duration = endDate.getTime() - startDate.getTime();
-        long diff = TimeUnit.MILLISECONDS.toDays(duration);
-        return diff;
+        return TimeUnit.MILLISECONDS.toDays(duration);
     }
 }

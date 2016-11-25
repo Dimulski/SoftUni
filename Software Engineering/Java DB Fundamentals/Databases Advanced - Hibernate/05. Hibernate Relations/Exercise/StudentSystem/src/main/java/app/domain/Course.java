@@ -2,6 +2,7 @@ package app.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,7 @@ public class Course implements Serializable {
     private Date endDate;
 
     @Column(nullable = false)
-    private double price;
+    private BigDecimal price;
 
     @ManyToMany(mappedBy = "courses", targetEntity = Student.class, fetch = FetchType.EAGER)
     private Set<Student> students;
@@ -45,7 +46,7 @@ public class Course implements Serializable {
         this.setHomework(new HashSet<>());
     }
 
-    public Course(String name, String description, Date startDate, Date endDate, double price) {
+    public Course(String name, String description, Date startDate, Date endDate, BigDecimal price) {
         this();
         this.setName(name);
         this.setDescription(description);
@@ -94,11 +95,11 @@ public class Course implements Serializable {
         this.endDate = endDate;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
