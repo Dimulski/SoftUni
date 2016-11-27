@@ -3,6 +3,8 @@ package app.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -22,30 +24,37 @@ public class Team implements Serializable {
     @Column(length = 3)
     private String initials;
 
-    @Basic
+    @ManyToOne
+    @JoinColumn(name = "primary_kit_color_id", referencedColumnName = "id")
     private Color primaryKitColor;
 
-    @Basic
+    @ManyToOne
+    @JoinColumn(name = "secondary_kit_color_id", referencedColumnName = "id")
     private Color secondaryKitColor;
 
-    @Basic
-    private Town town;
+    @ManyToOne
+    @JoinColumn(name = "host_town_id", referencedColumnName = "id")
+    private Town hostTown;
 
     @Basic
     private BigDecimal budget;
 
+    @OneToMany(mappedBy = "team", targetEntity = Player.class)
+    private Set<Player> players;
+
     public Team() {
-        super();
+        this.setPlayers(new HashSet<>());
     }
 
     public Team(String name, String logo, String initials, Color primaryKitColor, Color secondaryKitColor,
-                Town town, BigDecimal budget) {
+                Town hostTown, BigDecimal budget) {
+        this();
         this.setName(name);
         this.setLogo(logo);
         this.setInitials(initials);
         this.setPrimaryKitColor(primaryKitColor);
         this.setSecondaryKitColor(secondaryKitColor);
-        this.setTown(town);
+        this.setHostTown(hostTown);
         this.setBudget(budget);
     }
 
@@ -97,12 +106,12 @@ public class Team implements Serializable {
         this.secondaryKitColor = secondaryKitColor;
     }
 
-    public Town getTown() {
-        return town;
+    public Town getHostTown() {
+        return hostTown;
     }
 
-    public void setTown(Town town) {
-        this.town = town;
+    public void setHostTown(Town hostTown) {
+        this.hostTown = hostTown;
     }
 
     public BigDecimal getBudget() {
@@ -111,5 +120,13 @@ public class Team implements Serializable {
 
     public void setBudget(BigDecimal budget) {
         this.budget = budget;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }

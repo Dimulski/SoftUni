@@ -2,6 +2,8 @@ package app.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "countries")
@@ -14,17 +16,24 @@ public class Country implements Serializable {
     @Basic
     private String name;
 
-    @Basic
-    private Continent continent;
+    @ManyToMany
+    @JoinTable(name = "countries_continents",
+    joinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "continent_id", referencedColumnName = "id"))
+    private Set<Continent> continents;
+
+    @OneToMany(mappedBy = "country", targetEntity = Town.class)
+    private Set<Town> towns;
 
     public Country() {
-        super();
+        this.continents = new HashSet<>();
+        this.towns = new HashSet<>();
     }
 
-    public Country(String id, String name, Continent continent) {
+    public Country(String id, String name) {
+        this();
         this.setId(id);
         this.setName(name);
-        this.setContinent(continent);
     }
 
     public String getId() {
@@ -43,11 +52,19 @@ public class Country implements Serializable {
         this.name = name;
     }
 
-    public Continent getContinent() {
-        return continent;
+    public Set<Continent> getContinents() {
+        return continents;
     }
 
-    public void setContinent(Continent continent) {
-        this.continent = continent;
+    public void setContinents(Set<Continent> continents) {
+        this.continents = continents;
+    }
+
+    public Set<Town> getTowns() {
+        return towns;
+    }
+
+    public void setTowns(Set<Town> towns) {
+        this.towns = towns;
     }
 }

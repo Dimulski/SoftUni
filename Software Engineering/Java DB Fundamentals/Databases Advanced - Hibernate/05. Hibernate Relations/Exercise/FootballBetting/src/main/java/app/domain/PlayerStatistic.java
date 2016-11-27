@@ -1,9 +1,6 @@
 package app.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -11,9 +8,13 @@ import java.io.Serializable;
 public class PlayerStatistic implements Serializable {
 
     @Id
+    @ManyToOne
+    @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
 
     @Id
+    @ManyToOne
+    @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;
 
     @Basic

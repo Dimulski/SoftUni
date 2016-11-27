@@ -2,6 +2,8 @@ package app.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "players")
@@ -18,20 +20,29 @@ public class Player implements Serializable {
     @Basic
     private int squadNumber;
 
-    @Basic
-    private String team;
+    @ManyToOne
+    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    private Team team;
 
-    @Basic
+    @ManyToOne
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
     @Basic
     private boolean isCurrentlyInjured;
 
+    @ManyToMany
+    @JoinTable(name = "players_games",
+    joinColumns = @JoinColumn(name = "player_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"))
+    private Set<Game> games;
+
     public Player() {
-        super();
+        this.setGames(new HashSet<>());
     }
 
-    public Player(String name, int squadNumber, String team, Position position, boolean isCurrentlyInjured) {
+    public Player(String name, int squadNumber, Team team, Position position, boolean isCurrentlyInjured) {
+        this();
         this.setName(name);
         this.setSquadNumber(squadNumber);
         this.setTeam(team);
@@ -63,11 +74,11 @@ public class Player implements Serializable {
         this.squadNumber = squadNumber;
     }
 
-    public String getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 
@@ -85,5 +96,13 @@ public class Player implements Serializable {
 
     public void setIsCurrentlyInjured(boolean isCurrentlyInjured) {
         this.isCurrentlyInjured = isCurrentlyInjured;
+    }
+
+    public Set<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 }

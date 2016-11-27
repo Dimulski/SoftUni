@@ -2,6 +2,8 @@ package app.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "towns")
@@ -15,14 +17,19 @@ public class Town implements Serializable {
     @Basic
     private String name;
 
-    @Basic
+    @ManyToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
 
+    @OneToMany(mappedBy = "hostTown", targetEntity = Team.class)
+    private Set<Team> hostedTeams;
+
     public Town() {
-        super();
+        this.hostedTeams = new HashSet<>();
     }
 
     public Town(String name, Country country) {
+        this();
         this.setName(name);
         this.setCountry(country);
     }
@@ -49,5 +56,13 @@ public class Town implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Set<Team> getHostedTeams() {
+        return hostedTeams;
+    }
+
+    public void setHostedTeams(Set<Team> hostedTeams) {
+        this.hostedTeams = hostedTeams;
     }
 }

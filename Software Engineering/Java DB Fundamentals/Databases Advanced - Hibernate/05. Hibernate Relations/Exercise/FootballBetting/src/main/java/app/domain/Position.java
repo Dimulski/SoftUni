@@ -2,6 +2,8 @@ package app.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "positions")
@@ -14,11 +16,15 @@ public class Position implements Serializable {
     @Basic
     private String positionDescription;
 
+    @OneToMany(mappedBy = "position", targetEntity = Player.class)
+    private Set<Player> players;
+
     public Position() {
-        super();
+        this.setPlayers(new HashSet<>());
     }
 
     public Position(String id, String positionDescription) {
+        this();
         this.setId(id);
         this.setPositionDescription(positionDescription);
     }
@@ -37,5 +43,13 @@ public class Position implements Serializable {
 
     public void setPositionDescription(String positionDescription) {
         this.positionDescription = positionDescription;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }
