@@ -26,11 +26,11 @@ public class Book implements Serializable {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "edition_type")
     private EditionType editionType;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "age_restriction")
     private AgeRestriction ageRestriction;
 
     @Column(nullable = false)
@@ -39,7 +39,7 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private long copies;
 
-    @Basic
+    @Column(name = "release_date")
     private Date releaseDate;
 
     @ManyToOne

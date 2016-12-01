@@ -17,4 +17,6 @@ public interface AuthorService {
     Iterable<Author> getAuthorsWithBookReleaseBeforeYear(int year);
 
     Iterable<Author> getAuthorsOrderedByBookCountDesc();
+
+
 }

@@ -5,6 +5,9 @@ import app.domain.Book;
 import app.domain.Category;
 import app.domain.enums.AgeRestriction;
 import app.domain.enums.EditionType;
+import app.repositories.AuthorRepository;
+import app.repositories.BookRepository;
+import app.repositories.CategoryRepository;
 import app.service.contracts.AuthorService;
 import app.service.contracts.BookService;
 import app.service.contracts.CategoryService;
@@ -15,10 +18,14 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class Terminal implements CommandLineRunner {
@@ -32,6 +39,15 @@ public class Terminal implements CommandLineRunner {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
     private static Random random = new Random();
 
     @Override
@@ -39,15 +55,195 @@ public class Terminal implements CommandLineRunner {
 
         this.seedDatabase();
 
-//        this.printBookTitlesAfterYear2000();
-//
-//        this.printAuthorsWithBookReleaseBefore1990();
-//
-//        this.printAuthorsByBookCount();
-//
-//        this.printBooksByGeorgePowell();
-//
-//        this.testRelatedBooksFunctionality();
+        this.printBookTitlesAfterYear2000();
+
+        this.printAuthorsWithBookReleaseBefore1990();
+
+        this.printAuthorsByBookCount();
+
+        this.printBooksByGeorgePowell();
+
+        this.testRelatedBooksFunctionality();
+
+        this.printBookTitlesByAgeRestriction();
+
+        this.printBookTitlesWithGoldenEditionAndCopiesBelow500();
+
+        this.printBooksInSpecificRange();
+        
+        this.printBooksNotReleasedOn();
+
+        this.printBooksWithGivenCategories();
+
+        this.printBooksWithReleaseDateAfter();
+
+        this.printAuthorsWithFirstNameEndingWith();
+
+        this.printBookTitlesContaining();
+
+        this.printBooksWithAuthorNameStartsWith();
+
+        this.printCountOfBooksWithTitleLongerThan();
+
+        this.printAuthorsOrderedByBookCopiesDesc();
+
+        this.printTotalProfitByCategory();
+
+        this.print3MostRecentBooksFromEachCategory();
+
+        this.printBookInfoByTitle();
+
+        this.increaseBookCopies();
+
+        this.removeBooksWithCopiesLowerThan();
+
+        // ToDo: finish 17.* Stored Procedure
+    }
+
+    private void removeBooksWithCopiesLowerThan() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        long copies = Long.parseLong(reader.readLine());
+        int booksRemoved = this.bookRepository.countBooksWithCopiesLessThan(copies);
+        this.bookRepository.removeBooksWithCopiesLessThan(copies);
+        System.out.println(booksRemoved + " books were deleted");
+    }
+
+    private void increaseBookCopies() throws IOException, ParseException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        long booksCopiesAdded = 0;
+
+        String date = reader.readLine();
+        Date releaseDate = sdf.parse(date);
+        long numberOfCopies = Long.parseLong(reader.readLine());
+        List<Book> booksToAlter = this.bookRepository.findBooksByReleaseDateAfter(releaseDate);
+        for (Book book : booksToAlter) {
+            book.setCopies(book.getCopies() + numberOfCopies);
+            this.bookService.save(book);
+            booksCopiesAdded += numberOfCopies;
+        }
+        System.out.println(booksCopiesAdded);
+    }
+
+    private void printBookInfoByTitle() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        List<Object[]> bookInfo = this.bookRepository.findBookInfoByTitle(reader.readLine());
+        for (Object[] currentBookInfo : bookInfo) {
+            String title = (String) currentBookInfo[0];
+            EditionType editionType = (EditionType) currentBookInfo[1];
+            AgeRestriction ageRestriction = (AgeRestriction) currentBookInfo[2];
+            BigDecimal price = (BigDecimal) currentBookInfo[3];
+            System.out.printf("%s %s %s %s\n", title, editionType.name(), ageRestriction.name(), price);
+        }
+    }
+
+    private void print3MostRecentBooksFromEachCategory() {
+        StringBuilder result = new StringBuilder();
+        for (Object[] categoryBookCount : this.categoryRepository.findCategoriesAndTheirBookCount()) {
+            Category category = (Category) categoryBookCount[0];
+            long bookCount = (long) categoryBookCount[1];
+            result.append(String.format("--%s: %d books\n", category.getName(), bookCount));
+
+            List<Book> books = this.bookRepository.findBooksByCategoryOrderByReleaseDate(category);
+            for (int i = 0; i < books.size(); i++) {
+                Book book = books.get(i);
+                result.append(String.format("\t%s (%s)\n", book.getTitle(), book.getReleaseDate()));
+            }
+        }
+        System.out.println(result);
+    }
+
+
+    private void printTotalProfitByCategory() {
+        for (Object[] categoryProfit : this.categoryRepository.findTotalBookProfitByCategory()) {
+            Category category = (Category) categoryProfit[0];
+            BigDecimal totalProfit = (BigDecimal) categoryProfit[1];
+            System.out.printf("%s - $%s\n", category.getName(), totalProfit);
+        }
+    }
+
+    private void printAuthorsOrderedByBookCopiesDesc() {
+        for (Object[] authorCopies : this.authorRepository.findAuthorsByBookCopiesDescending()) {
+            Author author = (Author) authorCopies[0];
+            long copies = (long) authorCopies[1];
+            System.out.println(String.format("%s %s - %d", author.getFirstName(), author.getLastName(), copies));
+        }
+    }
+
+    private void printCountOfBooksWithTitleLongerThan() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println(this.bookRepository.findBooksWithTitlesLongerThan(Integer.parseInt(reader.readLine())));
+    }
+
+    private void printBooksWithAuthorNameStartsWith() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        this.bookRepository.findBooksByAuthor_LastNameStartingWith(reader.readLine())
+                .forEach(b -> System.out.printf(
+                        "%s (%s %s)\n",
+                        b.getTitle(),
+                        b.getAuthor().getFirstName(),
+                        b.getAuthor().getLastName()));
+    }
+
+    private void printBookTitlesContaining() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        this.bookRepository.findBookByTitleContaining(reader.readLine())
+                .forEach(b -> System.out.printf("%s\n", b.getTitle()));
+    }
+
+    private void printAuthorsWithFirstNameEndingWith() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        this.authorRepository.findAuthorsByFirstNameEndingWith(reader.readLine())
+                .forEach(a -> System.out.printf(
+                        "%s %s\n",
+                        a.getFirstName(),
+                        a.getLastName()));
+    }
+
+    private void printBooksWithReleaseDateAfter() throws IOException, ParseException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        this.bookRepository.findBooksByReleaseDateBefore(sdf.parse(reader.readLine()))
+                .forEach(b -> System.out.printf(
+                        "%s %s - $%s\n",
+                        b.getTitle(),
+                        b.getEditionType(),
+                        b.getPrice()));
+    }
+
+    private void printBooksWithGivenCategories() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String[] categoryNames = reader.readLine().split("\\s+");
+        List<Category> categories = this.categoryRepository.findByNameIn(categoryNames);
+        this.bookRepository.findByCategoriesIn(categories)
+                .forEach(b -> System.out.printf("%s\n", b.getTitle()));
+    }
+
+    private void printBooksNotReleasedOn() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        this.bookRepository.findBooksNotReleasedOn(Integer.parseInt(reader.readLine()))
+                .forEach(b -> System.out
+                .printf("%s\n", b.getTitle()));
+    }
+
+    private void printBooksInSpecificRange() {
+        this.bookRepository.findBooksInSpecificRange()
+                .forEach(b -> System.out.printf(
+                "%s - $%s\n", b.getTitle(), b.getPrice()));
+    }
+
+    private void printBookTitlesWithGoldenEditionAndCopiesBelow500() {
+        this.bookRepository.findBooksWithGoldenEditionTypeAndCopiesBelow500()
+                .forEach(b -> System
+                .out.printf("%s\n", b.getTitle()));
+    }
+
+    private void printBookTitlesByAgeRestriction() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        this.bookRepository.findBooksByAgeRestriction(AgeRestriction.valueOf(reader.readLine().toUpperCase()))
+                .forEach(b -> System.out.printf
+                ("%s\n", b.getTitle()));
+        reader.close();
     }
 
     private void testRelatedBooksFunctionality() {
@@ -117,8 +313,7 @@ public class Terminal implements CommandLineRunner {
             for (int i = 5; i < data.length; i++) {
                 titleBuilder.append(data[i]).append(" ");
             }
-            titleBuilder.delete(titleBuilder.lastIndexOf(" "), titleBuilder.lastIndexOf(" "));
-            String title = titleBuilder.toString();
+            String title = titleBuilder.toString().trim();
             int categoryIndex = random.nextInt(categories.size());
             Category category = categories.get(categoryIndex);
 

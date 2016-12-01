@@ -1,0 +1,14 @@
+DELIMITER $$
+
+CREATE PROCEDURE `GetAuthorsBookCount`(first_name varchar(255), last_name varchar(255))
+BEGIN
+
+   SELECT COUNT(b.id)
+	FROM books AS b INNER JOIN authors AS a
+	ON b.author_id = a.id
+	WHERE a.firstName = first_name AND a.lastName = last_name
+	GROUP BY a.id;
+
+END $$
+
+DELIMITER ;

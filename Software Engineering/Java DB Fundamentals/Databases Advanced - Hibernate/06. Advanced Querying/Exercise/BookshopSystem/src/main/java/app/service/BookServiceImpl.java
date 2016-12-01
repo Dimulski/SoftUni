@@ -4,11 +4,9 @@ import app.domain.Book;
 import app.repositories.BookRepository;
 import app.service.contracts.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
-@Primary
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -48,6 +46,4 @@ public class BookServiceImpl implements BookService {
     public Iterable<Book> getBooksByGeorgePowellOrdered() {
         return this.bookRepository.findBooksByGeorgePowellOrdered();
     }
-
-
 }
