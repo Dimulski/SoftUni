@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Carlos Ruiz Zafón",
+    "books": [
+      {
+        "id": 1,
+        "name": "Marina"
+      },
+      {
+        "id": 2,
+        "name": "Shadow of the wind"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Carlos Ruiz Zafón",
+    "books": [
+      {
+        "id": 1,
+        "name": "Marina"
+      },
+      {
+        "id": 2,
+        "name": "Shadow of the wind"
+      }
+    ]
+  }
+]
