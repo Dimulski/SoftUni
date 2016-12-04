@@ -1,0 +1,18 @@
+{
+  "id": 2,
+  "name": "Ivan Vazov",
+  "books": [
+    {
+      "id": 3,
+      "name": "Under the Yoke"
+    },
+    {
+      "id": 4,
+      "name": "Epic of the Forgotten"
+    },
+    {
+      "id": 5,
+      "name": "Uncles"
+    }
+  ]
+}
