@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<author id="3">
+    <name>Karl May</name>
+    <books>
+        <book id="7">
+            <name>Hantu Llano Estacado</name>
+        </book>
+        <book id="8">
+            <name>Winnetou I: Kepala Suku Apache</name>
+        </book>
+    </books>
+</author>

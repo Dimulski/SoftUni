@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<authors>
+    <author id="2">
+        <name>Ivan Vazov</name>
+        <books>
+            <book id="3">
+                <name>Under the Yoke</name>
+            </book>
+            <book id="4">
+                <name>Epic of the Forgotten</name>
+            </book>
+            <book id="5">
+                <name>Uncles</name>
+            </book>
+        </books>
+    </author>
+    <author id="1">
+        <name>Carlos Ruiz Zafón</name>
+        <books>
+            <book id="1">
+                <name>Marina</name>
+            </book>
+            <book id="2">
+                <name>Shadow of the wind</name>
+            </book>
+        </books>
+    </author>
+</authors>

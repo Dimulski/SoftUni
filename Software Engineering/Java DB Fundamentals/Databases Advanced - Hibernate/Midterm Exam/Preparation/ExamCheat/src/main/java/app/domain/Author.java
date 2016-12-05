@@ -3,23 +3,30 @@ package app.domain;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "authors")
 public class Author {
 
+    @XmlAttribute(name = "id")
     @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
+    @XmlElement(name = "name")
     @Expose
     @Column(name = "name")
     private String name;
 
+    @XmlElementWrapper(name = "books")
+    @XmlElement(name = "book")
     @Expose
     @OneToMany(mappedBy = "author", targetEntity = Book.class, cascade = CascadeType.ALL)
     private Set<Book> books;

@@ -3,21 +3,27 @@ package app.domain;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "books")
 public class Book {
 
+    @XmlAttribute(name = "id")
     @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
+    @XmlElement(name = "name")
     @Expose
     @Column(name = "name")
     private String name;
 
+    @XmlTransient
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
