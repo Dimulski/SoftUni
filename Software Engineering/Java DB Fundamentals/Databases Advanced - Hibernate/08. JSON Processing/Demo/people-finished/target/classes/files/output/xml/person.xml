@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<personJsonDto>
+    <firstName>John</firstName>
+    <lastName>Snow</lastName>
+    <addressImportDto>
+        <country>Spain</country>
+        <city>Barcelona</city>
+        <street>Barcelona</street>
+    </addressImportDto>
+    <phoneJsonDtos>
+        <phoneJsonDtos>
+            <number>1e341341</number>
+        </phoneJsonDtos>
+        <phoneJsonDtos>
+            <number>542152</number>
+        </phoneJsonDtos>
+    </phoneJsonDtos>
+</personJsonDto>

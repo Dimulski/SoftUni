@@ -1,0 +1,38 @@
+[
+  {
+    "firstName": "John",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Plovdiv"
+    },
+    "phoneNumbers": [
+      {
+        "number": "0898654321"
+      }
+    ]
+  },
+  {
+    "firstName": "John",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Plovdiv"
+    },
+    "phoneNumbers": [
+      {
+        "number": "0898654321"
+      }
+    ]
+  },
+  {
+    "firstName": "John",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Plovdiv"
+    },
+    "phoneNumbers": [
+      {
+        "number": "0898654321"
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "firstName": "John",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Sofia"
+    },
+    "phoneNumbers": [
+      {
+        "number": "0898654326"
+      }
+    ]
+  },
+  {
+    "firstName": "Johnny",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Sofia"
+    },
+    "phoneNumbers": [
+      {
+        "number": "0898654331"
+      }
+    ]
+  },
+  {
+    "firstName": "Jumbo",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Plovdiv"
+    },
+    "phoneNumbers": [
+      {
+        "number": "0898674321"
+      }
+    ]
+  }
+]

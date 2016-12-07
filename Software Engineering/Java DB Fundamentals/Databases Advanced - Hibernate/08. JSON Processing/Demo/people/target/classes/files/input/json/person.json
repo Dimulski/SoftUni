@@ -1,0 +1,12 @@
+{
+  "firstName": "Ivan",
+  "address": {
+    "country": "Spain",
+    "city": "Madrid"
+  },
+  "phoneNumbers": [
+    {
+      "number": "0898654322"
+    }
+  ]
+}

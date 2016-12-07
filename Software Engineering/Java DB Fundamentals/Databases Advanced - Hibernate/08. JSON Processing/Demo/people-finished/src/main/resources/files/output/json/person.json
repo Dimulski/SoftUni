@@ -1,0 +1,17 @@
+{
+  "firstName": "John",
+  "lastName": "Snow",
+  "addressImportDto": {
+    "country": "Spain",
+    "city": "Barcelona",
+    "street": "Barcelona"
+  },
+  "phoneJsonDtos": [
+    {
+      "number": "1e341341"
+    },
+    {
+      "number": "542152"
+    }
+  ]
+}
