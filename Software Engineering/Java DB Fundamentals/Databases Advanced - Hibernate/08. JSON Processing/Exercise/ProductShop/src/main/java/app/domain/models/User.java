@@ -28,6 +28,9 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "friend_id", referencedColumnName = "id"))
     private Set<User> friends;
 
+    @OneToMany(mappedBy = "seller", targetEntity = Product.class, fetch = FetchType.EAGER)
+    private Set<Product> sellProducts;
+
     public User() {
         super();
     }
@@ -77,10 +80,23 @@ public class User {
         if (this.friends == null) {
             this.setFriends(new HashSet<>());
         }
+
         return friends;
     }
 
     public void setFriends(Set<User> friends) {
         this.friends = friends;
+    }
+
+    public Set<Product> getSellProducts() {
+        if (this.sellProducts == null) {
+            this.setSellProducts(new HashSet<>());
+        }
+
+        return sellProducts;
+    }
+
+    public void setSellProducts(Set<Product> sellProducts) {
+        this.sellProducts = sellProducts;
     }
 }

@@ -28,7 +28,7 @@ public class Product {
     @JoinColumn(name = "seller_id", referencedColumnName = "id")
     private User seller;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "products_categories",
     joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
