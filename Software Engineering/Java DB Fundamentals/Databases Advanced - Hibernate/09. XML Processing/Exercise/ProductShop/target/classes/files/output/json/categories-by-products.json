@@ -1,0 +1,20 @@
+[
+  {
+    "category": "Electronics",
+    "productsCount": 1,
+    "averagePrice": 1217.11,
+    "totalRevenue": 1217.11
+  },
+  {
+    "category": "Garden",
+    "productsCount": 2,
+    "averagePrice": 741.835,
+    "totalRevenue": 1483.67
+  },
+  {
+    "category": "Fashion",
+    "productsCount": 1,
+    "averagePrice": 581.69,
+    "totalRevenue": 581.69
+  }
+]

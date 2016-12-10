@@ -1,0 +1,45 @@
+[
+  {
+    "name": "Allopurinol",
+    "price": 518.50,
+    "seller": "Nicole Harris"
+  },
+  {
+    "name": "Imipramine Hydrochloride",
+    "price": 648.69,
+    "seller": "Nicole Martinez"
+  },
+  {
+    "name": "Strattera",
+    "price": 658.54,
+    "seller": "Gary Stevens"
+  },
+  {
+    "name": "Ampicillin",
+    "price": 674.63,
+    "seller": "Christina Patterson"
+  },
+  {
+    "name": "Prostate",
+    "price": 716.05
+  },
+  {
+    "name": "RESCRIPTOR",
+    "price": 850.52
+  },
+  {
+    "name": "Moore Medical Sinus Pain and Pressure Relief",
+    "price": 855.39,
+    "seller": "Fred Barnes"
+  },
+  {
+    "name": "Perrigo Benzoyl Peroxide",
+    "price": 873.24,
+    "seller": "Rachel Johnson"
+  },
+  {
+    "name": "Spironolactone",
+    "price": 933.69,
+    "seller": "Chris Mitchell"
+  }
+]

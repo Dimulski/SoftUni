@@ -3,8 +3,10 @@ package app.terminal;
 import app.domain.dtos.CategoryJsonDto;
 import app.domain.dtos.ProductJsonDto;
 import app.domain.dtos.UserJsonDto;
+import app.domain.queryDtos.CategoryStatsDto;
 import app.domain.queryDtos.ProductSellerDto;
 import app.domain.queryDtos.SellerProductsDto;
+import app.domain.queryDtos.UsersProductsDto;
 import app.io.JSONParser;
 import app.service.contracts.CategoryService;
 import app.service.contracts.ProductService;
@@ -37,7 +39,29 @@ public class Terminal implements CommandLineRunner {
 //        this.importUsers();
 //        this.importProducts();
 //        this.exportProductsInRange();
-        this.exportUsersWithSoldItemAndBuyer();
+//        this.exportUsersWithSoldItemAndBuyer();
+//        this.exportCategoryStats();
+        this.exportUsersProducts();
+    }
+
+    private void exportUsersProducts() {
+        UsersProductsDto usersProductsDtos = this.userService.getUsersProducts();
+        try {
+            this.jsonParser.write(usersProductsDtos,
+                    "src/main/resources/files/output/json/users-and-products.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void exportCategoryStats() {
+        List<CategoryStatsDto> categoryStatsDtos = this.categoryService.getCategoryStats();
+        try {
+            this.jsonParser.write(categoryStatsDtos,
+                    "src/main/resources/files/output/json/categories-by-products.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void exportUsersWithSoldItemAndBuyer() {

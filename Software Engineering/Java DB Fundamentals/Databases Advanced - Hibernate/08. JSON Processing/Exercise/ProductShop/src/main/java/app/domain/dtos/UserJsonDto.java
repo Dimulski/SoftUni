@@ -19,6 +19,7 @@ public class UserJsonDto implements Serializable {
 
     private Set<UserJsonDto> friends;
 
+    @Expose
     private Set<ProductJsonDto> sellProducts;
 
     public UserJsonDto() {
