@@ -13,13 +13,17 @@ public class FirstCGI {
     }
 
     public static void setHtmlBody() {
-        String body = "<html>" +
-                        "<body>" +
-                            "<b>" +
-                                "Hello from CGI!" +
-                            "</b>" +
-                        "</body>" +
-                    "</html>";
+        String body = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "    <head>\n" +
+                "        <meta charset=\"UTF-8\">\n" +
+                "        <title>Title</title>\n" +
+                "    </head>\n" +
+                "    <body>\n" +
+                "        <div>Im a div</div>\n" +
+                "    <img src=\"/images/astra.jpg\"/>\n" +
+                "    </body>\n" +
+                "</html>";
         System.out.println(body);
     }
 }
