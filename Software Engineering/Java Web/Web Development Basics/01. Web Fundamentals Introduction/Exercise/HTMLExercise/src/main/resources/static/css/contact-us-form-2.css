@@ -1,0 +1,25 @@
+form {
+    background: #EEE;
+    display: inline-block;
+    padding: 2px;
+}
+
+form div input, select {
+    width: 150px;
+}
+
+.form-control {
+    margin: 2px;
+    display: inline-block;
+
+}
+
+.form-button {
+    display: block;
+    margin: 0 auto;
+}
+
+.label {
+    display: inline-block;
+    width: 120px;
+}
