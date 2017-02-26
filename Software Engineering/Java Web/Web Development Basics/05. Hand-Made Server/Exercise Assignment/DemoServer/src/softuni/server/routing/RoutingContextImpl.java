@@ -1,20 +1,22 @@
 package softuni.server.routing;
 
-import softuni.server.handler.RequestHandler;
 import softuni.server.handler.RequestHandlerImpl;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by s_she on 09.2.2017 г..
  */
 public class RoutingContextImpl implements RoutingContext {
     private RequestHandlerImpl handler;
-    private List<String> paramNames;
+    private Map<Integer, Class> argumentMapping;
+    private ControllerActionPair actionPair;
 
-    public RoutingContextImpl(RequestHandlerImpl handler, List<String> paramNames) {
+    public RoutingContextImpl(RequestHandlerImpl handler, Map<Integer,
+            Class> argumentMapping, ControllerActionPair actionPair) {
         this.handler = handler;
-        this.paramNames = paramNames;
+        this.argumentMapping = argumentMapping;
+        this.actionPair = actionPair;
     }
 
     @Override
@@ -23,7 +25,12 @@ public class RoutingContextImpl implements RoutingContext {
     }
 
     @Override
-    public Iterable<String> getParamNames() {
-        return this.paramNames;
+    public Map<Integer, Class> getArgumentMapping() {
+        return this.argumentMapping;
+    }
+
+    @Override
+    public ControllerActionPair getActionPair() {
+        return this.actionPair;
     }
 }

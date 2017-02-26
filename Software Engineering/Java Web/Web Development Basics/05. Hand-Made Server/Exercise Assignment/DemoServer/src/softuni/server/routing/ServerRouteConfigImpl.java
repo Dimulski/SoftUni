@@ -1,14 +1,14 @@
 package softuni.server.routing;
 
+import softuni.server.handler.GetHandler;
+import softuni.server.handler.PostHandler;
 import softuni.server.handler.RequestHandlerImpl;
 import softuni.server.http.HttpRequestMethod;
+import softuni.server.parser.ControllerAnnotationParser;
+import softuni.server.provider.ClassProvider;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by s_she on 09.2.2017 г..
@@ -16,63 +16,43 @@ import java.util.regex.Pattern;
 public class ServerRouteConfigImpl implements ServerRouteConfig {
 
     private final Map<HttpRequestMethod, Map<String, RoutingContext>> routes;
+    private final ClassProvider classProvider;
 
-    public ServerRouteConfigImpl(AppRouteConfig appRouteConfig) {
+    public ServerRouteConfigImpl(ClassProvider classProvider) throws IllegalAccessException, InstantiationException {
+        this.classProvider = classProvider;
         this.routes = new HashMap<>();
 
         for (HttpRequestMethod httpRequestMethod : HttpRequestMethod.values()) {
             this.routes.put(httpRequestMethod, new HashMap<>());
         }
 
-        this.initializeServerConfig(appRouteConfig);
+        this.initializeServerConfig();
     }
 
-    private void initializeServerConfig(AppRouteConfig appRouteConfig) {
-        for (Map.Entry<HttpRequestMethod, Map<String, RequestHandlerImpl>> entry : appRouteConfig.getRoutes()) {
-            for (Map.Entry<String, RequestHandlerImpl> innerEntry : entry.getValue().entrySet()) {
+    private void initializeServerConfig() throws InstantiationException, IllegalAccessException {
+        Map<HttpRequestMethod, Map<String, ControllerActionPair>> annotationRoutes = new HashMap<>();
 
-                List<String> params = new ArrayList<>();
-                String newPattern = this.parseRoute(innerEntry.getKey(), params);
+        ControllerAnnotationParser annotationParser = new ControllerAnnotationParser(this.classProvider);
 
-                RoutingContext routingContext = new RoutingContextImpl(innerEntry.getValue(), params);
+        annotationParser.parse(annotationRoutes);
 
-                this.routes.get(entry.getKey()).put(newPattern, routingContext);
+        for (Map.Entry<HttpRequestMethod, Map<String, ControllerActionPair>> mapEntry : annotationRoutes.entrySet()) {
+            for (Map.Entry<String, ControllerActionPair> actionPairEntry : mapEntry.getValue().entrySet()) {
+                RequestHandlerImpl handler;
+                if (mapEntry.getKey() == HttpRequestMethod.GET) {
+                    handler = new GetHandler();
+                } else {
+                    handler = new PostHandler();
+                }
+
+                Map<Integer, Class> args = actionPairEntry.getValue().getArgumentMapping();
+                ControllerActionPair actionPair = actionPairEntry.getValue();
+
+                RoutingContext routingContext = new RoutingContextImpl(handler, args, actionPair);
+
+                this.routes.get(mapEntry.getKey()).put(actionPairEntry.getKey(), routingContext);
             }
         }
-    }
-
-    private String parseRoute(String key, List<String> params) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("^");
-
-        if("/".equals(key)){
-            stringBuilder.append(key);
-            stringBuilder.append("$");
-            return stringBuilder.toString();
-        }
-
-        String[] tokens = key.split("/");
-
-        for (int i = 0; i < tokens.length; i++) {
-            if (!tokens[i].startsWith("{") && !tokens[i].endsWith("}")) {
-                stringBuilder.append(tokens[i]);
-                stringBuilder.append(i == tokens.length - 1 ? "$" : "/");
-                continue;
-            }
-
-            Pattern pattern = Pattern.compile("<\\w+>");
-            Matcher matcher = pattern.matcher(tokens[i]);
-
-            if (!matcher.find()) {
-                continue;
-            }
-
-            String paramName = matcher.group(0).substring(1, matcher.group(0).length() - 1);
-            params.add(paramName);
-            stringBuilder.append(tokens[i].substring(1, tokens[i].length() - 1));
-            stringBuilder.append(i == tokens.length - 1 ? "$" : "/");
-        }
-        return stringBuilder.toString();
     }
 
     @Override

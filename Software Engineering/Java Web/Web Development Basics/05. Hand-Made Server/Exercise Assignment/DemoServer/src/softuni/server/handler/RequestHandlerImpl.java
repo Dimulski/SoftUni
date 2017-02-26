@@ -11,15 +11,17 @@ import java.io.Writer;
 import java.util.function.Function;
 
 public abstract class RequestHandlerImpl implements RequestHandler {
-    private final Function<HttpContext, HttpResponse> function;
+    private Function<HttpContext, HttpResponse> function;
     private Writer writer;
+
+    public RequestHandlerImpl() {
+    }
 
     RequestHandlerImpl(Function<HttpContext, HttpResponse> function) {
         this.function = function;
     }
 
     private void setSession(HttpContext httpContext, HttpResponse httpResponse){
-
 
         if(!httpContext.getHttpRequest().getHttpCookie().contains("sessionId") || httpContext.getHttpRequest().getHttpSession() == null){
             String sessionId = SessionCreator.getInstance().generateSessionId();
@@ -30,6 +32,10 @@ public abstract class RequestHandlerImpl implements RequestHandler {
             HttpSession httpSession = new HttpSessionImpl(sessionId);
             httpContext.getHttpRequest().setSession(httpSession);
         }
+    }
+
+    void setFunction(Function<HttpContext, HttpResponse> function) {
+        this.function = function;
     }
 
     @Override

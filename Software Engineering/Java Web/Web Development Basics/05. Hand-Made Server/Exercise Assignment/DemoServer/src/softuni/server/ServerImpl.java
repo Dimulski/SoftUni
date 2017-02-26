@@ -1,7 +1,7 @@
 package softuni.server;
 
 import softuni.server.http.HttpSession;
-import softuni.server.routing.AppRouteConfig;
+import softuni.server.provider.ClassProvider;
 import softuni.server.routing.ServerRouteConfigImpl;
 
 import java.io.IOException;
@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -23,10 +22,11 @@ public class ServerImpl implements Server {
     private final ServerSocket serverSocket;
     private Map<String, HttpSession> sessionMap;
 
-    public ServerImpl(ServerSocket serverSocket, AppRouteConfig appRouteConfig) {
+    public ServerImpl(ServerSocket serverSocket, ClassProvider classProvider) throws InstantiationException,
+            IllegalAccessException {
         this.sessionMap = new HashMap<>();
         this.serverSocket = serverSocket;
-        this.serverRouteConfig = new ServerRouteConfigImpl(appRouteConfig);
+        this.serverRouteConfig = new ServerRouteConfigImpl(classProvider);
     }
 
     @Override

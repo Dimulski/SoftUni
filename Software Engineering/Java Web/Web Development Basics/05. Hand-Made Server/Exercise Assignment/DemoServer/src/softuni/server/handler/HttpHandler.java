@@ -1,6 +1,7 @@
 package softuni.server.handler;
 
 import softuni.server.http.HttpContext;
+import softuni.server.http.response.HttpResponse;
 import softuni.server.routing.RoutingContext;
 import softuni.server.routing.ServerRouteConfig;
 
@@ -8,7 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,10 +23,12 @@ import java.util.regex.Pattern;
 public class HttpHandler implements RequestHandler {
     private Writer writer;
     private ServerRouteConfig serverRouteConfig;
+    private Map<Class, Function<String, Object>> typeConversions;
 
     public HttpHandler(ServerRouteConfig serverRouteConfig, PrintWriter printWriter) {
         this.serverRouteConfig = serverRouteConfig;
         this.writer = printWriter;
+        this.fillTypeConversions();
     }
 
     @Override
@@ -35,9 +42,33 @@ public class HttpHandler implements RequestHandler {
                 continue;
             }
 
-            for (String param : entry.getValue().getParamNames()) {
-                httpContext.getHttpRequest().addParameter(param, matcher.group(param));
-            }
+            entry.getValue().getHandler().setFunction((context) -> {
+                Method method = entry.getValue().getActionPair().getAction();
+                Map<Integer, Class> argumentsPosition = entry.getValue().getArgumentMapping();
+                String[] urlTokens = httpContext.getHttpRequest().getPath().split("/");
+                Object[] argumentsToPass = new Object[argumentsPosition.size()];
+
+                int index = 0;
+                for (Map.Entry<Integer, Class> typeMapping : argumentsPosition.entrySet()) {
+                    String valueToParse = urlTokens[typeMapping.getKey()];
+                    Class classToParseFrom = typeMapping.getValue();
+
+                    argumentsToPass[index++] = this.typeConversions
+                            .get(classToParseFrom)
+                            .apply(valueToParse);
+                }
+
+                HttpResponse httpResponse = null;
+
+                try {
+                    Object response = method.invoke(entry.getValue().getActionPair().getController(), argumentsToPass);
+                    httpResponse = (HttpResponse) response;
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
+                return httpResponse;
+            });
 
             entry.getValue().getHandler().setWriter(this.writer);
             entry.getValue().getHandler().handle(httpContext);
@@ -46,6 +77,18 @@ public class HttpHandler implements RequestHandler {
         }
 
         throw new FileNotFoundException();
+    }
+
+    private void fillTypeConversions() {
+        this.typeConversions = new HashMap<Class, Function<String, Object>>() {{
+            put(String.class, s -> s);
+            put(Integer.class, Integer::parseInt);
+            put(int.class, Integer::parseInt);
+            put(double.class, Double::parseDouble);
+            put(Double.class, Double::parseDouble);
+            put(Long.class, Long::parseLong);
+            put(long.class, Long::parseLong);
+        }};
     }
 
     @Override
