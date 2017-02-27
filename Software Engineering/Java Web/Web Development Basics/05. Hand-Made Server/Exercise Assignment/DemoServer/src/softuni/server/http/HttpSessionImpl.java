@@ -11,10 +11,16 @@ public class HttpSessionImpl implements HttpSession{
 
     private String id;
     private Map<String, String> parameters;
+    private boolean set;
 
     public HttpSessionImpl(String id) {
         this.parameters = new HashMap<>();
         this.id = id;
+        set = false;
+    }
+
+    public void setSet() {
+        this.set = true;
     }
 
     @Override
@@ -40,5 +46,10 @@ public class HttpSessionImpl implements HttpSession{
     @Override
     public boolean isAuthenticated() {
         return this.parameters.size() > 0;
+    }
+
+    @Override
+    public boolean isSet() {
+        return this.set;
     }
 }

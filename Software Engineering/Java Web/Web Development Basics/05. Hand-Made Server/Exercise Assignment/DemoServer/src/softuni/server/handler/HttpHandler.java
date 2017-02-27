@@ -46,9 +46,9 @@ public class HttpHandler implements RequestHandler {
                 Method method = entry.getValue().getActionPair().getAction();
                 Map<Integer, Class> argumentsPosition = entry.getValue().getArgumentMapping();
                 String[] urlTokens = httpContext.getHttpRequest().getPath().split("/");
-                Object[] argumentsToPass = new Object[argumentsPosition.size()];
-
-                int index = 0;
+                Object[] argumentsToPass = new Object[argumentsPosition.size()+1];
+                argumentsToPass[0] = context;
+                int index = 1;
                 for (Map.Entry<Integer, Class> typeMapping : argumentsPosition.entrySet()) {
                     String valueToParse = urlTokens[typeMapping.getKey()];
                     Class classToParseFrom = typeMapping.getValue();

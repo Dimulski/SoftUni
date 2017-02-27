@@ -87,8 +87,12 @@ public class HttpRequestImpl implements HttpRequest {
             return;
         }
         String[] queryPairs = query.split("&");
+
         for (String queryPair : queryPairs) {
             String[] queryArgs = queryPair.split("=");
+            if (queryArgs.length != 2) {
+                continue;
+            }
             map.put(URLDecoder.decode(queryArgs[0], "UTF-8"),
                     URLDecoder.decode(queryArgs[1], "UTF-8"));
         }

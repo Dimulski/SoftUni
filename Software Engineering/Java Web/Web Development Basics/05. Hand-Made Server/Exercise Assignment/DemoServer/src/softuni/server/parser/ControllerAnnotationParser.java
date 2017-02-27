@@ -86,6 +86,6 @@ public class ControllerAnnotationParser implements
                 }
             }
         }
-        return mapping;
+        return "^" + mapping + "$";
     }
 }

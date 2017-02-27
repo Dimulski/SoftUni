@@ -21,13 +21,10 @@ public abstract class RequestHandlerImpl implements RequestHandler {
         this.function = function;
     }
 
-    private void setSession(HttpContext httpContext, HttpResponse httpResponse){
+    private void setSession(HttpContext httpContext){
 
         if(!httpContext.getHttpRequest().getHttpCookie().contains("sessionId") || httpContext.getHttpRequest().getHttpSession() == null){
             String sessionId = SessionCreator.getInstance().generateSessionId();
-
-            httpResponse.addResponseHeader("Set-Cookie",
-                    "sessionId=" + sessionId + "; HttpOnly; path=/");
 
             HttpSession httpSession = new HttpSessionImpl(sessionId);
             httpContext.getHttpRequest().setSession(httpSession);
@@ -40,9 +37,15 @@ public abstract class RequestHandlerImpl implements RequestHandler {
 
     @Override
     public void handle(HttpContext httpContext) throws IOException {
+        this.setSession(httpContext);
+
         HttpResponse httpResponse = function.apply(httpContext);
 
-        this.setSession(httpContext, httpResponse);
+        if (httpContext.getHttpRequest().getHttpSession().isSet()) {
+            httpResponse.addResponseHeader("Set-Cookie",
+                    "sessionId=" + httpContext.getHttpRequest().getHttpSession().getId() + "; HttpOnly; path=/");
+            httpContext.getHttpRequest().getHttpSession().setSet();
+        }
 
         httpResponse.addResponseHeader("Content-Type", "text/html");
         this.writer.write(httpResponse.getResponse());

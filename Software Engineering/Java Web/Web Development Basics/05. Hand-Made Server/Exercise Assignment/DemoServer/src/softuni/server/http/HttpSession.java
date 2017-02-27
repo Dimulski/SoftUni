@@ -13,4 +13,6 @@ public interface HttpSession {
 
     boolean isAuthenticated();
 
+    boolean isSet();
+    void setSet();
 }
