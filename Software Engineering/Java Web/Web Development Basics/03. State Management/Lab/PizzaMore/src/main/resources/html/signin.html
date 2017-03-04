@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/signin.css"/>
+    </head>
+    <body>
+        <br/>
+        <div class="container">
+            <div class="jumbotron">
+                <form method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-sm-offset-2">Username</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" name="username" type="email" placeholder="Enter an email"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-sm-offset-2">Password</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" name="password" type="password" placeholder="Enter a password"/>
+                        </div>
+                    </div>
+                    <div class="checkbox col-sm-2 col-sm-offset-4">
+                        <label>
+                            <input type="checkbox" name="rememberme">
+                            <span>Remember me</span>
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <input class="btn btn-success" type="submit" name="signin" value="Sign In" />
+                            <input class="btn btn-danger" type="submit" name="main" value="Main" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="/jquery/jquery.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
