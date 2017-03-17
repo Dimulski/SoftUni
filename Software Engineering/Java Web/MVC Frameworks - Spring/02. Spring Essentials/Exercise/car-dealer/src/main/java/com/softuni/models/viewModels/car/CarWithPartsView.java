@@ -1,26 +1,18 @@
-package com.softuni.entities;
+package com.softuni.models.viewModels.car;
 
-import javax.persistence.*;
+import com.softuni.models.viewModels.part.PartView;
+
 import java.util.Set;
 
-@Entity
-@Table(name = "cars")
-public class Car {
+public class CarWithPartsView {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String make;
-
     private String model;
-
     private Double travelledDistance;
+    private Set<PartView> parts;
 
-    @ManyToMany(mappedBy = "cars", targetEntity = Part.class)
-    private Set<Part> parts;
-
-    public Car() {
+    public CarWithPartsView() {
 
     }
 
@@ -56,11 +48,11 @@ public class Car {
         this.travelledDistance = travelledDistance;
     }
 
-    public Set<Part> getParts() {
+    public Set<PartView> getParts() {
         return parts;
     }
 
-    public void setParts(Set<Part> parts) {
+    public void setParts(Set<PartView> parts) {
         this.parts = parts;
     }
 }
