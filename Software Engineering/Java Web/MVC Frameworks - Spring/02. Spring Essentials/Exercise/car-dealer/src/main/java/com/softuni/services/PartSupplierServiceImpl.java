@@ -20,7 +20,7 @@ public class PartSupplierServiceImpl implements PartSupplierService {
 
     @Override
     public List<PartSupplierView> getFilteredPartSuppliers(Boolean isImporter) {
-        List<PartSupplier> partSuppliers = this.partSupplierRepository.getAllByIsImporter(isImporter);
+        List<PartSupplier> partSuppliers = this.partSupplierRepository.findAllByIsImporter(isImporter);
 
         List<PartSupplierView> partSupplierViews = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();

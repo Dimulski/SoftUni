@@ -12,8 +12,8 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<Car, Long> {
 
     @Query(value = "SELECT c FROM Car AS c WHERE c.make = :make ORDER BY c.model ASC, c.travelledDistance DESC")
-    List<Car> getByMakeOrderByModelAscTravelledDistanceDesc(@Param(value = "make") String make);
+    List<Car> findByMakeOrderByModelAscTravelledDistanceDesc(@Param(value = "make") String make);
 
     @Query(value = "SELECT c FROM Car AS c ORDER BY c.model ASC, c.travelledDistance DESC")
-    List<Car> getAllOrderByModelAscTravelledDistanceDesc();
+    List<Car> findAllOrderByModelAscTravelledDistanceDesc();
 }

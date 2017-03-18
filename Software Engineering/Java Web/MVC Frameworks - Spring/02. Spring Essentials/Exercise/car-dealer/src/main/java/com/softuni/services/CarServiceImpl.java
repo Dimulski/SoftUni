@@ -24,9 +24,9 @@ public class CarServiceImpl implements CarService {
         List<Car> cars = new ArrayList<>();
 
         if (make != null) {
-            cars = this.carRepository.getByMakeOrderByModelAscTravelledDistanceDesc(make);
+            cars = this.carRepository.findByMakeOrderByModelAscTravelledDistanceDesc(make);
         } else {
-            cars = this.carRepository.getAllOrderByModelAscTravelledDistanceDesc();
+            cars = this.carRepository.findAllOrderByModelAscTravelledDistanceDesc();
         }
 
         List<CarView> carViews = new ArrayList<>();

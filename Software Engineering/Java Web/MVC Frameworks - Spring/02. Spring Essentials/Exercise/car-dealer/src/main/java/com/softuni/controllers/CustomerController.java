@@ -20,14 +20,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-//    @GetMapping("all")
-//    public String getAllCustomers(Model model, @RequestParam(value = "filter",required = false) String filter) {
-//        List<CustomerView> customerViews = this.customerService.getAllOrderByBirthDate(filter);
-//        model.addAttribute("customers", customerViews);
-//        //return "it-works";
-//        return "customers/customers-table";
-//    }
-
     @GetMapping("all")
     public String getAllCustomers(Model model, @RequestParam(value = "filter",required = false) String filter) {
         List<CustomerView> customerViews = this.customerService.getAllOrderByBirthDate(filter);
@@ -42,6 +34,7 @@ public class CustomerController {
         CustomerDetailsView customerDetailsView = this.customerService.getById(id);
         model.addAttribute("customer",customerDetailsView);
         model.addAttribute("view","/customers/customer-details");
+
         return "base-layout";
     }
 }

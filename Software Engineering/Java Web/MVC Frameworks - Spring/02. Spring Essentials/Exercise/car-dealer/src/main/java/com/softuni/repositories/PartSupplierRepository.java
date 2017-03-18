@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface PartSupplierRepository extends JpaRepository<PartSupplier, Long> {
 
-    List<PartSupplier> getAllByIsImporter(Boolean isImporter);
+    List<PartSupplier> findAllByIsImporter(Boolean isImporter);
 }

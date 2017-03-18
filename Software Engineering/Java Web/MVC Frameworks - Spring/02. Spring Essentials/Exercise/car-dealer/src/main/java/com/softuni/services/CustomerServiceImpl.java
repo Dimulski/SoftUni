@@ -23,9 +23,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerView> getAllOrderByBirthDate(String type) {
         List<Customer> customers = new ArrayList<>();
         if ("Descending".equals(type)) {
-            customers = this.customerRepository.getAllOrderByBirthDateDescIsYoungDriverAsc();
+            customers = this.customerRepository.findAllOrderByBirthDateDescIsYoungDriverAsc();
         } else {
-            customers = this.customerRepository.getAllOrderByBirthDateAscIsYoungDriverAsc();
+            customers = this.customerRepository.findAllOrderByBirthDateAscIsYoungDriverAsc();
         }
 
         ModelMapper modelMapper = new ModelMapper();
