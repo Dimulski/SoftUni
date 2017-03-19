@@ -1,0 +1,42 @@
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center"><h1 class="display-3">SoftUni Store</h1></div>
+
+                <div class="card-group">
+                    <th:block th:if="${#lists.size(games)} > 0" th:each="game, iter : ${games}"
+                              th:object="${game}">
+
+                        <th:block th:if="${iter.index} % 3 == 0">
+                            <div class="w-100"></div>
+                        </th:block>
+
+                        <div class="card col-4 thumbnail">
+
+                            <img class="card-image-top img-fluid img-thumbnail"
+                            th:src="${!#strings.isEmpty(game.thumbnail)} ? *{thumbnail}: |https://i.ytimg.com/vi/*{trailer}/maxresdefault.jpg|"/>
+
+                            <div class="card-block">
+                                <h4 class="card-title" th:text="*{title}"></h4>
+                                <p class="card-text"><strong>Price</strong> - [[*{price}]]&euro;</p>
+                                <p class="card-text"><strong>Size</strong> - [[*{size}]] GB</p>
+                                <p class="card-text" th:text="*{summary}"></p>
+                            </div>
+
+                            <div class="card-footer">
+
+                                <a class="card-button btn btn-outline-primary"
+                                   th:href="@{/games/{id}(id = *{id})}">Info</a>
+                                <a class="card-button btn btn-primary" href="#">Buy</a>
+                            </div>
+
+                        </div>
+
+                    </th:block>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>

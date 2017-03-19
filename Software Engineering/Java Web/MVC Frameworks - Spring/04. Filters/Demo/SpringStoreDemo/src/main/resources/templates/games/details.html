@@ -1,0 +1,31 @@
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center" th:object="${game}">
+
+                <h1 class="display-3" th:text="*{title}"></h1>
+                <br/>
+
+                <iframe width="560" height="315" th:src="|https://www.youtube.com/embed/*{trailer}|" frameborder="0"
+                        allowfullscreen></iframe>
+
+                <br/>
+                <br/>
+
+                <p th:text="*{description}"></p>
+
+                <p><strong>Price</strong> - [[*{price}]]&euro;</p>
+                <p><strong>Size</strong> - [[*{size}]] GB</p>
+                <p><strong>Release Date</strong> - [[${#dates.format(game.releaseDate, 'dd/MMM/yyyy')}]]</p>
+
+                <a class="btn btn-outline-primary" th:href="@{..}">Back</a>
+                <a class="btn btn-primary" href="#">Buy</a>
+
+                <br/>
+                <br/>
+
+            </div>
+        </div>
+    </div>
+</main>
+<br/>
