@@ -1,6 +1,7 @@
 package com.softuni.services;
 
 import com.softuni.entities.Car;
+import com.softuni.models.bindingModels.car.CarModel;
 import com.softuni.models.viewModels.car.CarView;
 import com.softuni.models.viewModels.car.CarWithPartsView;
 import com.softuni.repositories.CarRepository;
@@ -49,5 +50,12 @@ public class CarServiceImpl implements CarService {
         }
 
         return carWithPartsView;
+    }
+
+    @Override
+    public void persist(CarModel carModel) {
+        ModelMapper modelMapper = new ModelMapper();
+        Car car = modelMapper.map(carModel, Car.class);
+        this.carRepository.saveAndFlush(car);
     }
 }

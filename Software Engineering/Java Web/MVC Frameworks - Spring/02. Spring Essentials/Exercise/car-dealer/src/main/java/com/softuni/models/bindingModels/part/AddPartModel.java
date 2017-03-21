@@ -1,26 +1,16 @@
-package com.softuni.models.viewModels.part;
+package com.softuni.models.bindingModels.part;
 
-import com.softuni.models.viewModels.partSupplier.PartSupplierView;
+import com.softuni.models.bindingModels.partSupplier.PartSupplierModel;
 
-public class PartView {
+public class AddPartModel {
 
-    private Long id;
     private String name;
     private Double price;
-
     private Integer quantity;
-    private PartSupplierView supplier;
+    private PartSupplierModel supplier;
 
-    public PartView() {
+    public AddPartModel() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -47,11 +37,11 @@ public class PartView {
         this.quantity = quantity;
     }
 
-    public PartSupplierView getSupplier() {
+    public PartSupplierModel getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(PartSupplierView supplier) {
+    public void setSupplier(PartSupplierModel supplier) {
         this.supplier = supplier;
     }
 }

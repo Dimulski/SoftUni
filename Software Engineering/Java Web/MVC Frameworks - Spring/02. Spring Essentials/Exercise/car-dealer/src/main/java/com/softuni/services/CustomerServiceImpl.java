@@ -1,6 +1,8 @@
 package com.softuni.services;
 
 import com.softuni.entities.Customer;
+import com.softuni.models.bindingModels.customer.AddCustomerModel;
+import com.softuni.models.bindingModels.customer.EditCustomerModel;
 import com.softuni.models.viewModels.customer.CustomerDetailsView;
 import com.softuni.models.viewModels.customer.CustomerView;
 import com.softuni.repositories.CustomerRepository;
@@ -60,5 +62,31 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         return customerDetailsView;
+    }
+
+    @Override
+    public void persist(AddCustomerModel addCustomerModel) {
+        ModelMapper modelMapper = new ModelMapper();
+        Customer customer = modelMapper.map(addCustomerModel, Customer.class);
+        this.customerRepository.saveAndFlush(customer);
+    }
+
+    @Override
+    public EditCustomerModel getEditModelById(Long id) {
+        Customer customer = this.customerRepository.findOne(id);
+        EditCustomerModel editCustomerModel = null;
+        if (customer != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            editCustomerModel = modelMapper.map(customer, EditCustomerModel.class);
+        }
+
+        return editCustomerModel;
+    }
+
+    @Override
+    public void update(EditCustomerModel customerModel) {
+        ModelMapper modelMapper = new ModelMapper();
+        Customer customer = modelMapper.map(customerModel, Customer.class);
+        this.customerRepository.saveAndFlush(customer);
     }
 }

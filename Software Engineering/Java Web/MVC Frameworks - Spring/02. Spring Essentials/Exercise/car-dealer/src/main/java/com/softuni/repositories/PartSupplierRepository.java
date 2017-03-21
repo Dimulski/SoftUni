@@ -10,4 +10,5 @@ import java.util.List;
 public interface PartSupplierRepository extends JpaRepository<PartSupplier, Long> {
 
     List<PartSupplier> findAllByIsImporter(Boolean isImporter);
+    PartSupplier findFirstByName(String name);
 }
