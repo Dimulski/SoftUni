@@ -55,9 +55,9 @@ public class CarController {
     }
 
     @PostMapping("add")
-    public String addCar(@ModelAttribute CarModel carModel, @RequestParam String[] partNames) {
+    public String addCar(@ModelAttribute CarModel carModel, @RequestParam String[] partsNames) {
         Set<PartModel> partModels = new HashSet<>();
-        for (String part : partNames) {
+        for (String part : partsNames) {
             PartModel partModel = this.partService.getByName(part);
             partModels.add(partModel);
         }

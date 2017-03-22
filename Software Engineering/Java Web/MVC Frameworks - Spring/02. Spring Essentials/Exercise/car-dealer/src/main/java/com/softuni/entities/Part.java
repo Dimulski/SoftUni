@@ -17,10 +17,7 @@ public class Part {
 
     private Integer quantity;
 
-    @ManyToMany
-    @JoinTable(name = "parts_cars",
-    joinColumns = @JoinColumn(name = "part_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "parts" ,cascade = CascadeType.ALL)
     private Set<Car> cars;
 
     @ManyToOne

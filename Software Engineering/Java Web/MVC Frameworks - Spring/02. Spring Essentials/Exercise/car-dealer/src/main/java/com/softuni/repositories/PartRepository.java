@@ -12,7 +12,7 @@ public interface PartRepository extends JpaRepository<Part, Long> {
 
     @Modifying
     @Query("UPDATE Part AS p SET p.price = :price, p.quantity = :quantity WHERE p.id = :id")
-    void update(@Param("price")Double price, @Param("quantity") Integer quantity , @Param("id") Long id);
+    void update(@Param("price") Double price, @Param("quantity") Integer quantity, @Param("id") Long id);
 
     Part findByName(String name);
 }
