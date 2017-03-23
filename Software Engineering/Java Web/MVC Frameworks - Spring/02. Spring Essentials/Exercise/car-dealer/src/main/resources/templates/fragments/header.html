@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/parts/all}">Parts</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/part-suppliers}">Part Suppliers</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     <th:block th:switch="${session.user}">
@@ -47,7 +50,6 @@
                                 <a class="nav-link" href="/user/logout">Logout</a>
                             </li>
                         </th:block>
-
                     </th:block>
                 </ul>
             </div>

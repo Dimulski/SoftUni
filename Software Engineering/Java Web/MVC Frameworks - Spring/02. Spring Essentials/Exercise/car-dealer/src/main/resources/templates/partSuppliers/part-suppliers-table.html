@@ -1,4 +1,5 @@
 <div class="container">
+    <a th:if="${session.user}" href="/part-suppliers/add" class="btn btn-warning m-1"><strong>+</strong> Add Part Supplier</a>
     <form class="form-inline">
         Filter:
         <input type="submit" name="type" class="btn btn-link" value="Local"/>
@@ -17,6 +18,14 @@
                 <th scope="row" th:text="${supplier.id}"></th>
                 <td th:text="${supplier.name}"></td>
                 <td th:text="${#lists.size(supplier.parts)}"></td>
+                <th:block th:if="${session.user}">
+                    <td>
+                        <a th:href="@{/part-suppliers/delete/{id}(id=${supplier.id})}">Delete</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/part-suppliers/edit/{id}(id=${supplier.id})}">Edit</a>
+                    </td>
+                </th:block>
             </tr>
         </tbody>
     </table>

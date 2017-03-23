@@ -1,6 +1,7 @@
 package com.softuni.services;
 
 import com.softuni.entities.Sale;
+import com.softuni.models.bindingModels.sale.SaleModel;
 import com.softuni.models.viewModels.sale.SaleView;
 import com.softuni.repositories.SaleRepository;
 import org.modelmapper.ModelMapper;
@@ -61,5 +62,12 @@ public class SaleServiceImpl implements SaleService {
         }
 
         return saleViews;
+    }
+
+    @Override
+    public void persist(SaleModel saleModel) {
+        ModelMapper modelMapper = new ModelMapper();
+        Sale sale = modelMapper.map(saleModel,Sale.class);
+        this.saleRepository.saveAndFlush(sale);
     }
 }

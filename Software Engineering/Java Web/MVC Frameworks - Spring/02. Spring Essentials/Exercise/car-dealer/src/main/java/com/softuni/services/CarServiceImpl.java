@@ -2,6 +2,7 @@ package com.softuni.services;
 
 import com.softuni.entities.Car;
 import com.softuni.models.bindingModels.car.CarModel;
+import com.softuni.models.bindingModels.car.RelatedCarModel;
 import com.softuni.models.viewModels.car.CarView;
 import com.softuni.models.viewModels.car.CarWithPartsView;
 import com.softuni.repositories.CarRepository;
@@ -57,5 +58,30 @@ public class CarServiceImpl implements CarService {
         ModelMapper modelMapper = new ModelMapper();
         Car car = modelMapper.map(carModel, Car.class);
         this.carRepository.saveAndFlush(car);
+    }
+
+    @Override
+    public List<CarView> getAll() {
+        List<CarView> carViews = new ArrayList<>();
+        ModelMapper modelMapper = new ModelMapper();
+        List<Car> cars = this.carRepository.findAll();
+        for (Car car : cars) {
+            CarView carView = modelMapper.map(car, CarView.class);
+            carViews.add(carView);
+        }
+        
+        return carViews;
+    }
+
+    @Override
+    public RelatedCarModel getByMake(String carMake) {
+        RelatedCarModel relatedCarModel = null;
+        Car car = this.carRepository.findFirstByMake(carMake);
+        if (car != null) {
+            ModelMapper modelMapper = new ModelMapper();
+            relatedCarModel = modelMapper.map(car, RelatedCarModel.class);
+        }
+        
+        return relatedCarModel;
     }
 }

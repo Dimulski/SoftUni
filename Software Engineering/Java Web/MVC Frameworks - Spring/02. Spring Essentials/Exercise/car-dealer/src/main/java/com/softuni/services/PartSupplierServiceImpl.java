@@ -1,6 +1,8 @@
 package com.softuni.services;
 
 import com.softuni.entities.PartSupplier;
+import com.softuni.models.bindingModels.partSupplier.AddPartSupplierModel;
+import com.softuni.models.bindingModels.partSupplier.EditPartSupplierModel;
 import com.softuni.models.bindingModels.partSupplier.PartSupplierModel;
 import com.softuni.models.viewModels.partSupplier.PartSupplierView;
 import com.softuni.repositories.PartSupplierRepository;
@@ -55,5 +57,38 @@ public class PartSupplierServiceImpl implements PartSupplierService {
         }
 
         return partSupplierModel;
+    }
+
+    @Override
+    public void persist(AddPartSupplierModel supplierModel) {
+        ModelMapper modelMapper = new ModelMapper();
+        PartSupplier supplier = modelMapper.map(supplierModel, PartSupplier.class);
+        this.partSupplierRepository.saveAndFlush(supplier);
+    }
+
+    @Override
+    public EditPartSupplierModel getByIdToEdit(Long id) {
+        EditPartSupplierModel editSupplierModel = null;
+        PartSupplier supplier = this.partSupplierRepository.findOne(id);
+        if (supplier != null){
+            ModelMapper modelMapper = new ModelMapper();
+            editSupplierModel = modelMapper.map(supplier, EditPartSupplierModel.class);
+        }
+        
+        return editSupplierModel;
+    }
+
+    @Override
+    public void update(EditPartSupplierModel editSupplierModel) {
+        PartSupplier supplier = this.partSupplierRepository.findOne(editSupplierModel.getId());
+        supplier.setImporter(editSupplierModel.getImporter());
+        supplier.setName(editSupplierModel.getName());
+        this.partSupplierRepository.saveAndFlush(supplier);
+    }
+
+    @Override
+    public void delete(EditPartSupplierModel editSupplierModel) {
+        PartSupplier supplier = this.partSupplierRepository.findOne(editSupplierModel.getId());
+        this.partSupplierRepository.delete(supplier);
     }
 }

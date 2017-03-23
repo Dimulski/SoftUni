@@ -7,27 +7,18 @@ import java.util.Set;
 @Table(name = "parts")
 public class Part {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private Double price;
-
     private Integer quantity;
-
-    @ManyToMany(mappedBy = "parts" ,cascade = CascadeType.ALL)
+    private PartSupplier supplier;
     private Set<Car> cars;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    private PartSupplier supplier;
-
     public Part() {
-
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -60,19 +51,23 @@ public class Part {
         this.quantity = quantity;
     }
 
+    @ManyToOne()
+    @JoinColumn(name = "supplier_id",referencedColumnName = "id")
+    public PartSupplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(PartSupplier supplier) {
+
+        this.supplier = supplier;
+    }
+
+    @ManyToMany(mappedBy = "parts",cascade = CascadeType.ALL)
     public Set<Car> getCars() {
         return cars;
     }
 
     public void setCars(Set<Car> cars) {
         this.cars = cars;
-    }
-
-    public PartSupplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(PartSupplier supplier) {
-        this.supplier = supplier;
     }
 }

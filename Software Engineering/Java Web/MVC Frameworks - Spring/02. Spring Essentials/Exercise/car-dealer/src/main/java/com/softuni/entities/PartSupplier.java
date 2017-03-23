@@ -7,21 +7,16 @@ import java.util.Set;
 @Table(name = "part_suppliers")
 public class PartSupplier {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private Boolean isImporter;
-
-    @OneToMany(mappedBy = "supplier", targetEntity = Part.class)
     private Set<Part> parts;
 
     public PartSupplier() {
-
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -38,14 +33,15 @@ public class PartSupplier {
         this.name = name;
     }
 
-    public Boolean getIsImporter() {
+    public Boolean getImporter() {
         return isImporter;
     }
 
-    public void setIsImporter(Boolean isImporter) {
-        this.isImporter = isImporter;
+    public void setImporter(Boolean importer) {
+        isImporter = importer;
     }
 
+    @OneToMany(mappedBy = "supplier",orphanRemoval = true,cascade = CascadeType.ALL)
     public Set<Part> getParts() {
         return parts;
     }
