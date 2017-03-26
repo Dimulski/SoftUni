@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Home</title>
+    </head>
+    <body>
+        <span>SingleDate: </span>
+        <div th:text="${#dates.format(myDate,'yyyy-MMM-dd')}"></div>
+        <span>MultipleDates(Months): </span>
+        <div th:text="${#dates.listMonth(dates)}"></div>
+        <span>Current Date: </span>
+        <div th:text="${#dates.createNow()}"></div>
+        <span>Capitalize: </span>
+        <div th:text="${#strings.capitalize(whiskey)}"></div>
+        <span>Substring: </span>
+        <div th:text="${#strings.substring(whiskey,0,5)}"></div>
+        <span>Pi: </span>
+        <div th:text="${#numbers.formatDecimal(pi,1,3)}"></div>
+        <span>For Loop: </span>
+        <div th:each="number : ${#numbers.sequence(0,5)}" th:text="${number}"></div>
+        <span>Array: </span>
+        <div th:text="${#aggregates.avg(whiskeyPrice)}"></div>
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        alert(message);
+    </script>
+    </body>
+</html>
