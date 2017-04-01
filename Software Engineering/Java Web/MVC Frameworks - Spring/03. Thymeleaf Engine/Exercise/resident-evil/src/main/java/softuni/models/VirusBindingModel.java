@@ -29,9 +29,9 @@ public class VirusBindingModel {
     @Size(max = 50)
     private String sideEffects;
 
-    private Boolean isDeadly;
+    private boolean isDeadly;
 
-    private Boolean isCurable;
+    private boolean isCurable;
 
     @NotNull(message = "Mutation cannot be null")
     private Mutation mutation;
@@ -88,19 +88,19 @@ public class VirusBindingModel {
         this.sideEffects = sideEffects;
     }
 
-    public Boolean getDeadly() {
+    public boolean isDeadly() {
         return isDeadly;
     }
 
-    public void setDeadly(Boolean deadly) {
+    public void setDeadly(boolean deadly) {
         isDeadly = deadly;
     }
 
-    public Boolean getCurable() {
+    public boolean isCurable() {
         return isCurable;
     }
 
-    public void setCurable(Boolean curable) {
+    public void setCurable(boolean curable) {
         isCurable = curable;
     }
 

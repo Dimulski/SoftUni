@@ -1,7 +1,4 @@
-package softuni.entities;
-
-import softuni.entities.enums.Magnitude;
-import softuni.entities.enums.Mutation;
+package com.residentevildemo.entities;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,46 +10,44 @@ public class Virus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    private long id;
+
     private String name;
-    
+
     @Column(columnDefinition = "TEXT")
     private String description;
-    
+
     private String creator;
-    
+
     private String sideEffects;
-    
+
     private boolean isDeadly;
-    
+
     private boolean isCurable;
-    
+
+    @Enumerated(EnumType.STRING)
     private Mutation mutation;
-    
-    private Double turnoverRate;
-    
-    private Integer hoursToTurn;
-    
+
+    private double turnoverRate;
+
+    private int hoursToTurn;
+
+    @Enumerated(EnumType.STRING)
     private Magnitude magnitude;
-    
+
     private Date releasedOn;
-    
+
     @ManyToMany
     @JoinTable(name = "viruses_capitals",
     joinColumns = @JoinColumn(name = "virus_id"),
     inverseJoinColumns = @JoinColumn(name = "capital_id"))
     private Set<Capital> capitals;
 
-    public Virus() {
-        
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -112,19 +107,19 @@ public class Virus {
         this.mutation = mutation;
     }
 
-    public Double getTurnoverRate() {
+    public double getTurnoverRate() {
         return turnoverRate;
     }
 
-    public void setTurnoverRate(Double turnoverRate) {
+    public void setTurnoverRate(double turnoverRate) {
         this.turnoverRate = turnoverRate;
     }
 
-    public Integer getHoursToTurn() {
+    public int getHoursToTurn() {
         return hoursToTurn;
     }
 
-    public void setHoursToTurn(Integer hoursToTurn) {
+    public void setHoursToTurn(int hoursToTurn) {
         this.hoursToTurn = hoursToTurn;
     }
 

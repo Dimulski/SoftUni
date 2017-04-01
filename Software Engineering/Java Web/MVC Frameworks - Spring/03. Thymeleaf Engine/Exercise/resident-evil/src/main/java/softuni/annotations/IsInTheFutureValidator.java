@@ -10,8 +10,12 @@ public class IsInTheFutureValidator implements ConstraintValidator<IsInTheFuture
     }
 
     public boolean isValid(Date date, ConstraintValidatorContext context) {
+        boolean isInTheFuture = false;
+        if (date == null) {
+            return isInTheFuture;
+        }
         Date currentDate = new Date();
-        boolean isInTheFuture = date.after(currentDate);
+        isInTheFuture = date.after(currentDate);
         return isInTheFuture;
     }
 }

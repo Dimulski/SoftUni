@@ -1,60 +1,54 @@
-package softuni.entities;
+package com.residentevildemo.models;
+import com.residentevildemo.annotations.IsInTheFuture;
+import com.residentevildemo.entities.*;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import softuni.entities.enums.Magnitude;
-import softuni.entities.enums.Mutation;
-
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
-@Entity
-@Table(name = "viruses")
-public class Virus {
+public class VirusBindingModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 5, max = 30, message = "Invalid Name size")
     private String name;
-    
-    @Column(columnDefinition = "TEXT")
+
+    @NotBlank(message = "Cannot be vlank")
+    @Size(min = 5, max = 100, message = "Invalid Desc size")
     private String description;
-    
+
+    @Pattern(regexp = "^.*[Cc]orp.*$", message = "Doesnt contain Corp")
     private String creator;
-    
+
+    @Size(max = 50)
     private String sideEffects;
-    
+
     private boolean isDeadly;
-    
+
     private boolean isCurable;
-    
+
+    @NotNull(message = "Should have a mutation")
     private Mutation mutation;
-    
-    private Double turnoverRate;
-    
-    private Integer hoursToTurn;
-    
+
+    @Range(min = 0, max =100)
+    private double turnoverRate;
+
+    @Range(min = 0, max = 12)
+    private int hoursToTurn;
+
+    @NotNull(message = "Cannot be null")
     private Magnitude magnitude;
-    
+
+    @IsInTheFuture(message = "Is in the past")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releasedOn;
-    
-    @ManyToMany
-    @JoinTable(name = "viruses_capitals",
-    joinColumns = @JoinColumn(name = "virus_id"),
-    inverseJoinColumns = @JoinColumn(name = "capital_id"))
-    private Set<Capital> capitals;
 
-    public Virus() {
-        
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotEmpty(message = "Should pick capitals")
+    private String[] capitals;
 
     public String getName() {
         return name;
@@ -112,19 +106,19 @@ public class Virus {
         this.mutation = mutation;
     }
 
-    public Double getTurnoverRate() {
+    public double getTurnoverRate() {
         return turnoverRate;
     }
 
-    public void setTurnoverRate(Double turnoverRate) {
+    public void setTurnoverRate(double turnoverRate) {
         this.turnoverRate = turnoverRate;
     }
 
-    public Integer getHoursToTurn() {
+    public int getHoursToTurn() {
         return hoursToTurn;
     }
 
-    public void setHoursToTurn(Integer hoursToTurn) {
+    public void setHoursToTurn(int hoursToTurn) {
         this.hoursToTurn = hoursToTurn;
     }
 
@@ -144,11 +138,11 @@ public class Virus {
         this.releasedOn = releasedOn;
     }
 
-    public Set<Capital> getCapitals() {
+    public String[] getCapitals() {
         return capitals;
     }
 
-    public void setCapitals(Set<Capital> capitals) {
+    public void setCapitals(String[] capitals) {
         this.capitals = capitals;
     }
 }
