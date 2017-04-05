@@ -1,0 +1,50 @@
+<header>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-warning">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">SoftUni Demo</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <!--<a class="nav-link" href="#">Cart</a>-->
+                        <a class="nav-link dropdown-toggle" href="#" id="CartDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="getCart();">
+                            Cart
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="cart-items">
+
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <th:block th:if="${#request.getUserPrincipal() != null}">
+                        <li class="nav-item">
+                            <a th:href="@{/users/logout}" class="nav-link">
+                                Logout
+                            </a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${#request.getUserPrincipal() == null}">
+                        <li class="nav-item">
+                            <a th:href="@{/users/register}" class="nav-link">
+                                Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/users/login}" class="nav-link">
+                                Login
+                            </a>
+                        </li>
+                    </th:block>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>

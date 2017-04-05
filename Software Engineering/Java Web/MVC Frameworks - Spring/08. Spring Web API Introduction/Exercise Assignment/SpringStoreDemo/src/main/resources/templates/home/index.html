@@ -1,0 +1,74 @@
+<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <iframe id="trailer" width="560" height="315" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center"><h1 class="display-3">SoftUni Store</h1></div>
+
+                <div class="card-group">
+                    <th:block th:if="${#lists.size(games)} > 0" th:each="game, iter : ${games}"
+                              th:object="${game}">
+
+                        <th:block th:if="${iter.index} % 3 == 0">
+                            <div class="w-100"></div>
+                        </th:block>
+
+                        <div class="card col-4 thumbnail">
+
+                            <img class="card-image-top img-fluid img-thumbnail"
+                                 th:src="*{thumbnail}">
+
+                            <div class="card-block">
+                                <h4 class="card-title" th:text="*{title}"></h4>
+                                <p class="card-text"><strong>Price</strong> - [[*{price}]]&euro;</p>
+                                <p class="card-text"><strong>Size</strong> - [[*{size}]] GB</p>
+                                <p class="card-text" th:text="*{summary}"></p>
+                            </div>
+
+                            <div class="card-footer">
+
+                                <a class="card-button btn btn-outline-primary"
+                                   th:href="@{/games/{id}(id = *{id})}">Details</a>
+
+                                <div class="card-button btn btn-primary btn-buy" th:attr="data-id=*{id}" >Buy</div>
+
+                                <button th:attr="data-id=*{id}" type="button" class="btn btn-secondary btn-trailer"
+                                        data-toggle="modal"
+                                        data-target="#myModal">
+                                    Trailer
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </th:block>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:src="@{/scripts/home.js}"></script>
