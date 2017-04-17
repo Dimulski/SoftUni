@@ -47,7 +47,7 @@
                 <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item pull-xs-right" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/logout">Logout</a>
+                <a class="nav-link" href="/logout" th:text="|Logout, ${#authentication.getName()}|">Logout</a>
             </li>
         </ul>
     </div>
