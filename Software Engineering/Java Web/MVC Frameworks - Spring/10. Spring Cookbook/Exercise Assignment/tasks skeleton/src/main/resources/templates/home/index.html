@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+
+<main>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <div data-timer="30" id="timer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+    <script th:src="@{/js/stomp.min.js}"></script>
+    <script th:src="@{/scripts/TimeCircles.js}"></script>
+    <script th:src="@{/scripts/app.js}"></script>
+</main>

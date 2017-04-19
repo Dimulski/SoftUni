@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<main class="col-4 offset-4 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center"><h1 class="display-3">Create Task</h1></div>
+                <br/>
+                <form method="post" th:object="${model}">
+
+                    <div class="form-group row">
+                        <label th:for="*{title}">Title</label>
+                        <input type="text" th:field="*{title}" class="form-control"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <label th:for="*{description}">Description</label>
+                        <input type="text" th:field="*{description}" class="form-control"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <label th:for="*{hours}">Hours</label>
+                        <input type="number" th:field="*{hours}" class="form-control" step="1" min="0" max="23"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <label th:for="*{minutes}">Minutes</label>
+                        <input type="number" th:field="*{minutes}" class="form-control" step="1" min="0" max="59"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <label th:for="*{xp}">XP</label>
+                        <input type="number" th:field="*{xp}" class="form-control" step="1" min="0" max="5000"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <label th:for="*{type}">Task Type</label>
+                        <select class="form-control" id="taskType" name="type">
+                            <option th:each="type : ${T(softuni.areas.tasks.enums.TaskType).values()}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <input type="submit" class="btn btn-outline-primary btn-lg btn-block" id="create"
+                           value="Create Task"/>
+                </form>
+                <br/>
+            </div>
+        </div>
+    </div>
+</main>

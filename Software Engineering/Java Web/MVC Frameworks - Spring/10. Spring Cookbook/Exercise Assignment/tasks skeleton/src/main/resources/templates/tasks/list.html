@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<main>
+    <div class="modal fade bd-example-modal-lg" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="Task Info"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="m-1">All Tasks<a th:href="@{/tasks/create}" class="btn btn-success m-1"><strong>+ </strong>Add
+                    Task</a></h2>
+
+
+                <table class="table table-hover table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        <th>Time</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="task : ${tasks}" th:object="${task}">
+                        <th scope="row" th:text="*{id}"></th>
+                        <td th:text="*{type}"></td>
+                        <td th:text="*{title}"></td>
+                        <td th:text="|*{hours}:*{minutes}|"></td>
+                        <td>
+                            <button th:attr="data-id=*{id}" type="button" class="btn btn-secondary btn-sm btn-desc"
+                                    data-toggle="modal"
+                                    data-target="#info-modal">
+                                Info
+                            </button>
+                            <a th:href="@{/tasks/{id}/edit (id = *{id})}" class="btn btn-sm btn-warning">Edit</a>
+                            <a th:href="@{/tasks/{id}/delete (id = *{id})}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/scripts/tasks.js}"></script>
+</main>
+

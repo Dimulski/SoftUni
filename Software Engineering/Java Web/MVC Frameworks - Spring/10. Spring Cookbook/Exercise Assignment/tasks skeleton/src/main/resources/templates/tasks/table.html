@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<table class="table table-hover table-striped table-sm">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Type</th>
+        <th>Title</th>
+        <th>Time</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}" th:object="${task}">
+        <th scope="row" th:text="*{id}"></th>
+        <td th:text="*{type}"></td>
+        <td th:text="*{title}"></td>
+        <td th:text="|*{hours}:*{minutes}|"></td>
+        <td>
+            <button th:attr="data-id=*{id}" type="button" class="btn btn-secondary btn-sm btn-choose">
+                Choose
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
