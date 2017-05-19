@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/viruses")
 public class VirusController {
 
     private final CapitalService capitalService;
@@ -47,7 +46,7 @@ public class VirusController {
         return this.capitalService.getAllCapitals();
     }
     
-    @GetMapping("")
+    @GetMapping("/viruses")
     public String getVirusHomePage(Model model) {
         List<VirusViewModel> viruses = this.virusService.findAllViruses();
         model.addAttribute("viruses", viruses);
@@ -55,13 +54,13 @@ public class VirusController {
         return "viruses";
     }
     
-    @GetMapping("add")
+    @GetMapping("/viruses/add")
     public String getAddVirusPage(@ModelAttribute AddVirusBindingModel addVirusBindingModel) {
         
         return "viruses-add";
     }
     
-    @PostMapping("add")
+    @PostMapping("/viruses/add")
     public String addVirus(@Valid @ModelAttribute AddVirusBindingModel addVirusBindingModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "viruses-add";
@@ -72,7 +71,7 @@ public class VirusController {
         return "redirect:/viruses";
     }
     
-    @GetMapping("/edit/{virusId}")
+    @GetMapping("/viruses/edit/{virusId}")
     public String getEditVirusPage(@PathVariable long virusId, Model model) {
         EditVirusBindingModel editVirusBindingModel = this.virusService.findVirusById(virusId);
         model.addAttribute("editVirusBindingModel", editVirusBindingModel);
@@ -80,7 +79,7 @@ public class VirusController {
         return "viruses-edit";
     }
 
-    @PostMapping("/edit/{virusId}")
+    @PostMapping("/viruses/edit/{virusId}")
     public String getEditVirusPage(@PathVariable long virusId, @Valid @ModelAttribute EditVirusBindingModel editVirusBindingModel, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return "viruses-edit";
@@ -92,7 +91,7 @@ public class VirusController {
         return "redirect:/viruses";
     }
 
-    @GetMapping("/delete/{virusId}")
+    @GetMapping("/viruses/delete/{virusId}")
     public String deleteVirus(@PathVariable long virusId, Model model) {
         this.virusService.deleteById(virusId);
         

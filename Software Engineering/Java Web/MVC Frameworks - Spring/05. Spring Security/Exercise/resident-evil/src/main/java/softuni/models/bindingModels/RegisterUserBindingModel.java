@@ -1,11 +1,16 @@
 package softuni.models.bindingModels;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class RegisterUserBindingModel {
 
+    @NotNull
+    @Size(min = 2, max = 10)
     private String username;
-    
+
     private String password;
-    
+
     private String confirmPassword;
 
     public String getUsername() {
