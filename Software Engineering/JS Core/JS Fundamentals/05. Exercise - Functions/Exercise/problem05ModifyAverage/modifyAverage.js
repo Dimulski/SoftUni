@@ -14,5 +14,3 @@ function modifyAverage(number) {
         return average / numbers.length;
     }
 }
-
-console.log(modifyAverage(5835));
