@@ -5,11 +5,12 @@ function getArticleGenerator(articles) {
     return function () {
         if (articles.length > 0) {
             let article = $('<article>');
-            article.append($(`<p>${articles.shift()}</p>`));
+            article.append($(`<p>${articlesToPrint.shift()}</p>`));
             contentHolder.append(article);
         }
     }
 }
+
 let articles = [
     "Cats are the most popular pet in the United States: There are 88 million pet cats and 74 million dogs.",
     "A group of cats is called a clowder.",
