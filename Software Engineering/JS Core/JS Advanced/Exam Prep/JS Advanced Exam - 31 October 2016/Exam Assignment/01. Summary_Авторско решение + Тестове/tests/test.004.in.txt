@@ -1,0 +1,16 @@
+document.body.innerHTML = `<div id="holder">
+  <div id="content">
+    <p>Don't match this <strong>Match that </strong><strong>another match</strong></p>
+  </div>
+  <strong>Not actually a match</strong>
+</div>
+<input type="button" id="makeit" value="Generate Summary"/>`;
+
+result('#makeit');
+
+var clickEvent = document.createEvent('MouseEvents');
+clickEvent.initEvent('click', true, true);
+$('#makeit')[0].dispatchEvent(clickEvent);
+
+let summary = $('#content').parent().find('#summary').find('p').text();
+expect(summary).to.equal(`Match that another match`, "Sentence wasn't extracted correctly.");

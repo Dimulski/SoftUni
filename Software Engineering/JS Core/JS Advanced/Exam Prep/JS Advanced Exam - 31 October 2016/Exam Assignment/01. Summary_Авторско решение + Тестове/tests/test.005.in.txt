@@ -1,0 +1,41 @@
+document.body.innerHTML = `<div id="content">
+    <h1>South Wilmington, Illinois</h1>
+    <p><strong>South Wilmington is a village in Grundy County, Illinois, United States.</strong> The population was 681
+        at the 2010
+        census.</p>
+    <p>Although the name might indicate proximity to the city of Wilmington, <strong>South Wilmington is approximately 11 miles southwest of Wilmington</strong>, and is separated from it by several communities, including Gardner,
+        Braceville, Godley,
+        and Braidwood.</p>
+    <h2>Geography</h2>
+    <p>South Wilmington is located at 41°10′24″N 88°16′35″W (41.173268, -88.276271).</p>
+    <p>According to the 2010 census, <strong>South Wilmington has a total area of 0.56 square miles (1.45 km2)</strong>,
+        all land.</p>
+    <h2>Demographics</h2>
+    <p><strong>As of the census of 2000, there were 621 people, 260 households, and 165 families residing in the village</strong>. The
+        population density was 1,089.8 people per square mile (420.6/km²). <strong>There were 287 housing units</strong>
+        at an average
+        density of 503.7 per square mile (194.4/km²). The racial makeup of the village was 98.39% White, 0.97% from
+        other races, and 0.64% from two or more races. Hispanic or Latino of any race were 2.42% of the population.</p>
+    <p>There were 260 households out of which 26.9% had children under the age of 18 living with them, 52.7% were
+        married couples living together, 7.7% had a female householder with no husband present, and 36.2% were
+        non-families. 28.8% of all households were made up of individuals and 18.1% had someone living alone who was 65
+        years of age or older. The average household size was 2.38 and the average family size was 2.98.</p>
+    <p><strong>In the village the population was spread out with 23.5% under the age of 18, 6.6% from 18 to 24, 27.5% from 25 to 44, 20.8% from 45 to 64, and 21.6% who were 65 years of age or older. The median age was 40 years.</strong> For
+        every 100
+        females there were 93.5 males. For every 100 females age 18 and over, there were 96.3 males.</p>
+    <p>The median income for a household in the village was $39,688, and the median income for a family was $48,438.
+        Males had a median income of $40,066 versus $28,750 for females. The per capita income for the village was
+        $19,078. About 2.5% of families and 7.9% of the population were below the poverty line, including 15.5% of those
+        under age 18 and none of those age 65 or over.</p>
+</div>
+<input type="button" id="generate" value="Generate Summary"/>`;
+
+result('#generate');
+
+var clickEvent = document.createEvent('MouseEvents');
+clickEvent.initEvent('click', true, true);
+$('#generate')[0].dispatchEvent(clickEvent);
+
+let summary = $('#content').parent().find('#summary').find('p').text();
+let expected = `South Wilmington is a village in Grundy County, Illinois, United States.South Wilmington is approximately 11 miles southwest of WilmingtonSouth Wilmington has a total area of 0.56 square miles (1.45 km2)As of the census of 2000, there were 621 people, 260 households, and 165 families residing in the villageThere were 287 housing unitsIn the village the population was spread out with 23.5% under the age of 18, 6.6% from 18 to 24, 27.5% from 25 to 44, 20.8% from 45 to 64, and 21.6% who were 65 years of age or older. The median age was 40 years.`;
+expect(summary).to.equal(expected, "Sentence wasn't extracted correctly.");

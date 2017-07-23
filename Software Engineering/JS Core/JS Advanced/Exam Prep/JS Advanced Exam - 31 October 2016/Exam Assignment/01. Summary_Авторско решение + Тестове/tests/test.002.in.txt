@@ -1,0 +1,16 @@
+document.body.innerHTML = `<div class="holder"><strong>This is a decoy</strong></div>
+<div class="holder">
+  <input type="button" id="generate" value="Generate Summary"/>
+  <div id="content">
+    <p><strong>Match this</strong></p>
+  </div>
+</div>`;
+
+result('#generate');
+
+var clickEvent = document.createEvent('MouseEvents');
+clickEvent.initEvent('click', true, true);
+$('#generate')[0].dispatchEvent(clickEvent);
+
+let summary = $('#content').parent().find('#summary').find('p').text();
+expect(summary).to.equal(`Match this`, "First sentence wasn't extracted.");

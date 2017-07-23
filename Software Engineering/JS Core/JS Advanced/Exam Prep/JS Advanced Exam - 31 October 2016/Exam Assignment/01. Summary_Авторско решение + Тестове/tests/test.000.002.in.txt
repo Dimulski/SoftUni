@@ -1,0 +1,16 @@
+document.body.innerHTML = `<div class="holder">
+  <input type="button" id="summarize" value="Summarize"/>
+  <div id="content">
+    <p><strong>Important text. </strong>Not too important. <strong>Also useful info.</strong></p>
+  </div>
+</div>`;
+
+result('#summarize');
+
+var clickEvent = document.createEvent('MouseEvents');
+clickEvent.initEvent('click', true, true);
+$('#summarize')[0].dispatchEvent(clickEvent);
+
+let summary = $('#summary').find('p').text();
+expect(/Important text/i.test(summary)).to.equal(true, "First sentence wasn't extracted.");
+expect(/Also useful info/i.test(summary)).to.equal(true, "Second sentence wasn't extracted.");
