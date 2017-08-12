@@ -1,0 +1,14 @@
+title new title body new post body _acl creator
+
+{
+    "title": "New Title",
+    "body": "New Body",
+    "_acl": {
+        "creator": "5986e9ef7d3326c22a44ec4f"
+    },
+    "_kmd": {
+        "lmt": "2017-08-06T10:44:00.610Z",
+        "ect": "2017-08-06T10:44:00.610Z"
+    },
+    "_id": "5986f2f0e0dad61876c9e0a8"
+}
