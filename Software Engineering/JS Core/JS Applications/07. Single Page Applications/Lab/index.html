@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Library</title>
+    <script src="scripts/jquery-3.1.1.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/book-library.css"/>
+</head>
+<body>
+<header id="menu">
+    <a href="#" id="linkHome">Home</a>
+    <a href="#" id="linkLogin">Login</a>
+    <a href="#" id="linkRegister">Register</a>
+    <a href="#" id="linkBooks">List Books</a>
+    <a href="#" id="linkCreate">Create Book</a>
+    <a href="#" id="linkLogout">Logout</a>
+    <span id="loggedInUser"></span>
+</header>
+<main>
+    <div id="loadingBox" class="notification">Loading &hellip;</div>
+    <div id="infoBox" class="notification">Info</div>
+    <div id="errorBox" class="notification">Error</div>
+
+    <section id="viewHome">
+        <h1>Welcome</h1>
+        <div class="content">
+            <p>
+                Welcome to our book library.
+            </p>
+        </div>
+    </section>
+
+    <section id="viewLogin">
+        <h1>Please login</h1>
+        <div class="content">
+            <form>
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword">
+
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </section>
+
+    <section id="viewRegister">
+        <h1>Please register here</h1>
+        <div class="content">
+            <form>
+                <label for="registerUsername">Username</label>
+                <input type="text" id="registerUsername">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword">
+                <label for="registerConfirmPassword">Confirm Password</label>
+                <input type="password" id="registerConfirmPassword">
+
+                <input type="submit" value="Register">
+            </form>
+        </div>
+    </section>
+
+    <section id="viewBooks">
+        <h1>Books</h1>
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Under the Yoke</td>
+                        <td>Ivan Vazov</td>
+                        <td>Some description</td>
+                        <td><a href="#">[Edit]</a><a href="#">[Delete]</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="viewCreate">
+        <h1>Create new book</h1>
+        <div class="content">
+            <form>
+                <label for="createTitle">Title:</label>
+                <input type="text" id="createTitle">
+                <label for="createAuthor">Author:</label>
+                <input type="text" id="createAuthor">
+                <label for="createDescription">Description:</label>
+                <textarea type="text" id="createDescription"></textarea>
+                <input type="submit" value="Create">
+            </form>
+        </div>
+    </section>
+
+    <section id="viewEdit">
+        <h1>Edit book</h1>
+        <div class="content">
+            <form>
+                <label for="editTitle">Title:</label>
+                <input type="text" id="editTitle">
+                <label for="editAuthor">Author:</label>
+                <input type="text" id="editAuthor">
+                <label for="editDescription">Description:</label>
+                <textarea type="text" id="editDescription"></textarea>
+
+                <input type="submit" value="Edit">
+            </form>
+        </div>
+    </section>
+
+</main>
+<footer>Book Library - Simple SPA Application</footer>
+</body>
+</html>
