@@ -1,0 +1,11 @@
+{
+  "name": "exercise",
+  "version": "1.0.0",
+  "description": "Introduction to Node.js Exercises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "codex",
+  "license": "ISC"
+}
