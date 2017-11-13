@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
-import left from '../resources/left.png';
-import right from '../resources/right.png';
+import React, { Component } from 'react'
+
+import left from './../resources/left.png'
+import right from './../resources/right.png'
+
 const port = '9999';
 
 class Slider extends Component {
@@ -8,65 +10,43 @@ class Slider extends Component {
     super()
 
     this.state = {
-      focusedEpId : 0,
-      focusedEpImageUrl : ''
+      focusedEpId: 0,
+      imgUrl: ""
     }
 
     this.getNewEp = (id) => {
-      fetch('http://localhost:' + port + '/episodePreview/' + id).then(data => {
-        return data.json()
-      }).then(parsedData => {
-        this.setState({ focusedEpId : parsedData.id })
-        this.setState({ focusedEpImageUrl : parsedData.url })
-      })
+      fetch('http://localhost:' + port + '/episodePreview/' + id)
+        .then(data => {
+          return data.json()
+        }).then(parsedData => {
+          this.setState({ focusedEpId: parsedData.id })
+          this.setState({ imgUrl: parsedData.url })
+        })
     }
-  }
-
-  changeSlide = (direction) => {
-    let id = Number(this.state.focusedEpId)
-    if (direction === 'left') {
-      id -= 1
-    } else if (direction === 'right') {
-      id += 1
-    }
-    this.getNewEp(id)
   }
 
   componentDidMount() {
     fetch('http://localhost:' + port + '/episodePreview/' + this.state.focusedEpId)
       .then(data => {
         return data.json()
-      })
-      .then(parsedData => {
-        this.setState({focusedEpImageUrl : parsedData.url})
+      }).then(parsedData => {
+        this.setState({ imgUrl: parsedData.url })
       })
   }
 
   render() {
     return (
-      <div>
-        <div className='wrapper'>
-          <img
-            alt='left-arrow'
-            src={left}
-            className='slider-elem slider-button case-left'
-            onClick={() => this.changeSlide('left')}
-          />
-          <img
-            className='sliderImg slider-elem'
-            alt='focusedEp'
-            src={this.state.focusedEpImageUrl}
-          />
-          <img
-            alt='right-arrow'
-            src={right}
-            className='slider-elem slider-button case-right'
-            onClick={() => this.changeSlide('right')}
-          />
-        </div>
+      <div className='warper'>
+        <img onClick={() => {
+          this.getNewEp(Number(this.state.focusedEpId) - 1)
+        }} className="slider-button case-left" alt="left" src={left} />
+        <img className="sliderImg" alt="hello" src={this.state.imgUrl} />
+        <img onClick={() => {
+          this.getNewEp(Number(this.state.focusedEpId) + 1)
+        }} className="slider-button case-right" alt="right" src={right} />
       </div>
     )
   }
 }
 
-export default Slider;
+export default Slider
