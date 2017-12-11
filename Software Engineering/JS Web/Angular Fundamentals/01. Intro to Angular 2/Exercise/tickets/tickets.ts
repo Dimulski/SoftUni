@@ -36,7 +36,7 @@ function manageTickets(tickets: Array<string>, sortingCriteria: string) {
   }));
 }
 
-manageTickets([
+manageTickets([ 
 'Philadelphia|94.20|available',
 'New York City|95.99|available',
 'New York City|95.99|sold',
