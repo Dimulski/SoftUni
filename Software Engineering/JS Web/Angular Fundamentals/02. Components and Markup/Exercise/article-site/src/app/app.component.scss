@@ -1,0 +1,10 @@
+$textColor: #000;
+
+.container {
+  display: flex;
+  color: $textColor;
+
+  .right {
+    text-align: justify;
+  }
+}

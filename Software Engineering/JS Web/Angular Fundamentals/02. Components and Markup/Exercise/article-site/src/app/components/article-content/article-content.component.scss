@@ -1,0 +1,42 @@
+.article-content {
+  position: relative;
+  text-align: justify;
+  background-color: rgb(26, 1, 59);
+  padding: 10px;
+  color: #fff;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  button {
+    margin: 10px 0;
+  }
+
+  .delete-article {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  .show-hide-button {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .article-title {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .article-author {
+    font-weight: bold;
+    margin: 10px 0;
+  }
+}
