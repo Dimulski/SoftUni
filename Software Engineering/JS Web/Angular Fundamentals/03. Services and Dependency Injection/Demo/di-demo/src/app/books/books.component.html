@@ -1,0 +1,9 @@
+<h1>All books in Store</h1>
+<p>Choose a book</p>
+<ul>
+  <li *ngFor="let book of books">
+    <div>
+      {{book.title}}  -> <span>{{ book.publishedOn | date: 'longDate' }}</span>
+    </div>
+  </li>
+</ul>
