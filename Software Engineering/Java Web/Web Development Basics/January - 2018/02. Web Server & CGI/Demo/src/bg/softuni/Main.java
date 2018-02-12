@@ -15,8 +15,12 @@ public class Main {
             return;
         }
         Scanner sc = new Scanner(System.in);
-        Map<String, String> getParams = createParameterMap(System.getenv("QUERY_STRING"));
-        Map<String, String> postParams = createParameterMap(sc.nextLine());
+//        String a = sc.nextLine();
+//        System.out.println();
+//        System.out.println(a);
+//        System.exit(0);
+//        Map<String, String> getParams = createParameterMap(System.getenv("QUERY_STRING"));
+        Map<String, String> postParams = Request.createParameterMap(sc.nextLine());
 
         if (!postParams.containsKey("register_btn")) {
             System.out.println();
@@ -37,6 +41,7 @@ public class Main {
         BufferedReader fr = new BufferedReader(new FileReader("users.txt"));
         long count = fr.lines().count();
         long id = count + 1;
+        fr.close();
         FileWriter fw = new FileWriter("users.txt", true);
         fw.append(String.valueOf(id))
                 .append("|")
@@ -48,15 +53,6 @@ public class Main {
         fw.close();
 
         System.out.println("Location: users.cgi");
-    }
-
-    static Map<String, String> createParameterMap(String params) {
-        Map<String, String> requestParams = new HashMap<>();
-        for (String pairString : params.split("&")) {
-            String[] pair = pairString.split("=");
-            requestParams.put(pair[0], pair[1]);
-        }
-
-        return requestParams;
+        System.out.println();
     }
 }
