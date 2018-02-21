@@ -8,11 +8,8 @@ import java.util.Map;
 public class Secure {
     public static void main(String[] args) throws FileNotFoundException {
 
-        Map<String, String> cookies = Request.getCookieMap(System.getenv("Cookie"));
+        Map<String, String> cookies = Request.getCookieMap(System.getenv("HTTP_COOKIE"));
         System.out.println("Content-type: text/html\r\n");
-        System.getenv().forEach((k, v) -> {
-            System.out.println(k + " -> " + v);
-        });
         if (!cookies.containsKey("username")) {
             System.out.println("<h1 style='color: red'>You cannot access this area!</h1>");
         } else {
