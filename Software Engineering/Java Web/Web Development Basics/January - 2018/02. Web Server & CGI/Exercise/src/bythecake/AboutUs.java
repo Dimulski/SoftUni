@@ -23,6 +23,14 @@ public class AboutUs {
                         + "</dl>";
 
         output +=
+                ""
+                        + "<pre style=\"width: 100%; background-color: #f94f80;\">"
+                        + "City: HongKong                City: Salzburg\n"
+                        + "Address: ChoCoLad 18          Address: SchokoLeiden 73\n"
+                        + "Phone: +78952804429           Phone: +49241432990\n"
+                        + "</pre>";
+
+        output +=
                 HtmlElements.FOOTER_ELEMENT
                         + "</body>"
                         + "</html>";

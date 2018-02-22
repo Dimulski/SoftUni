@@ -18,7 +18,7 @@ public class Home {
                 ""
                         + "<section>"
                         + "<h3 id=\"cakes\">Our Cakes</h3>"
-                        + "<p>Cake is a form of sweet dessert that is typically baked. In its oldest forms, cakes were "
+                        + "<p><strong>Cake<em></em></strong> is a form of <strong><em>sweet dessert</em></strong> that is typically baked. In its oldest forms, cakes were "
                         + "modifications of breads, but cakes now cover a wide range of preparations that can be simple"
                         + " or elaborate, and that share features with other desserts such as pastries, meringues,"
                         + " custards, and pies</p>"
