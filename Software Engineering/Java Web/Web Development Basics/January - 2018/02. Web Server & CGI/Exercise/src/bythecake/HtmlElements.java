@@ -15,8 +15,4 @@ public final class HtmlElements {
                     + "<footer>"
                     + "<p style=\"text-align: center;\">&copy;All Rights Reserved.</p>"
                     + "</footer>";
-
-    private HtmlElements() {
-
-    }
 }
