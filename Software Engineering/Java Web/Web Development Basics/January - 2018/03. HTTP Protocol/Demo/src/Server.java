@@ -2,6 +2,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -22,7 +23,6 @@ public class Server {
         this.supportedContentTypes.put("png", "image/png");
         this.supportedContentTypes.put("jpg", "image/jpeg");
         this.supportedContentTypes.put("jpeg", "image/jpeg");
-        this.supportedContentTypes.put("html", "text/html");
         this.supportedContentTypes.put("html", "text/html");
     }
 
@@ -49,6 +49,8 @@ public class Server {
             byte[] requestResult = this.handleRequest(requestContent.toString());
 
             byte[] responseContent = this.constructResponse(requestContent.toString(), requestResult);
+
+            responseStream.write(responseContent);
 
             responseStream.close();
             requestStream.close();
@@ -88,7 +90,7 @@ public class Server {
             fullResponseByteData[i] = headersAsBytes[i];
         }
 
-        for (int i = 0; i <requestResult.length; i++) {
+        for (int i = 0; i < requestResult.length; i++) {
             fullResponseByteData[i + headersAsBytes.length] = requestResult[i];
         }
 
@@ -100,6 +102,8 @@ public class Server {
 
         try {
             fileByteData = Files.readAllBytes(Paths.get("C:\\SoftUni\\Software Engineering\\Java Web\\Web Development Basics\\January - 2018\\03. HTTP Protocol\\Demo\\src\\resources\\" + requestResource));
+        } catch (NoSuchFileException e) {
+            return ("File not found").getBytes();
         } catch (IOException e) {
             e.printStackTrace();
         }
