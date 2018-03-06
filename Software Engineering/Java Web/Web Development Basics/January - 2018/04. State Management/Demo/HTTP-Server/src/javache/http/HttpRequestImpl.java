@@ -6,8 +6,11 @@ import java.util.List;
 
 public class HttpRequestImpl implements HttpRequest {
     private String method;
+
     private String requestUrl;
+
     private HashMap<String, String> headers;
+
     private HashMap<String, String> bodyParameters;
 
     public HttpRequestImpl(String requestContent) {
@@ -32,7 +35,8 @@ public class HttpRequestImpl implements HttpRequest {
                 requestContent.split("\\r\\n"));
 
         int i = 1;
-        while (i < requestParams.size() && requestParams.get(i).length() > 0) {
+
+        while(i < requestParams.size() && requestParams.get(i).length() > 0) {
             String[] headerKeyValuePair = requestParams.get(i).split("\\:\\s");
 
             this.addHeader(headerKeyValuePair[0], headerKeyValuePair[1]);
@@ -42,12 +46,12 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     private void initBodyParameters(String requestContent) {
-        if (this.getMethod().equals("POST")) {
+        if(this.getMethod().equals("POST")) {
             this.bodyParameters = new HashMap<>();
 
             List<String> requestParams = Arrays.asList(requestContent.split("\\r\\n"));
 
-            if (requestParams.size() > this.headers.size() + 2) {
+            if(requestParams.size() > this.headers.size() + 2) {
                 List<String> bodyParams = Arrays.asList(requestParams.get(this.headers.size() + 2).split("\\&"));
 
                 for (int i = 0; i < bodyParams.size(); i++) {

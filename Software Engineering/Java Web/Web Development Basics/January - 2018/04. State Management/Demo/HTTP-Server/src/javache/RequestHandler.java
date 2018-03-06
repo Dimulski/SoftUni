@@ -3,8 +3,8 @@ package javache;
 import javache.http.*;
 
 public class RequestHandler {
-
     private HttpRequest httpRequest;
+
     private HttpResponse httpResponse;
 
     public RequestHandler() { }
@@ -13,36 +13,36 @@ public class RequestHandler {
         this.httpRequest = new HttpRequestImpl(requestContent);
         this.httpResponse = new HttpResponseImpl();
 
-        // Do some things
+        //DO SOME THINGIES
 
-        return this.ok("<h1>Hello</h1>".getBytes());
+        return this.Ok(new byte[0]);
     }
 
-    private byte[] ok(byte[] content) {
+    private byte[] Ok(byte[] content) {
         this.httpResponse.setStatusCode(HttpStatus.Ok);
         this.httpResponse.setContent(content);
         return this.httpResponse.getBytes();
     }
 
-    private byte[] badRequest(byte[] content) {
+    private byte[] BadRequest(byte[] content) {
         this.httpResponse.setStatusCode(HttpStatus.BadRequest);
         this.httpResponse.setContent(content);
         return this.httpResponse.getBytes();
     }
 
-    private byte[] notFound(byte[] content) {
+    private byte[] NotFound(byte[] content) {
         this.httpResponse.setStatusCode(HttpStatus.NotFound);
         this.httpResponse.setContent(content);
         return this.httpResponse.getBytes();
     }
 
-    private byte[] redirect(byte[] content) {
+    private byte[] Redirect(byte[] content) {
         this.httpResponse.setStatusCode(HttpStatus.SeeOther);
         this.httpResponse.setContent(content);
         return this.httpResponse.getBytes();
     }
 
-    private byte[] internalServerError(byte[] content) {
+    private byte[] InternalServerError(byte[] content) {
         this.httpResponse.setStatusCode(HttpStatus.InternalServerError);
         this.httpResponse.setContent(content);
         return this.httpResponse.getBytes();

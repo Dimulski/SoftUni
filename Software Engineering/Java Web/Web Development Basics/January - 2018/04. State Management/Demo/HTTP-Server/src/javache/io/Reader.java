@@ -1,9 +1,6 @@
 package javache.io;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public final class Reader {
     private Reader() {}
@@ -13,7 +10,7 @@ public final class Reader {
 
         StringBuilder result = new StringBuilder();
 
-        while (buffer.ready()) {
+        while(buffer.ready()) {
             result.append((char)buffer.read());
         }
 

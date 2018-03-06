@@ -5,7 +5,9 @@ import java.util.Map;
 
 public class HttpResponseImpl implements HttpResponse {
     private HttpStatus statusCode;
+
     private HashMap<String, String> headers;
+
     private byte[] content;
 
     public HttpResponseImpl() {
@@ -17,7 +19,7 @@ public class HttpResponseImpl implements HttpResponse {
         StringBuilder result = new StringBuilder()
                 .append(ResponseLines.getResponseLine(this.getStatusCode().getStatusCode())).append(System.lineSeparator());
 
-        for (Map.Entry<String, String> header : this.getHeaders().entrySet()) {
+        for (Map.Entry<String,String> header : this.getHeaders().entrySet()) {
             result.append(header.getKey()).append(": ").append(header.getValue()).append(System.lineSeparator());
         }
 

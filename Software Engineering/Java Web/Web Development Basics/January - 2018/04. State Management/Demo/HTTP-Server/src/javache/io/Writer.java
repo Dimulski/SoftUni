@@ -1,8 +1,6 @@
 package javache.io;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 
 public final class Writer {
     private Writer() {}

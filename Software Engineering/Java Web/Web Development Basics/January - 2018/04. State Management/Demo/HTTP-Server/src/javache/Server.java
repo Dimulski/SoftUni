@@ -1,16 +1,13 @@
 package javache;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
+import java.io.*;
+import java.net.*;
 import java.util.concurrent.FutureTask;
 
 public class Server {
+    private static final String LISTENING_MESSAGE = "Listening on port: ";
 
-    private static final String LISTENING_MESSAGE = "Listening to port: ";
-
-    private static final String TIMEOUT_DETECTION_MESSAGE = "Timeout detected";
+    private static final String TIMEOUT_DETECTION_MESSAGE = "Timeout detected!";
 
     private static final Integer SOCKET_TIMEOUT_MILLISECONDS = 5000;
 
@@ -31,15 +28,16 @@ public class Server {
 
         this.server.setSoTimeout(SOCKET_TIMEOUT_MILLISECONDS);
 
-        while (true) {
-            try (Socket clientSocket = this.server.accept()) {
+        while(true) {
+            try(Socket clientSocket = this.server.accept()) {
                 clientSocket.setSoTimeout(SOCKET_TIMEOUT_MILLISECONDS);
 
-                ConnectionHandler connectionHandler = new ConnectionHandler(clientSocket, new RequestHandler());
+                ConnectionHandler connectionHandler
+                        = new ConnectionHandler(clientSocket, new RequestHandler());
 
                 FutureTask<?> task = new FutureTask<>(connectionHandler, null);
                 task.run();
-            } catch (SocketTimeoutException e) {
+            } catch(SocketTimeoutException e) {
                 System.out.println(TIMEOUT_DETECTION_MESSAGE);
                 this.timeouts++;
             }
