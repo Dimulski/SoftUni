@@ -1,5 +1,7 @@
 package javache.http;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +55,11 @@ public class HttpRequestImpl implements HttpRequest {
                 for (int i = 0; i < bodyParams.size(); i++) {
                     String[] bodyKeyValuePair = bodyParams.get(i).split("\\=");
 
-                    this.addBodyParameter(bodyKeyValuePair[0], bodyKeyValuePair[1]);
+                    try {
+                        this.addBodyParameter(bodyKeyValuePair[0], URLDecoder.decode(bodyKeyValuePair[1], "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
