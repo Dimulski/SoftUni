@@ -5,22 +5,28 @@ import javache.http.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class RequestHandler {
 
     private HttpRequest httpRequest;
     private HttpResponse httpResponse;
+    private HttpSession session;
+    private static final String SERVER_SESSION_KEY = "JAVACHE_SESSION_ID";
 
-    public RequestHandler() { }
+    public RequestHandler(HttpSession session) {
+        this.session = session;
+    }
 
     public byte[] handleRequest(String requestContent) {
         this.httpRequest = new HttpRequestImpl(requestContent);
         this.httpResponse = new HttpResponseImpl();
 
         String url = this.httpRequest.getRequestUrl();
-        String assetsFolder = System.getProperty("user.dir")
-                + "\\src\\resources\\assets";
+        String resourcesFolder = System.getProperty("user.dir")
+                + "\\src\\resources\\";
+        String assetsFolder = resourcesFolder + "assets";
         switch (url) {
             case "/":
                 try {
@@ -39,7 +45,7 @@ public class RequestHandler {
                 }
 
                 try {
-                    User existingUser = this.findUserData(email);
+                    User existingUser = this.findUserDataByEmail(email);
                     if (existingUser != null) {
                         this.badRequest("User already exists".getBytes());
                     }
@@ -59,9 +65,73 @@ public class RequestHandler {
 
                 return this.ok("<p style='color:red'>I am register</p>".getBytes());
             case "/users/login":
-                return this.ok("<p style='color:red'>I am login</p>".getBytes());
+                String loginEmail = this.httpRequest.getBodyParameters().get("email");
+                String loginPassword = this.httpRequest.getBodyParameters().get("password");
+
+                try {
+                    User user = this.findUserDataByEmail(loginEmail);
+                    if (user == null) {
+                        return this.badRequest(new byte[0]);
+                    }
+
+                    if (!user.getPassword().equals(loginPassword)) {
+                        return this.badRequest(new byte[0]);
+                    }
+
+                    String sessionId = UUID.randomUUID().toString();
+
+                    this.session.setSessionData(
+                            sessionId,
+                            new HashMap<String, Object>() {{
+                                put("userId", user.getId());
+                            }}
+                    );
+
+                    this.httpResponse.addCookie(SERVER_SESSION_KEY, sessionId);
+
+                    this.httpResponse.addHeader("Location", "/users/profile");
+                    return this.redirect(new byte[0]);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             case "/users/profile":
-                return this.ok("<p style='color:red'>I am profile</p>".getBytes());
+                byte[] guestContents = null;
+                try {
+                    guestContents = Files.readAllBytes(Paths.get(
+                            resourcesFolder + "pages\\profile\\guest.html"
+                    ));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (!this.httpRequest.getCookies().containsKey(SERVER_SESSION_KEY)) {
+                    return this.ok(guestContents);
+                } else {
+                    String sessionId = this.httpRequest.getCookies().get(SERVER_SESSION_KEY);
+                    String userId = (String) this.session.getSessionData(sessionId)
+                            .get("userId");
+                    try {
+                        User user = this.findUserDataById(userId);
+                        if (user == null) {
+                            return this.unauthorized(guestContents);
+                        }
+
+                        String loggedContents = javache.io.Reader.readAllLines(
+                                new FileInputStream(resourcesFolder + "pages\\profile\\logged.html")
+                        );
+
+                        String loggedResponse = String.format(
+                                loggedContents,
+                                user.getName(),
+                                user.getPassword()
+                        );
+
+                        return this.ok(loggedResponse.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             default:
                 String filePath = assetsFolder + url;
                 File file = new File(filePath);
@@ -111,14 +181,20 @@ public class RequestHandler {
         return this.httpResponse.getBytes();
     }
 
-    private User findUserData(String email) throws IOException {
+    private byte[] unauthorized(byte[] content) {
+        this.httpResponse.setStatusCode(HttpStatus.Unauthorized);
+        this.httpResponse.setContent(content);
+        return this.httpResponse.getBytes();
+    }
+
+    private User find(String search, int index) throws IOException {
         String dbPath = System.getProperty("user.dir") + "\\src\\resources\\db\\users.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(dbPath))) {
             String line = reader.readLine();
             while (line != null) {
                 String[] userData = line.split("\\|");
-                if (userData[1].equals(email)) {
+                if (userData[index].equals(search)) {
                     return new User(userData[0], userData[1], userData[2]);
                 }
                 line = reader.readLine();
@@ -126,6 +202,14 @@ public class RequestHandler {
         }
 
         return null;
+    }
+
+    private User findUserDataById(String id) throws IOException {
+        return this.find(id, 0);
+    }
+
+    private User findUserDataByEmail(String email) throws IOException {
+        return this.find(email, 1);
     }
 
     class User {

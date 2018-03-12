@@ -57,6 +57,16 @@ public class HttpResponseImpl implements HttpResponse {
     }
 
     @Override
+    public void addCookie(String cookie, String value) {
+        String cookieString = cookie + "=" + value;
+        if (!this.headers.containsKey("Set-Cookie")) {
+            this.headers.put("Set-Cookie", cookieString);
+        } else {
+            this.headers.put("Set-Cookie", this.headers.get("Set-Cookie") + "; " + cookie);
+        }
+    }
+
+    @Override
     public byte[] getBytes() {
         byte[] headersBytes = this.getHeadersBytes();
         byte[] bodyBytes = this.getContent();

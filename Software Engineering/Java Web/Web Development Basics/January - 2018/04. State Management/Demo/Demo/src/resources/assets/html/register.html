@@ -6,11 +6,10 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Login here. If you don't have an account - <a href="/html/register.html">Register</a></h1>
-
-<form method="post" action="/users/login">
+<h1>I'm a register form here. Or if you have an account, you can just <a href="/html/login.html">Login</a></h1>
+<form method="post" action="/users/register">
     <fieldset>
-        <legend>Login form</legend>
+        <legend>Register form</legend>
         <div class="form-group row">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
@@ -24,7 +23,14 @@
                 <input name="password" class="form-control-plaintext" id="password" type="password">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+
+        <div class="form-group row">
+            <label for="confirm" class="col-sm-2 col-form-label">Confirm Password</label>
+            <div class="col-sm-10">
+                <input name="confirm" class="form-control-plaintext" id="confirm" type="password">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
     </fieldset>
 </form>
 
