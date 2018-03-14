@@ -36,7 +36,6 @@ public class RequestHandler {
                     e.printStackTrace();
                 }
             case "/users/register":
-
                 String email = this.httpRequest.getBodyParameters().get("email");
                 String password = this.httpRequest.getBodyParameters().get("password");
                 String confirm = this.httpRequest.getBodyParameters().get("confirm");

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" style="margin-top: 40px;">
+    <h1 class="text-center">Login Here</h1>
+    <form method="post" style="margin-top: 40px;" action="/users/login">
+        <div class="form-group row justify-content-center align-content-center">
+            <label class="col-sm-2" for="emailId">Email</label>
+            <input class="col-sm-2 form-control" type="text" id="emailId" name="email" placeholder="email@example.com"/>
+        </div>
+        <div class="form-group row justify-content-center align-content-center">
+            <label class="col-sm-2" for="passwordId">Password</label>
+            <input class="col-sm-2 form-control" type="password" id="passwordId" name="password"/>
+        </div>
+        <div class="row justify-content-center align-content-center" style="margin-top: 30px;">
+            <button class="btn btn-primary col-sm-1">Login</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
