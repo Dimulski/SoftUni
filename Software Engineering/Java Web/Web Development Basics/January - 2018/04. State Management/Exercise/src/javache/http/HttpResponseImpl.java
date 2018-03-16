@@ -69,6 +69,11 @@ public class HttpResponseImpl implements HttpResponse {
     }
 
     @Override
+    public void deleteCookie(String cookie) {
+        this.headers.put("Set-Cookie", cookie + "=deleted; path=/;");
+    }
+
+    @Override
     public byte[] getBytes() {
         byte[] headersBytes = this.getHeadersBytes();
         byte[] bodyBytes = this.getContent();

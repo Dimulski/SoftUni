@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public interface HttpResponse {
+
+
     enum ResponseLines {
         OK (WebConstants.SERVER_HTTP_VERSION + " " + HttpStatus.OK.getStatusPhrase()),
         CREATED (WebConstants.SERVER_HTTP_VERSION + " " + HttpStatus.CREATED.getStatusPhrase()),
@@ -43,4 +45,6 @@ public interface HttpResponse {
     void addHeader(String header, String value);
 
     void addCookie(String cookie, String value);
+
+    void deleteCookie(String cookie);
 }

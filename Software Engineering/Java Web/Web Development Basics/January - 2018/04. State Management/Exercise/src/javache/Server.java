@@ -2,6 +2,8 @@ package javache;
 
 import javache.http.HttpSession;
 import javache.http.HttpSessionImpl;
+import javache.repositories.UserRepository;
+import javache.repositories.UserRepositoryImpl;
 
 import java.io.*;
 import java.net.*;
@@ -37,8 +39,10 @@ public class Server {
             try(Socket clientSocket = this.server.accept()) {
                 clientSocket.setSoTimeout(SOCKET_TIMEOUT_MILLISECONDS);
 
+                UserRepository<User> userRepository = new UserRepositoryImpl();
+
                 ConnectionHandler connectionHandler
-                        = new ConnectionHandler(clientSocket, new RequestHandler(session));
+                        = new ConnectionHandler(clientSocket, new RequestHandler(userRepository, session));
 
                 FutureTask<?> task = new FutureTask<>(connectionHandler, null);
                 task.run();

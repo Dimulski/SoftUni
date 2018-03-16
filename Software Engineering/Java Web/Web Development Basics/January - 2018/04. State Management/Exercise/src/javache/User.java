@@ -16,7 +16,7 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        name = name;
     }
 
     public String getPassword() {

@@ -7,10 +7,8 @@ import javache.repositories.UserRepositoryImpl;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class RequestHandler {
     private HttpRequest httpRequest;
@@ -19,7 +17,8 @@ public class RequestHandler {
     private UserRepository userRepository;
     private static final String SERVER_SESSION_KEY = "JAVACHE_SESSION_ID";
 
-    public RequestHandler(HttpSession session) {
+    public RequestHandler(UserRepository<User> userRepository, HttpSession session) {
+        this.userRepository = userRepository;
         this.session = session;
     }
 
@@ -96,7 +95,8 @@ public class RequestHandler {
                 }
 
                 if (!this.httpRequest.getCookies().containsKey(SERVER_SESSION_KEY)) {
-                    return this.ok(guestContents);
+                    this.httpResponse.addHeader("Location", "/html/login.html");
+                    return this.redirect(new byte[0]);
                 } else {
                     String sessionId = this.httpRequest.getCookies().get(SERVER_SESSION_KEY);
                     String userId = (String) this.session.getSessionData(sessionId).get("userId");
@@ -125,7 +125,8 @@ public class RequestHandler {
 
             case "/home": {
                 if (!this.httpRequest.getCookies().containsKey(SERVER_SESSION_KEY)) {
-                    return this.redirect(new byte[0]); // redirect here
+                    this.httpResponse.addHeader("Location", "/html/login.html");
+                    return this.redirect(new byte[0]);
                 } else {
                     String sessionId = this.httpRequest.getCookies().get(SERVER_SESSION_KEY);
                     String userId = (String) this.session.getSessionData(sessionId).get("userId");
@@ -139,13 +140,15 @@ public class RequestHandler {
                                 new FileInputStream(resourcesFolder + "pages\\home.html")
                         );
 
-                        StringBuilder users = new StringBuilder();
-                        this.getUsersNames().stream().filter(u -> !u.equals(user.getName()))
-                                .forEach(u -> users.append(u + "<br/>"));
-                        System.out.println(users);
+                        HashSet<User> users = (HashSet<User>) this.userRepository.getAll();
+                        List<String> otherUsersEmails = users.stream().map(User::getName)
+                                .filter(e -> !e.equals(user.getName()))
+                                .sorted()
+                                .collect(Collectors.toList());
+
                         String loggedResponse = String.format(
                                 homeContents,
-                                users
+                                String.join("<br/>", otherUsersEmails)
                         );
 
                         return this.ok(loggedResponse.getBytes());
@@ -155,17 +158,37 @@ public class RequestHandler {
                 }
             }
 
+            case "/users/logout": {
+                this.httpResponse.deleteCookie(SERVER_SESSION_KEY);
+                this.httpResponse.addHeader("Location", "/");
+                return this.redirect(new byte[0]);
+            }
+
             default: {
                 String filePath = assetsFolder + url;
                 File file = new File(filePath);
+                byte[] errorContents = new byte[0];
 
                 if (!file.exists() || file.isDirectory()) {
-                    return this.notFound(new byte[0]);
+                    try {
+                        errorContents = Files.readAllBytes(Paths.get(
+                                resourcesFolder + "pages\\error\\notFound.html"));
+                        return this.notFound(errorContents);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 try {
                     if (!file.getCanonicalPath().startsWith(assetsFolder)) {
-                        return this.badRequest(new byte[0]);
+                        try {
+                            errorContents = Files.readAllBytes(Paths.get(
+                                    resourcesFolder + "pages\\error\\badRequest.html"));
+                            return this.badRequest(errorContents);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
                     byte[] fileContents = Files.readAllBytes(Paths.get(filePath));
