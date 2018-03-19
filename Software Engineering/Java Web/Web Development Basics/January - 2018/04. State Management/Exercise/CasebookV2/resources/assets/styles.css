@@ -1,0 +1,42 @@
+.log-in-form{
+    margin-top: 5%;
+    border-radius: 10px;
+    padding: 2%;
+    background-color: lightblue;
+}
+
+.form-element{
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.option-menu{
+    margin-top: 20pt;
+    list-style: none;
+}
+
+.option-menu .menu-item{
+    background: dodgerblue;
+    display: block;
+    color: white;
+    text-decoration: none;
+    height: 30pt;
+}
+
+.menu-item:hover{
+    background-color: lightblue;
+}
+
+.menu-item a{
+    display: block;
+    text-decoration: none;
+    color: white;
+    height: inherit;
+    text-align: center;
+}
+.menu-item a:hover{
+    text-decoration: none;
+}
+
+
+
