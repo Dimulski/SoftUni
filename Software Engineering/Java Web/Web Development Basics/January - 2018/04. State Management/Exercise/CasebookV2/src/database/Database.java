@@ -45,10 +45,10 @@ public class Database {
     public static User find(String username, String password) {
         try {
             String data = Reader.readAllLines(new FileInputStream(DATABASE_FILE_PATH));
-            String[] lines = data.split(System.lineSeparator());
+            String[] lines = data.split("\n");
             for (String line : lines) {
                 String[] userInfo = line.split("\\|");
-                if (userInfo[1].equals(username) && userInfo[3].equals(password)) {
+                if (userInfo[1].equals(username) && userInfo[2].equals(password)) {
                     return new User(userInfo[0], userInfo[1], userInfo[2], userInfo[3]);
                 }
             }
@@ -62,7 +62,7 @@ public class Database {
     public static User find(String id, boolean full) {
         try {
             String data = Reader.readAllLines(new FileInputStream(DATABASE_FILE_PATH));
-            String[] lines = data.split(System.lineSeparator());
+            String[] lines = data.split("\n");
             for (String line : lines) {
                 String[] userInfo = line.split("\\|");
                 if (userInfo[0].equals(id)) {

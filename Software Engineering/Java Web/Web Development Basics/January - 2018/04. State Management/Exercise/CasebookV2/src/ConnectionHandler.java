@@ -19,6 +19,7 @@ public class ConnectionHandler extends Thread {
     public void run() {
         try {
             String requestContent = io.Reader.readAllLines(this.clientInputStream);
+            System.out.println(requestContent); // #forRemoval
             byte[] responseContent = this.handler.handleRequest(requestContent);
             io.Writer.writeResponseContent(responseContent, this.clientOutputStream);
 

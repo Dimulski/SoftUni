@@ -41,7 +41,7 @@ public final class Request implements HttpRequest {
     }
 
     private void initProtocol() {
-        this.requestUrl = this.firstLineParams[2];
+        this.protocol = this.firstLineParams[2];
     }
 
     private void initHeaders() {

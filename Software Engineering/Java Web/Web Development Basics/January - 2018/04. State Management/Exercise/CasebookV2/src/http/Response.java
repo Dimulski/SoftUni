@@ -36,7 +36,7 @@ public class Response implements HttpResponse {
         String firstLine = String.format("%s %d %s",
                 this.protocol,
                 this.statusCode.getCode(),
-                this.statusCode.getClass().getSimpleName());
+                this.statusCode.getPhrase());
 
         StringBuilder headers = new StringBuilder();
         headers.append(firstLine).append(System.lineSeparator());
@@ -45,6 +45,7 @@ public class Response implements HttpResponse {
         for (String key : keys) {
             headers.append(String.format("%s: %s", key, this.headers.get(key)))
                     .append(System.lineSeparator());
+            System.out.println("hi");
         }
         headers.append(System.lineSeparator());
 
