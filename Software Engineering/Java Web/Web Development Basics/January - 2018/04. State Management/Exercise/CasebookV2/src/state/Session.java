@@ -25,6 +25,6 @@ public class Session {
 
     @Override
     public String toString() {
-        return "sessionId=" + this.id; // #Path?
+        return "sessionId=" + this.id; // # Path?
     }
 }

@@ -8,6 +8,7 @@ import java.util.Set;
 public class Response implements HttpResponse {
 
     private StatusCode statusCode;
+    private String requestUrl;
     private String protocol;
     private HashMap<String, String> headers;
     private byte[] content;
@@ -45,7 +46,6 @@ public class Response implements HttpResponse {
         for (String key : keys) {
             headers.append(String.format("%s: %s", key, this.headers.get(key)))
                     .append(System.lineSeparator());
-            System.out.println("hi");
         }
         headers.append(System.lineSeparator());
 
@@ -74,6 +74,11 @@ public class Response implements HttpResponse {
     @Override
     public void setStatusCode(StatusCode statusCode) {
         this.statusCode = statusCode;
+    }
+
+    @Override
+    public void setRequestUrl(String requestUrl) {
+        this.requestUrl = requestUrl;
     }
 
     @Override

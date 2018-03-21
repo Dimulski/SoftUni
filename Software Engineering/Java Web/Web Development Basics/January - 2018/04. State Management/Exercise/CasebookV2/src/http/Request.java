@@ -2,10 +2,10 @@ package http;
 
 import java.util.HashMap;
 
-public final class Request implements HttpRequest {
+public class Request implements HttpRequest {
 
-    private String[] requestLines;
-    private String[] firstLineParams;
+//    private String[] requestLines;
+//    private String[] firstLineParams;
     private String method;
     private String requestUrl;
     private String protocol;
@@ -15,51 +15,36 @@ public final class Request implements HttpRequest {
     public Request(String requestContent) {
         this.headers = new HashMap<>();
         this.bodyParameters = new HashMap<>();
-        this.initRequestLines(requestContent);
-        this.initFirstLineParams();
-        this.initMethod();
-        this.initRequestUrl();
-        this.initProtocol();
-        this.initHeaders();
-        this.initBodyParameters();
+        this.initRequest(requestContent);
     }
 
-    private void initRequestLines(String requestContent) {
-        this.requestLines = requestContent.split("\n");
+    private void initRequest(String requestContent) {
+        String[] requestLines = requestContent.split("\n");
+        String[] firstLineParams = requestLines[0].split("\\s+");
+        this.method = firstLineParams[0];
+        this.requestUrl = firstLineParams[1];
+        this.protocol = firstLineParams[2];
+        this.initHeaders(requestLines);
+        this.initBodyParameters(requestLines);
     }
 
-    private void initFirstLineParams() {
-        this.firstLineParams = this.requestLines[0].split("\\s+");
-    }
 
-    private void initMethod() {
-        this.method = this.firstLineParams[0];
-    }
-
-    private void initRequestUrl() {
-        this.requestUrl = this.firstLineParams[1];
-    }
-
-    private void initProtocol() {
-        this.protocol = this.firstLineParams[2];
-    }
-
-    private void initHeaders() {
-        int endIndex = getLineSeparatorIndex();
+    private void initHeaders(String[] requestLines) {
+        int endIndex = getLineSeparatorIndex(requestLines);
         if (endIndex != -1) {
             String line;
             for (int i = 1; i < endIndex; ++i) {
-                line = this.requestLines[i];
+                line = requestLines[i];
                 String[] split = line.split(":\\s");
                 this.headers.put(split[0], split[1].trim());
             }
         }
     }
 
-    private void initBodyParameters() {
-        int startIndex = getLineSeparatorIndex();
-        if (startIndex != -1 && this.requestLines.length > startIndex + 1) {
-            String[] line = this.requestLines[startIndex + 1].split("&");
+    private void initBodyParameters(String[] requestLines) {
+        int startIndex = getLineSeparatorIndex(requestLines);
+        if (startIndex != -1 && requestLines.length > startIndex + 1) {
+            String[] line = requestLines[startIndex + 1].split("&");
             for (String item : line) {
                 String[] items = item.split("=");
                 this.bodyParameters.put(items[0], items[1]);
@@ -67,9 +52,9 @@ public final class Request implements HttpRequest {
         }
     }
 
-    private int getLineSeparatorIndex() {
-        for (int i = 0; i < this.requestLines.length; ++i) {
-            if (this.requestLines[i].equals("\r")) {
+    private int getLineSeparatorIndex(String[] requestLines) {
+        for (int i = 0; i < requestLines.length; ++i) {
+            if (requestLines[i].equals("\r")) {
                 return i;
             }
         }
@@ -138,10 +123,15 @@ public final class Request implements HttpRequest {
 
     @Override
     public String toString() {
-        String str = "";
-        for (String requestContentLine : requestLines) {
-            str += requestContentLine + "\r\n";
-        }
-        return str;
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.method + " " + this.requestUrl + " " + this.protocol + "\n");
+        this.getHeaders().forEach((k, v) -> {
+            sb.append(k + ": " + v + "\n");
+        });
+        this.getBodyParameters().forEach((k, v) -> {
+            sb.append(k + ": " + v + "\n");
+        });
+
+        return sb.toString();
     }
 }

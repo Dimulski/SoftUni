@@ -21,7 +21,7 @@ public class Router {
         switch (this.request.getRequestUrl()) {
             case "/":
             case "/index": {
-                return new HomeController(this.response);
+                return new HomeController(this.response, this.session);
             }
             case "/login": {
                 return new LoginController(this.request, this.response, this.session);

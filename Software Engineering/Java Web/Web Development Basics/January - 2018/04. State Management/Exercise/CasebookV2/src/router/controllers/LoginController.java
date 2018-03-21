@@ -31,7 +31,6 @@ public class LoginController implements Controller {
 
     @Override
     public boolean trigger() {
-        System.out.println("debug point"); // #forRemoval
         if (this.request.getMethod().equals("GET")) {
             try {
                 this.response.addHeader("Content-type", "text/html");
@@ -77,7 +76,6 @@ public class LoginController implements Controller {
 
                         this.session.setCookie(cookie);
                         // this.session.setId(UUID.randomUUID().toString()); // #why
-                        System.out.println(this.session.getId());
 
                         this.response.setContent(profilePage.getBytes());
                         this.response.addHeader("Set-Cookie", session.toString());

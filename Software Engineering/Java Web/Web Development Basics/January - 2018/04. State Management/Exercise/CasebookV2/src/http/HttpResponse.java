@@ -18,6 +18,8 @@ public interface HttpResponse {
 
     void setStatusCode(StatusCode statusCode);
 
+    void setRequestUrl(String requestUrl);
+
     void setContent(byte[] content);
 
     void addHeader(String header, String value);

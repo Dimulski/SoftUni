@@ -30,6 +30,10 @@ public class ProfileController implements Controller {
 
     private void redirectToLogin() {
         try {
+            System.out.println("request------------------- \n" + this.request);
+            this.request.setRequestUrl("/login");
+            System.out.println("request-------------------- \n" + this.request);
+
             this.response.setContent(Files.readAllBytes(
                     Paths.get(ViewPaths.LOGIN_PAGE_PATH)));
         } catch (IOException e) {

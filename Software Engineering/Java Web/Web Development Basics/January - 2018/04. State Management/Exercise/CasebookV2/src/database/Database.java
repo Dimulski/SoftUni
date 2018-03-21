@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import static utils.WebConstants.PROJECT_DIR;
 
@@ -73,6 +75,24 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static List<String> getOtherUsers(String currentUserId) {
+        try {
+            List<String> usernames = new ArrayList<>();
+            String data = Reader.readAllLines(new FileInputStream(DATABASE_FILE_PATH));
+            String[] lines = data.split("\n");
+            for (String line : lines) {
+                String[] userInfo = line.split("\\|");
+                if (!userInfo[0].equals(currentUserId)) {
+                    usernames.add(userInfo[1]);
+                }
+            }
+            return usernames;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // #
         }
     }
 }
