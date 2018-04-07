@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(generator = "system-uuid")
+    @GeneratedValue(generator = "UUID")
     @GenericGenerator(
-            name = "system-uuid",
-            strategy = "uuid"
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id")
     private String id;

@@ -1,5 +1,7 @@
 package bg.softuni.main;
 
+import bg.softuni.main.casebook.CasebookApplication;
+import bg.softuni.main.database.models.User;
 import bg.softuni.main.database.repositories.Repository;
 import bg.softuni.main.database.repositories.UserRepository;
 import bg.softuni.main.javache.Application;
@@ -10,12 +12,17 @@ import java.io.IOException;
 
 public class StartUp {
     public static void main(String[] args) {
-        Repository repository = new UserRepository();
-
-        boolean result = (boolean) repository.doAction("create", "Pesho", "123");
-
-        System.out.println(result);
-//         start(args);
+//        Repository repository = new UserRepository();
+//
+//        repository.doAction("create", "Tosho", "4321");
+//        User[] users = (User[]) repository.doAction("findAll");
+//
+//        for (User user : users) {
+//            System.out.println(user.getUsername() + " " + user.getPassword());
+//        }
+//
+//        repository.dismiss();
+         start(args);
     }
 
     private static void start(String[] args) {
@@ -25,7 +32,7 @@ public class StartUp {
             port = Integer.parseInt(args[1]);
         }
 
-        Application application = null;
+        Application application = new CasebookApplication();
         Server server = new Server(port, application);
 
         try {

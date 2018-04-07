@@ -50,4 +50,9 @@ public abstract class BaseRepository implements Repository {
 
         return result;
     }
+
+    public void dismiss() {
+        this.entityManager.close();
+        ENTITY_MANAGER_FACTORY.close();
+    }
 }
