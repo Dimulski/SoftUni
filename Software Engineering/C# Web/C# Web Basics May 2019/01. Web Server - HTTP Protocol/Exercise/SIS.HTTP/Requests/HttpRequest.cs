@@ -39,7 +39,8 @@ namespace SIS.HTTP.Requests
         {
             CoreValidator.ThrowIfNullOrEmpty(queryString, nameof(queryString));
 
-            return queryParameters.Length > 1;
+            //return queryParameters.Length > 1;
+            return true; // regex query string
         }
 
         private void ParseRequestMethod(string[] requestLineParams)
@@ -72,13 +73,18 @@ namespace SIS.HTTP.Requests
             plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ':', ' ' }
                 , StringSplitOptions.RemoveEmptyEntries))
                 .ToList()
-                .ForEach(headerKeyValuePair => 
+                .ForEach(headerKeyValuePair =>
                 Headers.AddHeader(new HttpHeader(headerKeyValuePair[0], headerKeyValuePair[1])));
         }
 
         private void ParseCookies()
         {
 
+        }
+
+        private bool HasQueryString()
+        {
+            return Url.Split('?').Length > 1;
         }
 
         private void ParseRequestQueryParameters()
@@ -96,13 +102,16 @@ namespace SIS.HTTP.Requests
 
         private void ParseRequestFormDataParameters(string requestBody)
         {
-            // TODO: Parse multiple parameters by Name
-            requestBody
-                .Split('&')
-                .Select(plainQueryParameter => plainQueryParameter.Split('='))
-                .ToList()
-                .ForEach(queryParameterKeyValuePair =>
-                    FormData.Add(queryParameterKeyValuePair[0], queryParameterKeyValuePair[1]));
+            if (!string.IsNullOrEmpty(requestBody))
+            {
+                // TODO: Parse multiple parameters by Name
+                requestBody
+                    .Split('&')
+                    .Select(plainQueryParameter => plainQueryParameter.Split('='))
+                    .ToList()
+                    .ForEach(queryParameterKeyValuePair =>
+                        FormData.Add(queryParameterKeyValuePair[0], queryParameterKeyValuePair[1]));
+            }
         }
 
         private void ParseRequestParameters(string requestBody)
@@ -143,11 +152,6 @@ namespace SIS.HTTP.Requests
             //ParseCookies();
 
             ParseRequestParameters(splitRequestString[splitRequestString.Length - 1]);
-        }
-
-        private bool HasQueryString()
-        {
-            return this.Url.Split('?').Length > 1;
         }
     }
 }

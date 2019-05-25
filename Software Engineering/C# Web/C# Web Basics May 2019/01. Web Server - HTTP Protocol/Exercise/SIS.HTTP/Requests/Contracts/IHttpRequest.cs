@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SIS.HTTP.Requests.Contracts
 {
-    public class IHttpRequest
+    public interface IHttpRequest
     {
         string Path { get; }
 
