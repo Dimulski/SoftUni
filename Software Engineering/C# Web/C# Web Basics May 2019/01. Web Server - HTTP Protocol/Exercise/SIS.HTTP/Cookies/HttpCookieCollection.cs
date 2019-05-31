@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIS.HTTP.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -7,39 +8,62 @@ namespace SIS.HTTP.Cookies
 {
     public class HttpCookieCollection : IHttpCookieCollection
     {
-        public void AddCookie(HttpCookie cookie)
+        private Dictionary<string, HttpCookie> httpCookies;
+        private string HttpCookieStringSeparator = "; ";
+
+        public HttpCookieCollection()
         {
-            throw new NotImplementedException();
+            httpCookies = new Dictionary<string, HttpCookie>();
+        }
+
+        public void AddCookie(HttpCookie httpCookie)
+        {
+            CoreValidator.ThrowIfNull(httpCookie, nameof(httpCookie));
+
+            httpCookies.Add(httpCookie.Key, httpCookie);
         }
 
         public bool ContainsCookie(string key)
         {
-            throw new NotImplementedException();
+            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
+
+            return httpCookies.ContainsKey(key);
         }
 
         public HttpCookie GetCookie(string key)
         {
-            throw new NotImplementedException();
-        }
+            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
 
-        public IEnumerator<HttpCookie> GetEnumerator()
-        {
-            throw new NotImplementedException();
+            // TODO: Validation for existing parameter
+
+            return httpCookies[key];
         }
 
         public bool HasCookies()
         {
-            throw new NotImplementedException();
+            return httpCookies.Count != 0;
+        }
+
+        public IEnumerator<HttpCookie> GetEnumerator()
+        {
+            return httpCookies.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         public override string ToString()
         {
-            return string.Join(HttpCookieStringSeparator, cookies.Values);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var cookie  in httpCookies.Values)
+            {
+                sb.Append($"Set-Cookie: {cookie}").Append(GlobalConstants.HttpNewLine);
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SIS.HTTP.Common;
+using SIS.HTTP.Cookies;
 using SIS.HTTP.Enums;
 using SIS.HTTP.Extensions;
 using SIS.HTTP.Headers;
@@ -15,6 +16,7 @@ namespace SIS.HTTP.Responses
         {
             Headers = new HttpHeaderCollection();
             Content = new byte[0];
+            Cookies = new HttpCookieCollection();
         }
 
         public HttpResponse(HttpResponseStatusCode statusCode) : this()
@@ -28,6 +30,13 @@ namespace SIS.HTTP.Responses
         public IHttpHeaderCollection Headers { get; }
 
         public byte[] Content { get; set; }
+
+        public IHttpCookieCollection Cookies { get; }
+
+        public void AddCookie(HttpCookie cookie)
+        {
+            Cookies.AddCookie(cookie);
+        }
 
         public void AddHeader(HttpHeader header)
         {
@@ -55,11 +64,16 @@ namespace SIS.HTTP.Responses
         {
             StringBuilder result = new StringBuilder();
 
-            //HTTP/1.1
+            // HTTP/1.1 200 OK
 
             result
                 .Append($"{GlobalConstants.HttpOneProtocolFragment} {StatusCode.GetStatusLine()}").Append(GlobalConstants.HttpNewLine)
                 .Append($"{Headers}").Append(GlobalConstants.HttpNewLine);
+
+            if (Cookies.HasCookies())
+            {
+                result.Append($"{Cookies}").Append(GlobalConstants.HttpNewLine);
+            }
 
             result.Append(GlobalConstants.HttpNewLine);
 

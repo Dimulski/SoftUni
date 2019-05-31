@@ -1,9 +1,11 @@
 ﻿using SIS.HTTP.Common;
+using SIS.HTTP.Cookies;
 using SIS.HTTP.Enums;
 using SIS.HTTP.Exceptions;
 using SIS.HTTP.Headers;
 using SIS.HTTP.Headers.Contacts;
 using SIS.HTTP.Requests.Contracts;
+using SIS.HTTP.Sessions.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,7 @@ namespace SIS.HTTP.Requests
             FormData = new Dictionary<string, object>();
             QueryData = new Dictionary<string, object>();
             Headers = new HttpHeaderCollection();
+            Cookies = new HttpCookieCollection();
 
             ParseRequest(requestString);
         }
@@ -29,6 +32,8 @@ namespace SIS.HTTP.Requests
         public Dictionary<string, object> QueryData { get; }
         public IHttpHeaderCollection Headers { get; }
         public HttpRequestMethod RequestMethod { get; private set; }
+        public IHttpCookieCollection Cookies { get; }
+        public IHttpSession Session { get; set; }
 
         private bool IsValidRequestLine(string[] requestLineParams)
         {
@@ -70,7 +75,7 @@ namespace SIS.HTTP.Requests
 
         private void ParseRequestHeaders(string[] plainHeaders)
         {
-            plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ':', ' ' }
+            plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ": " }
                 , StringSplitOptions.RemoveEmptyEntries))
                 .ToList()
                 .ForEach(headerKeyValuePair =>
@@ -79,7 +84,20 @@ namespace SIS.HTTP.Requests
 
         private void ParseCookies()
         {
+            if (Headers.ContainsHeader(HttpHeader.Cookie))
+            {
+                string value = Headers.GetHeader(HttpHeader.Cookie).Value;
+                string[] unparsedCookies = value.Split(new[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
 
+                foreach (string unparsedCookie in unparsedCookies)
+                {
+                    string[] cookieKeyValuePair = unparsedCookie.Split(new[] { '=' }, 2);
+
+                    HttpCookie httpCookie = new HttpCookie(cookieKeyValuePair[0], cookieKeyValuePair[1], false);
+
+                    Cookies.AddCookie(httpCookie);
+                }
+            }
         }
 
         private bool HasQueryString()
@@ -149,7 +167,7 @@ namespace SIS.HTTP.Requests
             ParseRequestPath();
 
             ParseRequestHeaders(ParsePlainRequestHeaders(splitRequestString).ToArray());
-            //ParseCookies();
+            ParseCookies();
 
             ParseRequestParameters(splitRequestString[splitRequestString.Length - 1]);
         }
