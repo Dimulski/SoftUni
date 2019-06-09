@@ -13,7 +13,7 @@ namespace Demo.App.Controllers
     {
         protected IHttpRequest HttpRequest { get; set; }
 
-        private bool IsLoggedIn()
+        protected bool IsLoggedIn()
         {
             return HttpRequest.Session.ContainsParameter("username");
         }

@@ -123,12 +123,23 @@ namespace SIS.HTTP.Requests
             if (!string.IsNullOrEmpty(requestBody))
             {
                 // TODO: Parse multiple parameters by Name
-                requestBody
+                var paramPairs = requestBody
                     .Split('&')
                     .Select(plainQueryParameter => plainQueryParameter.Split('='))
-                    .ToList()
-                    .ForEach(queryParameterKeyValuePair =>
-                        FormData.Add(queryParameterKeyValuePair[0], queryParameterKeyValuePair[1]));
+                    .ToList();
+
+                foreach (var paramPair in paramPairs)
+                {
+                    string key = paramPair[0];
+                    string value = paramPair[1];
+
+                    if (!FormData.ContainsKey(key))
+                    {
+                        FormData.Add(key, new HashSet<string>());
+                    }
+
+                    ((ISet<string>)FormData[key]).Add(value);
+                }
             }
         }
 
