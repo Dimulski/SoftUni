@@ -3,10 +3,9 @@ using SIS.HTTP.Cookies;
 using SIS.HTTP.Enums;
 using SIS.HTTP.Exceptions;
 using SIS.HTTP.Requests;
-using SIS.HTTP.Requests.Contracts;
-using SIS.HTTP.Responses.Contracts;
+using SIS.HTTP.Responses;
 using SIS.WebServer.Results;
-using SIS.WebServer.Routing.Contracts;
+using SIS.WebServer.Routing;
 using SIS.WebServer.Sessions;
 using System;
 using System.IO;
@@ -77,7 +76,7 @@ namespace SIS.WebServer
             if (File.Exists(fullPathToResource))
             {
                 byte[] content = File.ReadAllBytes(fullPathToResource);
-                return new InlineResourceResult(content, HttpResponseStatusCode.Found);
+                return new InlineResourceResult(content, HttpResponseStatusCode.Ok);
             }
             else
             {

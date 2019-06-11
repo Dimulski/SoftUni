@@ -3,9 +3,6 @@ using SIS.HTTP.Cookies;
 using SIS.HTTP.Enums;
 using SIS.HTTP.Extensions;
 using SIS.HTTP.Headers;
-using SIS.HTTP.Headers.Contacts;
-using SIS.HTTP.Responses.Contracts;
-using System;
 using System.Text;
 
 namespace SIS.HTTP.Responses

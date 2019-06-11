@@ -1,5 +1,4 @@
 ﻿using SIS.HTTP.Sessions;
-using SIS.HTTP.Sessions.Contracts;
 using System.Collections.Concurrent;
 
 namespace SIS.WebServer.Sessions

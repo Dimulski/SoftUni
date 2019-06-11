@@ -1,10 +1,8 @@
 ﻿using SIS.HTTP.Common;
-using SIS.WebServer.Routing.Contracts;
+using SIS.WebServer.Routing;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SIS.WebServer
@@ -17,7 +15,7 @@ namespace SIS.WebServer
 
         private readonly TcpListener tcpListener;
 
-        private IServerRoutingTable serverRoutingTable;
+        private readonly IServerRoutingTable serverRoutingTable;
 
         private bool isRunning;
 
@@ -46,8 +44,6 @@ namespace SIS.WebServer
 
             while (isRunning)
             {
-                Console.WriteLine("Waiting for client...");
-
                 var client = tcpListener.AcceptSocketAsync().GetAwaiter().GetResult();
 
                 Task.Run(() => Listen(client));

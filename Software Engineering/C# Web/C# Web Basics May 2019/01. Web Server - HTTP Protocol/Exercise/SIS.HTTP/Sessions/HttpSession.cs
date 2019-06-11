@@ -1,5 +1,4 @@
 ﻿using SIS.HTTP.Common;
-using SIS.HTTP.Sessions.Contracts;
 using System.Collections.Generic;
 
 namespace SIS.HTTP.Sessions

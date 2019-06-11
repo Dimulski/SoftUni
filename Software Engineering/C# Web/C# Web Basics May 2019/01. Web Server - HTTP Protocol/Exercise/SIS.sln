@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.WebServer", "SIS.WebServer\SIS.WebServer.csproj", "{757964DB-E062-4E9F-B8AA-3C86C84FD9B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.MvcFramework", "SIS.WebServer\SIS.MvcFramework.csproj", "{757964DB-E062-4E9F-B8AA-3C86C84FD9B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.HTTP", "SIS.HTTP\SIS.HTTP.csproj", "{D41C63B4-546F-472C-9771-3752C5BE090B}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRunes.Data", "IRunes.Data\IRunes.Data.csproj", "{A42C37FB-4F6E-4E5C-8D46-291304D1A7CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRunes.Models", "IRunes.Models\IRunes.Models.csproj", "{071B32C6-703F-4365-8FFC-D909126DE3FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{B787FCFB-6680-4855-B046-8419D2EE2D25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRunes", "IRunes", "{DE3CF79E-A71F-4A61-8CE9-050548C5BABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +46,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9AD715E6-6115-4AC8-9B69-087694B1F7C1} = {DE3CF79E-A71F-4A61-8CE9-050548C5BABC}
+		{A42C37FB-4F6E-4E5C-8D46-291304D1A7CF} = {DE3CF79E-A71F-4A61-8CE9-050548C5BABC}
+		{071B32C6-703F-4365-8FFC-D909126DE3FE} = {DE3CF79E-A71F-4A61-8CE9-050548C5BABC}
+		{DE3CF79E-A71F-4A61-8CE9-050548C5BABC} = {B787FCFB-6680-4855-B046-8419D2EE2D25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C282CDBF-1E51-4934-A3CB-49776B25B91D}
