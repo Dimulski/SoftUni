@@ -2,7 +2,7 @@
 using SIS.HTTP.Headers;
 using SIS.HTTP.Responses;
 
-namespace SIS.WebServer.Results
+namespace SIS.MvcFramework.Results
 {
     class InlineResourceResult : HttpResponse
     {

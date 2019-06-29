@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SIS.HTTP.Enums;
+﻿using SIS.HTTP.Enums;
 
-namespace SIS.MvcFramework.Attributes
+namespace SIS.MvcFramework.Attributes.Http
 {
     public class HttpGetAttribute : BaseHttpAttribute
     {

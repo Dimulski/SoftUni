@@ -1,9 +1,7 @@
 ﻿using SIS.HTTP.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SIS.MvcFramework.Attributes
+namespace SIS.MvcFramework.Attributes.Http
 {
     public abstract class BaseHttpAttribute : Attribute
     {

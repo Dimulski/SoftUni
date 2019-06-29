@@ -1,13 +1,12 @@
 ﻿using SIS.HTTP.Enums;
 using SIS.HTTP.Responses;
-using SIS.MvcFramework.Attributes;
+using SIS.MvcFramework.Attributes.Action;
+using SIS.MvcFramework.Attributes.Http;
 using SIS.WebServer;
 using SIS.WebServer.Routing;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace SIS.MvcFramework
 {
@@ -33,7 +32,8 @@ namespace SIS.MvcFramework
             foreach (var controller in controllers)
             {
                 var actions = controller.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
-                    .Where(method => !method.IsSpecialName && method.DeclaringType == controller);
+                    .Where(method => !method.IsSpecialName && method.DeclaringType == controller)
+                    .Where(method => method.GetCustomAttributes().All(a => a.GetType() != typeof(NonActionAttribute)));
                 foreach (var action in actions)
                 {
                     var path = $"/{controller.Name.Replace("Controller", string.Empty)}/{action.Name}";

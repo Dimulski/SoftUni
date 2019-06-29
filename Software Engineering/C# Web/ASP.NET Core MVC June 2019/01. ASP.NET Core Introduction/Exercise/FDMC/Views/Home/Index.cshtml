@@ -1,0 +1,21 @@
+﻿@model IList<FDMC.Models.ViewModels.CatHomeViewModel>
+
+@{
+    ViewData["Title"] = "Fluffy Duffy Munchkin Cats";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@foreach (var cat in Model)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                <li>
+                    <a asp-controller="Cats" asp-action="Details" asp-route-id="@cat.Id">@cat.Name</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+<a  asp-controller="Cats" asp-action="Add" class="btn btn-secondary">Add Cat</a>

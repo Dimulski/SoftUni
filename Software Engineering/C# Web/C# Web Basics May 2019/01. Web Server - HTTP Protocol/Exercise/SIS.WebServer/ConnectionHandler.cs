@@ -4,7 +4,7 @@ using SIS.HTTP.Enums;
 using SIS.HTTP.Exceptions;
 using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
-using SIS.WebServer.Results;
+using SIS.MvcFramework.Results;
 using SIS.WebServer.Routing;
 using SIS.WebServer.Sessions;
 using System;
