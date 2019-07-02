@@ -47,8 +47,10 @@ namespace Panda
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.ApplicationServices.GetRequiredService<PandaDbContext>()
-                .Database.EnsureCreated();
+            using (var context = new PandaDbContext())
+            {
+                context.Database.EnsureCreated();
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

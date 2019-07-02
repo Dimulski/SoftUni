@@ -41,10 +41,6 @@ namespace Panda.Areas.Identity.Pages.Account
             public string Username { get; set; }
 
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }
@@ -68,7 +64,7 @@ namespace Panda.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = "/Home/Index";
 
             if (ModelState.IsValid)
             {
@@ -80,7 +76,7 @@ namespace Panda.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return Redirect(returnUrl);
                 }
             }
 

@@ -5,11 +5,23 @@ using System;
 
 namespace Panda.Data
 {
-    public class PandaDbContext : IdentityDbContext<PandaUser>
+    public class PandaDbContext : IdentityDbContext<PandaUser, PandaUserRole, string>
     {
         public PandaDbContext(DbContextOptions<PandaDbContext> options) : base(options)
         {
 
+        }
+
+        public PandaDbContext()
+        {
+
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=PandaDB;Trusted_Connection=true;");
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
