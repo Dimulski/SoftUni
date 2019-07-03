@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Panda.Data;
 using Panda.Domain;
+using System.Linq;
 
 namespace Panda
 {
@@ -50,6 +51,13 @@ namespace Panda
             using (var context = new PandaDbContext())
             {
                 context.Database.EnsureCreated();
+
+                if (!context.UserRoles.Any())
+                {
+                    context.Add(new PandaUserRole { Name = "Admin", NormalizedName = "ADMIN" });
+                    context.Add(new PandaUserRole { Name = "User", NormalizedName = "USER" });
+                    context.SaveChanges();
+                }
             }
 
             app.UseHttpsRedirection();

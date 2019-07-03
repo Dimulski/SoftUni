@@ -1,0 +1,66 @@
+﻿@using Panda.Domain;
+@model Panda.Models.Package.PackageCreateBindingModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<h1 class="text-center">Create Package</h1>
+<hr class="hr-2 bg-panda w-50">
+<div class="d-flex">
+    <form class="w-50 mx-auto">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <input asp-for="Description"
+                   type="text"
+                   class="form-control"
+                   id="description"
+                   placeholder="Description...">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="weight-and-address-holder d-flex justify-content-between">
+            <div class="form-group w-50 pr-5">
+                <label asp-for="Weight">Weight</label>
+                <input asp-for="Weight"
+                       type="number"
+                       class="form-control"
+                       id="weight"
+                       placeholder="Weight...">
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group w-50 pl-5">
+                <label asp-for="ShoppingAddress">Shipping Address</label>
+                <input asp-for="ShoppingAddress"
+                       type="text"
+                       class="form-control"
+                       id="address"
+                       placeholder="Shipping Address...">
+                <span asp-validation-for="ShoppingAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="hr-2 bg-panda">
+        <div class="form-group w-50 mx-auto">
+            <div class="text-center">
+                <label asp-for="Recipient">Recipient</label>
+            </div>
+            <select class="custom-select" id="recipient" asp-for="Recipient">
+                <option selected disabled>-- Choose Recipient --</option>
+                @foreach (var recipient in (List<PandaUser>) ViewData["Recipients"])
+                {
+                    <option value="@recipient.UserName">@recipient.UserName</option>
+                }
+            </select>
+            <span asp-validation-for="Recipient" class="text-danger"></span>
+        </div>
+        <hr class="hr-2 bg-panda">
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn bg-panda text-white">Create</button>
+        </div>
+    </form>
+</div>
