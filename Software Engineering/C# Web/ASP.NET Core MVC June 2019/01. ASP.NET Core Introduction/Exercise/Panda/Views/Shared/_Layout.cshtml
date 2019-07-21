@@ -22,7 +22,30 @@
 <body>
     <div class="container-fluid">
         <header>
-            @if (this.User.Identity.IsAuthenticated)
+            @if (!this.User.Identity.IsAuthenticated)
+            {
+                <nav class="navbar navbar-expand-lg navbar-dark bg-panda">
+                    <a class="navbar-brand nav-link-white" href="/">PANDA</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                        <ul class="navbar-nav"></ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Home/Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Identity/Account/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Identity/Account/Register">Register</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            }
+            else if (this.User.IsInRole("User"))
             {
                 <nav class="navbar navbar-expand-lg navbar-dark bg-panda">
                     <a class="navbar-brand nav-link-white" href="/">PANDA</a>
@@ -45,24 +68,38 @@
                     </div>
                 </nav>
             }
-            else
+            else if (this.User.IsInRole("Admin"))
             {
                 <nav class="navbar navbar-expand-lg navbar-dark bg-panda">
                     <a class="navbar-brand nav-link-white" href="/">PANDA</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
-                        <ul class="navbar-nav"></ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Packages/Pending">Pending</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Packages/Shipped">Shipped</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Packages/Delivered">Delivered</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" href="/Packages/Create">Package</a>
+                            </li>
+                        </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link nav-link-white active" href="/Home/Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-white active" href="/Identity/Account/login">Login</a>
+                                <a class="nav-link nav-link-white active" href="/Receipts/My">Receipts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-white active" href="/Identity/Account/Register">Register</a>
+                                <a class="nav-link nav-link-white active" href="/Identity/Account/Logout">Logout</a>
                             </li>
                         </ul>
                     </div>

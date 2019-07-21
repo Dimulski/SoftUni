@@ -48,14 +48,26 @@ namespace Panda
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            using (var context = new PandaDbContext())
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                context.Database.EnsureCreated();
-
-                if (!context.UserRoles.Any())
+                using (var context = serviceScope.ServiceProvider.GetRequiredService<PandaDbContext>())
                 {
-                    context.Add(new PandaUserRole { Name = "Admin", NormalizedName = "ADMIN" });
-                    context.Add(new PandaUserRole { Name = "User", NormalizedName = "USER" });
+                    context.Database.EnsureCreated();
+
+                    if (!context.Roles.Any())
+                    {
+                        context.Roles.Add(new PandaUserRole { Name = "Admin", NormalizedName = "ADMIN" });
+                        context.Roles.Add(new PandaUserRole { Name = "User", NormalizedName = "USER" });
+                    }
+
+                    if (!context.PackageStatus.Any())
+                    {
+                        context.PackageStatus.Add(new PackageStatus { Name = "Pending" });
+                        context.PackageStatus.Add(new PackageStatus { Name = "Shipped" });
+                        context.PackageStatus.Add(new PackageStatus { Name = "Delivered" });
+                        context.PackageStatus.Add(new PackageStatus { Name = "Acquired" });
+                    }
+                    
                     context.SaveChanges();
                 }
             }

@@ -1,55 +1,67 @@
-﻿
+﻿@model List<Panda.Models.Package.PackageHomeViewModel>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<Panda.Models.Package.PackageHomeViewModel> pendingPackages = null;
+    List<Panda.Models.Package.PackageHomeViewModel> shippedPackages = null;
+    List<Panda.Models.Package.PackageHomeViewModel> deliveredPackages = null;
+
+    if (this.User.Identity.IsAuthenticated)
+    {
+        pendingPackages = Model.Where(package => package.Status == "Pending").ToList();
+        shippedPackages = Model.Where(package => package.Status == "Shipped").ToList();
+        deliveredPackages = Model.Where(package => package.Status == "Delivered").ToList();
+    }
 }
 
 @if (this.User.Identity.IsAuthenticated)
 {
-    <h1 class="text-center">Hello, Pesho!</h1>
+    if (this.User.IsInRole("Admin"))
+    {
+        <h1 class="text-center">Hello, Administrator @this.User.Identity.Name!</h1>
+    }
+    else
+    {
+        <h1 class="text-center">Hello, @this.User.Identity.Name!</h1>
+    }
     <hr class="hr-2 bg-panda">
     <div class="d-flex justify-content-between">
         <div class="w-25 bg-white">
             <h2 class="text-center">Pending</h2>
             <div class="border-panda p-3">
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">IPhone XS Case</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">TV table</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Chushkopek</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Office Chair</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
+                @foreach (var package in pendingPackages)
+                {
+                    <div class="p-2 d-flex justify-content-around">
+                        <h4 class="w-75">@package.Description</h4>
+                        <a href="/Packages/Details/@package.Id" class="btn bg-panda text-white w-25">Details</a>
+                    </div>
+                }
             </div>
         </div>
         <div class="w-25 bg-white">
             <h2 class="text-center">Shipped</h2>
             <div class="border-panda p-3">
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">1959 Irish Bourbon</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
+                @foreach (var package in shippedPackages)
+                {
+                    <div class="p-2 d-flex justify-content-around">
+                        <h4 class="w-75">@package.Description</h4>
+                        <a href="/Packages/Details/@package.Id" class="btn bg-panda text-white w-25">Details</a>
+                    </div>
+                }
             </div>
         </div>
         <div class="w-25 bg-white">
             <h2 class="text-center">Delivered</h2>
             <div class="border-panda p-3">
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Dog Toy</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Acquire</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Mineral Water</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Acquire</a>
-                </div>
+                @foreach (var package in deliveredPackages)
+                {
+                    <div class="p-2 d-flex justify-content-around">
+                        <h4 class="w-75">@package.Description</h4>
+                        <a href="/Packages/Acquire/@package.Id" class="btn bg-panda text-white w-25">Acquire</a>
+                    </div>
+                }
             </div>
         </div>
     </div>
