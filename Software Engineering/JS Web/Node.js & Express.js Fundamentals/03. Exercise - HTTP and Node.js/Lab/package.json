@@ -9,6 +9,6 @@
   "author": "codex",
   "license": "ISC",
   "dependencies": {
-    "npm": "^5.4.2"
+    "npm": "^6.14.6"
   }
 }
